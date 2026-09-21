@@ -120,13 +120,13 @@ function renderHotelHeader(hotel) {
       banner.style.cssText = 'background: linear-gradient(135deg, #07172C 0%, #0F2747 100%); border: 1.5px solid #F59E0B; border-radius: 16px; padding: 16px 22px; margin-bottom: 22px; color: #fff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; box-shadow: 0 8px 24px rgba(239, 68, 68, 0.25);';
       banner.innerHTML = `
         <div class="d-flex align-center gap-3">
-          <div style="width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); display: flex; align-items: center; justify-content: center; color: #fff; box-shadow: 0 0 16px rgba(239, 68, 68, 0.6); flex-shrink: 0;">
-            <span class="material-symbols-outlined" style="font-size: 26px;">bolt</span>
+          <div style="width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); display: flex; align-items: center; justify-content: center; color: #fff; box-shadow: 0 0 14px rgba(239, 68, 68, 0.4); flex-shrink: 0;">
+            <span class="material-symbols-outlined" style="font-size: 22px;">local_offer</span>
           </div>
           <div>
-            <div style="font-weight: 850; font-size: 1.1rem; color: #FDE047; display: flex; align-items: center; gap: 8px;">
-              ⚡ Khách sạn đang mở bán Flash Sale Giờ Vàng (-${flashDiscount}%)
-              <span style="font-size: 0.72rem; background: #EF4444; color: #fff; padding: 2px 8px; border-radius: 9999px; font-weight: 800;">ĐANG DIỄN RA</span>
+            <div style="font-weight: 850; font-size: 1.05rem; color: #FDE047; display: flex; align-items: center; gap: 8px;">
+              Khách sạn đang mở bán Flash Sale Giờ Vàng (-${flashDiscount}%)
+              <span style="font-size: 0.7rem; background: #EF4444; color: #fff; padding: 2px 7px; border-radius: 9999px; font-weight: 800;">ĐANG DIỄN RA</span>
             </div>
             <div style="font-size: 0.86rem; color: #E2E8F0; margin-top: 2px;">Giá độc quyền chỉ từ <strong style="color: #FDE047; font-size: 1.05rem;">${formatCurrency(flashSalePrice)}</strong>/đêm (Giá gốc: <span style="text-decoration: line-through; opacity: 0.8;">${formatCurrency(hotel.priceMin || 2500000)}</span>). Số lượng phòng có hạn!</div>
           </div>
@@ -394,15 +394,13 @@ function renderHotelRooms(hotel, checkIn, checkOut) {
 
     const priceBoxHtml = isFlashSale ? `
       <div class="room-price-header">
-        <div class="d-flex align-center gap-1" style="margin-bottom: 3px;">
-          <span class="badge" style="background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); color: #fff; font-size: 0.68rem; padding: 2px 7px; border-radius: 9999px; font-weight: 800; display: inline-flex; align-items: center; gap: 2px;">
-            <span class="material-symbols-outlined" style="font-size: 11px;">bolt</span> GIẢM ${flashDiscount}%
-          </span>
-          <span class="room-price-label" style="font-size: 0.75rem; color: #DC2626; font-weight: 700;">Giá Flash Sale:</span>
+        <div class="d-flex align-center justify-end gap-1" style="margin-bottom: 3px;">
+          <span class="badge" style="background: #EF4444; color: #fff; font-size: 0.62rem; padding: 1px 5px; border-radius: 4px; font-weight: 800; line-height: 1.2; flex-shrink: 0;">GIẢM ${flashDiscount}%</span>
+          <span class="room-price-label" style="font-size: 0.7rem; color: #DC2626; font-weight: 700;">Giá Flash Sale:</span>
         </div>
-        <div class="d-flex align-baseline gap-2">
-          <div class="room-price-total" style="color: #DC2626; font-weight: 900; font-size: 1.35rem;">${formatCurrency(roomSalePrice)}</div>
-          <div style="font-size: 0.8rem; text-decoration: line-through; color: #94A3B8;">${formatCurrency(room.price)}</div>
+        <div class="d-flex align-baseline justify-end gap-2 flex-wrap">
+          <div class="room-price-total" style="color: #DC2626; font-weight: 900; font-size: 1.3rem;">${formatCurrency(roomSalePrice)}</div>
+          <div style="font-size: 0.78rem; text-decoration: line-through; color: #94A3B8;">${formatCurrency(room.price)}</div>
         </div>
         <div class="room-price-tax-note">Đã gồm thuế & phí</div>
       </div>
@@ -419,7 +417,7 @@ function renderHotelRooms(hotel, checkIn, checkOut) {
         <div class="hotel-room-card-media">
           <img src="${formatImgPath(room.image || hotel.image)}" alt="${room.name}" loading="lazy">
           <span class="badge badge-dark" style="position: absolute; top: 8px; left: 8px; font-size: 0.72rem; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(4px);">${room.type || 'Phòng cao cấp'}</span>
-          ${isFlashSale ? `<span class="badge" style="position: absolute; top: 8px; right: 8px; font-size: 0.72rem; background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); color: #fff; font-weight: 800; border-radius: 9999px; box-shadow: 0 2px 8px rgba(239,68,68,0.5);">⚡ Flash Sale</span>` : ''}
+          ${isFlashSale ? `<span class="badge" style="position: absolute; top: 8px; right: 8px; font-size: 0.68rem; padding: 2px 7px; background: #EF4444; color: #fff; font-weight: 800; border-radius: 4px; box-shadow: 0 2px 6px rgba(239,68,68,0.35); z-index: 2;">Flash Sale</span>` : ''}
         </div>
         
         <div class="hotel-room-card-content">
@@ -453,7 +451,7 @@ function renderHotelRooms(hotel, checkIn, checkOut) {
             </a>
             ${isAvailable ? `
               <a href="${root}pages/booking/index.html?hotelId=${hotel.id}&roomId=${room.id}${checkIn ? `&checkIn=${checkIn}` : ''}${checkOut ? `&checkOut=${checkOut}` : ''}${flashSaleParams}" class="btn btn-primary btn-sm" style="flex: 1.3; padding: 7px 8px; font-size: 0.8rem; font-weight: 700; border-radius: 8px; justify-content: center; ${isFlashSale ? 'background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); border: none; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);' : ''}">
-                ${isFlashSale ? '⚡ Săn deal ngay' : 'Đặt ngay'}
+                ${isFlashSale ? 'Săn deal ngay' : 'Đặt ngay'}
               </a>
             ` : `
               <button class="btn btn-primary btn-sm disabled" style="flex: 1.3; padding: 7px 8px; font-size: 0.8rem; border-radius: 8px; justify-content: center;" disabled title="Hết phòng trong thời gian bạn chọn">Hết phòng</button>

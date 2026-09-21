@@ -59,8 +59,8 @@ function renderRoomDetails(room, hotel, isFlashSale = false, flashDiscount = 0, 
         <div class="d-flex align-baseline gap-2 flex-wrap">
           <span style="color: #DC2626; font-size: 1.55rem; font-weight: 900;">${formatCurrency(flashSalePrice)}</span>
           <span style="font-size: 0.95rem; text-decoration: line-through; color: #94A3B8;">${formatCurrency(room.price)}</span>
-          <span class="badge" style="background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); color: #fff; font-size: 0.72rem; padding: 3px 9px; border-radius: 9999px; font-weight: 800; display: inline-flex; align-items: center; gap: 2px;">
-            <span class="material-symbols-outlined" style="font-size: 12px;">bolt</span> FLASH SALE -${flashDiscount}%
+          <span class="badge" style="background: #EF4444; color: #fff; font-size: 0.68rem; padding: 2px 7px; border-radius: 4px; font-weight: 800; display: inline-flex; align-items: center;">
+            GIẢM ${flashDiscount}%
           </span>
         </div>
       `;
@@ -142,7 +142,7 @@ function setupBookingWidget(room, hotel, initCheckIn, initCheckOut, isFlashSale 
       if (btnBookNow) {
         btnBookNow.classList.remove('disabled');
         btnBookNow.disabled = false;
-        btnBookNow.innerHTML = `<span class="material-symbols-outlined">lock</span> ${isFlashSale ? '⚡ Săn deal ngay' : 'Đặt phòng ngay'}`;
+        btnBookNow.innerHTML = `<span class="material-symbols-outlined">lock</span> ${isFlashSale ? 'Săn deal ngay' : 'Đặt phòng ngay'}`;
       }
     }
   }
