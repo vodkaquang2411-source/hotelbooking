@@ -35,10 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const isFlashSale = urlParams.get('flashSale') === '1';
   const flashDiscount = parseInt(urlParams.get('discount') || '0', 10);
   const flashSalePrice = parseInt(urlParams.get('salePrice') || '0', 10);
+  const flashOrigPrice = parseInt(urlParams.get('origPrice') || '0', 10);
+
+  const effectiveOrigPrice = (isFlashSale && flashOrigPrice > 0) ? flashOrigPrice : room.price;
 
   const calculatedSalePrice = flashSalePrice > 0 
     ? flashSalePrice 
-    : (flashDiscount > 0 ? Math.round(room.price * (1 - flashDiscount / 100) / 1000) * 1000 : room.price);
+    : (flashDiscount > 0 ? Math.round(effectiveOrigPrice * (1 - flashDiscount / 100) / 1000) * 1000 : effectiveOrigPrice);
 
   // Booking State Object
   const state = {
@@ -52,9 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
     adults: room.capacityAdults || 2,
     children: 0,
     isFlashSale,
-    flashDiscount: isFlashSale ? (flashDiscount || Math.round((1 - calculatedSalePrice / room.price) * 100)) : 0,
-    originalPricePerNight: room.price,
-    pricePerNight: isFlashSale ? calculatedSalePrice : room.price,
+    flashDiscount: isFlashSale ? (flashDiscount || Math.round((1 - calculatedSalePrice / effectiveOrigPrice) * 100)) : 0,
+    originalPricePerNight: effectiveOrigPrice,
+    pricePerNight: isFlashSale ? calculatedSalePrice : effectiveOrigPrice,
     flashSaleSavings: 0,
     subtotal: 0,
     selectedServices: [],
@@ -564,6 +567,7 @@ function processFinalBooking(state) {
     hotelName: state.hotel.name,
     roomId: state.room.id,
     roomName: state.room.name,
+    isFlashSale: !!state.isFlashSale,
     checkIn: state.checkIn,
     checkOut: state.checkOut,
     nights: state.nights,

@@ -128,7 +128,7 @@ function renderHotelHeader(hotel) {
               Khách sạn đang mở bán Flash Sale Giờ Vàng (-${flashDiscount}%)
               <span style="font-size: 0.7rem; background: #EF4444; color: #fff; padding: 2px 7px; border-radius: 9999px; font-weight: 800;">ĐANG DIỄN RA</span>
             </div>
-            <div style="font-size: 0.86rem; color: #E2E8F0; margin-top: 2px;">Giá độc quyền chỉ từ <strong style="color: #FDE047; font-size: 1.05rem;">${formatCurrency(flashSalePrice)}</strong>/đêm (Giá gốc: <span style="text-decoration: line-through; opacity: 0.8;">${formatCurrency(hotel.priceMin || 2500000)}</span>). Số lượng phòng có hạn!</div>
+            <div style="font-size: 0.86rem; color: #E2E8F0; margin-top: 2px;">Giá độc quyền chỉ từ <strong style="color: #FDE047; font-size: 1.05rem;">${formatCurrency(flashSalePrice)}</strong>/đêm (Giá gốc: <span style="text-decoration: line-through; opacity: 0.8;">${formatCurrency(parseInt(urlParams.get('origPrice'), 10) || Math.round(flashSalePrice / (1 - flashDiscount / 100) / 1000) * 1000)}</span>). Số lượng phòng có hạn!</div>
           </div>
         </div>
         <a href="#section-rooms" class="btn btn-primary btn-sm" style="padding: 10px 22px; border-radius: 9999px; font-weight: 800; background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4); display: inline-flex; align-items: center; gap: 6px;">
@@ -366,8 +366,18 @@ function renderHotelRooms(hotel, checkIn, checkOut) {
   const urlParams = new URLSearchParams(window.location.search);
   const isFlashSale = urlParams.get('flashSale') === '1';
   const flashDiscount = parseInt(urlParams.get('discount') || '40', 10);
+  const targetRoomId = urlParams.get('roomId');
+  const targetSalePrice = parseInt(urlParams.get('salePrice'), 10);
+  const targetOrigPrice = parseInt(urlParams.get('origPrice'), 10);
+
+  // Nếu có phòng ưu tiên từ Flash Sale, sắp xếp phòng đó lên đầu danh sách
+  if (isFlashSale && targetRoomId) {
+    rooms.sort((a, b) => (a.id === targetRoomId ? -1 : (b.id === targetRoomId ? 1 : 0)));
+  }
 
   roomsContainer.innerHTML = rooms.map(room => {
+    const isTargetRoom = isFlashSale && (room.id === targetRoomId || (!targetRoomId && rooms[0].id === room.id));
+
     const amenitiesBadges = (room.amenities || []).slice(0, 3).map(a => `
       <span class="amenity-chip" style="font-size: 0.72rem; padding: 2px 8px; border-radius: 6px; background: #F8FAFC; border: 1px solid #E2E8F0;">
         <span class="material-symbols-outlined text-primary" style="font-size: 13px;">check_circle</span> ${a}
@@ -385,11 +395,13 @@ function renderHotelRooms(hotel, checkIn, checkOut) {
 
     // Tính giá sale nếu đang trong phiên Flash Sale
     const roomSalePrice = isFlashSale 
-      ? Math.round(room.price * (1 - flashDiscount / 100) / 1000) * 1000 
+      ? (isTargetRoom && targetSalePrice ? targetSalePrice : Math.round(room.price * (1 - flashDiscount / 100) / 1000) * 1000)
       : room.price;
 
+    const roomOrigPrice = (isTargetRoom && targetOrigPrice) ? targetOrigPrice : (room.originalPrice || room.price);
+
     const flashSaleParams = isFlashSale 
-      ? `&flashSale=1&discount=${flashDiscount}&salePrice=${roomSalePrice}` 
+      ? `&flashSale=1&discount=${flashDiscount}&salePrice=${roomSalePrice}&origPrice=${roomOrigPrice}` 
       : '';
 
     const priceBoxHtml = isFlashSale ? `
@@ -400,7 +412,7 @@ function renderHotelRooms(hotel, checkIn, checkOut) {
         </div>
         <div class="d-flex align-baseline justify-end gap-2 flex-wrap">
           <div class="room-price-total" style="color: #DC2626; font-weight: 900; font-size: 1.3rem;">${formatCurrency(roomSalePrice)}</div>
-          <div style="font-size: 0.78rem; text-decoration: line-through; color: #94A3B8;">${formatCurrency(room.price)}</div>
+          <div style="font-size: 0.78rem; text-decoration: line-through; color: #94A3B8;">${formatCurrency(roomOrigPrice)}</div>
         </div>
         <div class="room-price-tax-note">Đã gồm thuế & phí</div>
       </div>
@@ -413,11 +425,11 @@ function renderHotelRooms(hotel, checkIn, checkOut) {
     `;
 
     return `
-      <div class="hotel-room-card" style="${isFlashSale ? 'border: 1.5px solid rgba(239, 68, 68, 0.4); box-shadow: 0 4px 18px rgba(239, 68, 68, 0.08);' : ''}">
+      <div class="hotel-room-card" style="${isFlashSale ? 'border: 1.5px solid rgba(239, 68, 68, 0.4); box-shadow: 0 4px 18px rgba(239, 68, 68, 0.08);' : ''} ${isTargetRoom ? 'border: 2px solid #EF4444; background: #FFFDFD;' : ''}">
         <div class="hotel-room-card-media">
           <img src="${formatImgPath(room.image || hotel.image)}" alt="${room.name}" loading="lazy">
           <span class="badge badge-dark" style="position: absolute; top: 8px; left: 8px; font-size: 0.72rem; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(4px);">${room.type || 'Phòng cao cấp'}</span>
-          ${isFlashSale ? `<span class="badge" style="position: absolute; top: 8px; right: 8px; font-size: 0.68rem; padding: 2px 7px; background: #EF4444; color: #fff; font-weight: 800; border-radius: 4px; box-shadow: 0 2px 6px rgba(239,68,68,0.35); z-index: 2;">Flash Sale</span>` : ''}
+          ${isTargetRoom ? `<span class="badge" style="position: absolute; top: 8px; right: 8px; font-size: 0.68rem; padding: 2px 7px; background: #EF4444; color: #fff; font-weight: 800; border-radius: 4px; box-shadow: 0 2px 6px rgba(239,68,68,0.35); z-index: 2;">Suất Flash Sale</span>` : (isFlashSale ? `<span class="badge" style="position: absolute; top: 8px; right: 8px; font-size: 0.68rem; padding: 2px 7px; background: #F59E0B; color: #fff; font-weight: 800; border-radius: 4px; z-index: 2;">Flash Sale</span>` : '')}
         </div>
         
         <div class="hotel-room-card-content">

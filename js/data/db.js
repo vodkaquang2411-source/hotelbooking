@@ -16,7 +16,8 @@ const STORAGE_KEYS = {
   FAVORITES: 'HB_FAVORITES',
   RECENTLY_VIEWED: 'HB_RECENTLY_VIEWED',
   CURRENT_USER: 'HB_CURRENT_USER',
-  IS_SEEDED: 'HB_IS_SEEDED_V22'
+  FLASH_SALE_DEALS: 'HB_FLASH_SALE_DEALS',
+  IS_SEEDED: 'HB_IS_SEEDED_V24'
 };
 
 class DatabaseService {
@@ -28,7 +29,7 @@ class DatabaseService {
    * Khởi tạo cơ sở dữ liệu từ Seed Data nếu chưa có trong LocalStorage
    */
   initDatabase() {
-    const CURRENT_VERSION = 'HB_IS_SEEDED_V23';
+    const CURRENT_VERSION = 'HB_IS_SEEDED_V24';
     const isSeeded = localStorage.getItem(STORAGE_KEYS.IS_SEEDED);
     const hotels = this._get(STORAGE_KEYS.HOTELS);
     const articles = this._get(STORAGE_KEYS.ARTICLES);
@@ -41,12 +42,20 @@ class DatabaseService {
       return;
     }
 
-    // Auto-update articles when seed data gets upgraded
+    // Auto-update articles and flash sale deals when seed data gets upgraded
     if (isSeeded !== CURRENT_VERSION) {
       if (typeof INITIAL_SEED_DATA !== 'undefined' && INITIAL_SEED_DATA.articles) {
         localStorage.setItem(STORAGE_KEYS.ARTICLES, JSON.stringify(INITIAL_SEED_DATA.articles || []));
       }
+      if (typeof INITIAL_FLASH_SALE_DEALS !== 'undefined') {
+        localStorage.setItem(STORAGE_KEYS.FLASH_SALE_DEALS, JSON.stringify(INITIAL_FLASH_SALE_DEALS));
+      }
       localStorage.setItem(STORAGE_KEYS.IS_SEEDED, CURRENT_VERSION);
+    }
+
+    // Đảm bảo dữ liệu Flash Sale luôn tồn tại
+    if (!localStorage.getItem(STORAGE_KEYS.FLASH_SALE_DEALS) && typeof INITIAL_FLASH_SALE_DEALS !== 'undefined') {
+      localStorage.setItem(STORAGE_KEYS.FLASH_SALE_DEALS, JSON.stringify(INITIAL_FLASH_SALE_DEALS));
     }
   }
 
@@ -64,7 +73,10 @@ class DatabaseService {
       localStorage.setItem(STORAGE_KEYS.ARTICLES, JSON.stringify(INITIAL_SEED_DATA.articles || []));
       localStorage.setItem(STORAGE_KEYS.CATEGORIES, JSON.stringify(INITIAL_SEED_DATA.categories || []));
       localStorage.setItem(STORAGE_KEYS.ADDON_SERVICES, JSON.stringify(INITIAL_SEED_DATA.addonServices || []));
-      localStorage.setItem(STORAGE_KEYS.IS_SEEDED, 'HB_IS_SEEDED_V23');
+      if (typeof INITIAL_FLASH_SALE_DEALS !== 'undefined') {
+        localStorage.setItem(STORAGE_KEYS.FLASH_SALE_DEALS, JSON.stringify(INITIAL_FLASH_SALE_DEALS));
+      }
+      localStorage.setItem(STORAGE_KEYS.IS_SEEDED, 'HB_IS_SEEDED_V24');
     }
   }
 
@@ -267,7 +279,69 @@ class DatabaseService {
       }
     }
 
+    // Cập nhật số suất Flash Sale còn lại nếu là đơn Flash Sale
+    if (bookingData.isFlashSale) {
+      this.decrementFlashSaleStock(bookingData.hotelId, bookingData.roomId, Number(bookingData.roomCount) || 1);
+    }
+
     return newBooking;
+  }
+
+  getFlashSaleDeals() {
+    const raw = localStorage.getItem(STORAGE_KEYS.FLASH_SALE_DEALS);
+    if (!raw) {
+      if (typeof INITIAL_FLASH_SALE_DEALS !== 'undefined') {
+        this.setFlashSaleDeals(INITIAL_FLASH_SALE_DEALS);
+        return INITIAL_FLASH_SALE_DEALS;
+      }
+      return null;
+    }
+    try {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed) && Object.keys(parsed).length > 0) {
+        return parsed;
+      }
+    } catch (e) {}
+    if (typeof INITIAL_FLASH_SALE_DEALS !== 'undefined') {
+      this.setFlashSaleDeals(INITIAL_FLASH_SALE_DEALS);
+      return INITIAL_FLASH_SALE_DEALS;
+    }
+    return null;
+  }
+
+  setFlashSaleDeals(deals) {
+    this._set(STORAGE_KEYS.FLASH_SALE_DEALS, deals);
+  }
+
+  decrementFlashSaleStock(hotelId, roomId, count = 1) {
+    let allDeals = this.getFlashSaleDeals();
+    if (!allDeals) return false;
+
+    let updated = false;
+    for (const slotKey in allDeals) {
+      const deals = allDeals[slotKey];
+      if (!Array.isArray(deals)) continue;
+      for (const deal of deals) {
+        if (deal.id === hotelId && (!roomId || deal.roomId === roomId || !deal.roomId)) {
+          const currentRemaining = Number(deal.remainingRooms) || 0;
+          const newRemaining = Math.max(0, currentRemaining - count);
+          deal.remainingRooms = newRemaining;
+          
+          const initialTotal = Number(deal.totalRooms) || 5;
+          const soldCount = initialTotal - newRemaining;
+          deal.soldPercent = Math.min(100, Math.round((soldCount / initialTotal) * 100));
+          updated = true;
+          break;
+        }
+      }
+      if (updated) break;
+    }
+
+    if (updated) {
+      this.setFlashSaleDeals(allDeals);
+      return true;
+    }
+    return false;
   }
 
   updateBookingStatus(id, newStatus) {
