@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Bài viết - HotelBooking</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css?v=11.0">
+  <link rel="stylesheet" href="../../css/components.css?v=11.0">
+  <link rel="stylesheet" href="../../css/responsive.css?v=11.0">
+  <style>
+    .article-hero{position:relative;height:480px;overflow:hidden;}
+    .article-hero-img{width:100%;height:100%;object-fit:cover;}
+    .article-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(15,23,42,0.18) 0%,rgba(15,23,42,0.78) 100%);}
+    .article-hero-content{position:absolute;bottom:0;left:0;right:0;padding:48px 0 40px;}
+    .article-hero-content .container{max-width:860px;}
+    .article-title-hero{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:800;color:#fff;line-height:1.25;margin-bottom:16px;}
+    .article-cat{display:inline-block;font-size:0.775rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;padding:5px 14px;border-radius:9999px;margin-bottom:14px;}
+    .cat-primary{background:var(--primary-soft);color:var(--primary);}
+    .cat-secondary{background:var(--secondary-soft);color:var(--secondary);}
+    .cat-accent{background:var(--accent-soft);color:#b45309;}
+    .cat-info{background:var(--info-soft);color:var(--info);}
+    .cat-success{background:var(--success-soft);color:var(--success);}
+    .article-meta{display:flex;align-items:center;gap:20px;flex-wrap:wrap;color:rgba(255,255,255,0.78);font-size:0.875rem;}
+    .article-meta span{display:flex;align-items:center;gap:5px;}
+    .article-body{max-width:780px;margin:0 auto;padding:52px 24px 60px;}
+    .article-content p{font-family:'Merriweather',serif;font-size:1.0rem;line-height:1.85;color:var(--text-main);margin-bottom:22px;}
+    .article-content h2{font-family:'Playfair Display',serif;font-size:1.65rem;font-weight:700;color:var(--dark);margin:36px 0 14px;padding-bottom:10px;border-bottom:2px solid var(--border-color);}
+    .article-content strong{color:var(--primary-dark);}
+    .article-content em{color:var(--text-muted);}
+    .article-tags{display:flex;flex-wrap:wrap;gap:8px;margin:36px 0;}
+    .article-tag{display:inline-flex;align-items:center;gap:5px;padding:5px 14px;background:var(--primary-soft);color:var(--primary);border-radius:9999px;font-size:0.8rem;font-weight:600;}
+    .author-box{display:flex;align-items:center;gap:16px;background:var(--bg-card-alt);border-radius:var(--radius-lg);padding:22px 24px;margin:36px 0;border:1px solid var(--border-color);}
+    .author-box img{width:56px;height:56px;border-radius:50%;object-fit:cover;}
+    .sidebar-sticky{position:sticky;top:90px;}
+    .related-card{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border-light);}
+    .related-card:last-child{border:none;}
+    .related-card img{width:80px;height:60px;border-radius:var(--radius-md);object-fit:cover;flex-shrink:0;}
+    .related-card-title{font-size:0.875rem;font-weight:700;color:var(--dark);line-height:1.4;}
+    .related-card-title:hover{color:var(--primary);}
+    .breadcrumb{display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--text-muted);margin-bottom:28px;flex-wrap:wrap;}
+    .breadcrumb a{color:var(--primary);}
+    @media(max-width:992px){.article-layout{grid-template-columns:1fr!important;}.sidebar-sticky{position:static;}}
+    @media(max-width:768px){.article-title-hero{font-size:1.7rem;}.article-hero{height:340px;}}
+  </style>
+</head>
+<body>
+  <header class="site-header" id="site-header">
+
+    <div class="container navbar">
+      <a href="../../index.html" class="brand-logo">
+        <img src="../../img/logo.png" alt="HotelBooking" class="logo-img">
+      </a>
+      <nav class="nav-menu" id="nav-menu">
+        <a href="../../index.html" class="nav-link"><span class="material-symbols-outlined">home</span> Trang chủ</a>
+        <a href="../hotels/index.html" class="nav-link"><span class="material-symbols-outlined">apartment</span> Khách sạn</a>
+        <a href="../../index.html#promotions-section" class="nav-link"><span class="material-symbols-outlined">local_offer</span> Khuyến mãi <span class="nav-tag-badge">Hot</span></a>
+        <a href="../../index.html#services-section" class="nav-link"><span class="material-symbols-outlined">hotel_class</span> Dịch vụ 5★ <span class="nav-tag-badge badge-gold">5★</span></a>
+        <a href="index.html" class="nav-link"><span class="material-symbols-outlined">article</span> Cẩm nang</a>
+      </nav>
+      <div class="nav-actions">
+        <div id="nav-user-actions">
+          <a href="../auth/login.html" class="btn btn-outline nav-auth-btn">
+            <span class="material-symbols-outlined">login</span> Đăng nhập
+          </a>
+          <a href="../auth/register.html" class="btn btn-primary nav-auth-btn">
+            <span class="material-symbols-outlined">person_add</span> Đăng ký
+          </a>
+        </div>
+        <button class="mobile-nav-toggle" id="mobile-nav-toggle"><span class="material-symbols-outlined">menu</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero image -->
+    <div class="article-hero" id="article-hero">
+      <img id="hero-img" src="" alt="" class="article-hero-img">
+      <div class="article-hero-overlay"></div>
+      <div class="article-hero-content">
+        <div class="container" style="max-width:900px;">
+          <span class="article-cat" id="hero-cat"></span>
+          <h1 class="article-title-hero" id="hero-title">Đang tải...</h1>
+          <div class="article-meta" id="hero-meta"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content area -->
+    <div class="container" style="max-width:1180px;padding-top:48px;padding-bottom:80px;">
+      <div class="breadcrumb" id="breadcrumb"></div>
+      <div class="article-layout" style="display:grid;grid-template-columns:1fr 320px;gap:48px;align-items:flex-start;">
+        <!-- Main content -->
+        <div class="article-body" style="padding:0;">
+          <div class="article-content" id="article-content"></div>
+          <div class="article-tags" id="article-tags"></div>
+          <div class="author-box" id="author-box"></div>
+          <div style="margin-top:32px;">
+            <a href="index.html" class="btn btn-outline-primary">
+              <span class="material-symbols-outlined icon-sm">arrow_back</span> Quay lại cẩm nang
+            </a>
+          </div>
+        </div>
+        <!-- Sidebar -->
+        <aside>
+          <div class="sidebar-sticky">
+            <div class="card p-4" style="margin-bottom:24px;">
+              <h4 style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--dark);margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--primary);">
+                <span class="material-symbols-outlined icon-sm text-primary">bookmark</span> Bài viết liên quan
+              </h4>
+              <div id="related-articles"></div>
+            </div>
+            <div class="card p-4" style="background:var(--primary-gradient);color:#fff;">
+              <h4 style="font-size:1.05rem;font-weight:800;margin-bottom:10px;">Đặt phòng ngay hôm nay</h4>
+              <p style="font-size:0.875rem;color:rgba(255,255,255,0.85);margin-bottom:18px;line-height:1.6;">Khám phá hàng nghìn khách sạn và resort với giá ưu đãi độc quyền.</p>
+              <a href="../hotels/index.html" class="btn" style="background:#fff;color:var(--primary);font-weight:700;">
+                <span class="material-symbols-outlined icon-sm">search</span> Tìm phòng ngay
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../../index.html" class="brand-logo">
+            <img src="../../img/logo.png" alt="HotelBooking" class="logo-img">
+          </a>
+          <p class="footer-desc" style="line-height: 1.65; margin-bottom: 16px; font-size: 0.88rem; color: #cbd5e1;">
+            Nền tảng đặt phòng trực tuyến hàng đầu, mang đến cho bạn những trải nghiệm nghỉ dưỡng 5 sao sang trọng tại Việt Nam với mức giá ưu đãi nhất. Cam kết phòng ốc thực tế 100%, bảo mật thanh toán tuyệt đối và hỗ trợ khách hàng tận tâm 24/7.
+          </p>
+          <div class="footer-badges-strip">
+            <span class="badge footer-badge-gold">
+              <span class="material-symbols-outlined icon-sm" style="font-size: 15px;">verified</span> 100% Giá tốt nhất
+            </span>
+            <span class="badge footer-badge-blue">
+              <span class="material-symbols-outlined icon-sm" style="font-size: 15px;">support_agent</span> Hỗ trợ 24/7
+            </span>
+            <span class="badge footer-badge-green">
+              <span class="material-symbols-outlined icon-sm" style="font-size: 15px;">security</span> Bảo mật SSL 256-bit
+            </span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Điểm đến hàng đầu</h4>
+          <div class="footer-links">
+            <a href="../hotels/index.html?city=Đà Nẵng"><span class="material-symbols-outlined">chevron_right</span> Khách sạn Đà Nẵng</a>
+            <a href="../hotels/index.html?city=Phú Quốc"><span class="material-symbols-outlined">chevron_right</span> Resort Phú Quốc</a>
+            <a href="../hotels/index.html?city=Nha Trang"><span class="material-symbols-outlined">chevron_right</span> Nghỉ dưỡng Nha Trang</a>
+            <a href="../hotels/index.html?city=Hà Nội"><span class="material-symbols-outlined">chevron_right</span> Khách sạn Hà Nội</a>
+            <a href="../hotels/index.html?city=Đà Lạt"><span class="material-symbols-outlined">chevron_right</span> Villa Đà Lạt</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Cẩm nang</h4>
+          <div class="footer-links" id="footer-links"></div>
+        </div>
+        <div class="footer-col footer-col-newsletter">
+          <h4>Đăng ký nhận ưu đãi</h4>
+          <p style="font-size:0.88rem;color:#E2E8F0;margin-bottom:14px;line-height:1.5;">Nhận ngay voucher giảm giá <strong>20%</strong> cho lần đặt phòng tiếp theo của bạn.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault();Toast.success('Thành công','Cảm ơn bạn đã đăng ký nhận bản tin!');this.reset();">
+            <div class="newsletter-input-group">
+              <input type="email" placeholder="Nhập địa chỉ email của bạn..." required>
+              <button type="submit">Gửi ngay</button>
+            </div>
+          </form>
+          <div style="margin-top: 18px;">
+            <div class="footer-contact-item"><span class="material-symbols-outlined contact-icon-gold">call</span> Hotline: <strong class="text-gold">0345 662 169</strong> <span class="badge-247">24/7</span></div>
+            <div class="footer-contact-item"><span class="material-symbols-outlined contact-icon-cyan">mail</span> Email: <strong class="text-cyan">minhanhĐS@gmail.com</strong></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 HotelBooking. Bản quyền thuộc về Vũ Kim Quang.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/utils/formatters.js"></script>
+  <script src="../../js/utils/toast.js"></script>
+  <script src="../../js/data/seed-data.js"></script>
+  <script src="../../js/data/firebase-config.js"></script>
+  <script src="../../js/data/db.js"></script>
+  <script src="../../js/auth/auth.js"></script>
+  <script src="../../js/utils/animations.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      const article = id ? DB.getArticleById(id) : null;
+
+      function catClass(color) {
+        return {primary:'cat-primary',secondary:'cat-secondary',accent:'cat-accent',info:'cat-info',success:'cat-success',green:'cat-success',gold:'cat-accent',teal:'cat-info'}[color]||'cat-primary';
+      }
+
+      if (!article) {
+        document.getElementById('hero-title').textContent = 'Bài viết không tồn tại';
+        document.getElementById('article-content').innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:40px 0;">Không tìm thấy bài viết. <a href="index.html">Quay lại danh sách</a></p>';
+        return;
+      }
+
+      // Increment views
+      DB.incrementArticleViews(id);
+
+      // Page title
+      document.getElementById('page-title').textContent = article.title + ' - HotelBooking';
+
+      // Hero
+      document.getElementById('hero-img').src = article.image;
+      document.getElementById('hero-img').alt = article.title;
+      document.getElementById('hero-title').textContent = article.title;
+      const catEl = document.getElementById('hero-cat');
+      catEl.textContent = article.category;
+      catEl.className = 'article-cat ' + catClass(article.categoryColor);
+      document.getElementById('hero-meta').innerHTML = `
+        <span><span class="material-symbols-outlined icon-sm">calendar_today</span>${article.createdAt}</span>
+        <span><span class="material-symbols-outlined icon-sm">person</span>${article.author}</span>
+        <span><span class="material-symbols-outlined icon-sm">schedule</span>${article.readTime} phút đọc</span>
+        <span><span class="material-symbols-outlined icon-sm">visibility</span>${((article.views||0)+1).toLocaleString('vi-VN')} lượt xem</span>`;
+
+      // Breadcrumb
+      document.getElementById('breadcrumb').innerHTML = `
+        <a href="../../index.html">Trang chủ</a>
+        <span class="material-symbols-outlined" style="font-size:16px;">chevron_right</span>
+        <a href="index.html">Cẩm nang du lịch</a>
+        <span class="material-symbols-outlined" style="font-size:16px;">chevron_right</span>
+        <span>${article.category}</span>`;
+
+      // Article content
+      document.getElementById('article-content').innerHTML = article.content || '';
+
+      // Tags
+      if (article.tags && article.tags.length) {
+        document.getElementById('article-tags').innerHTML = article.tags.map(t =>
+          `<span class="article-tag"><span class="material-symbols-outlined icon-sm">label</span>${t}</span>`
+        ).join('');
+      }
+
+      // Author box
+      document.getElementById('author-box').innerHTML = `
+        <img src="${article.authorAvatar||'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80'}" alt="${article.author}">
+        <div>
+          <div style="font-weight:800;color:var(--dark);font-size:0.95rem;">${article.author}</div>
+          <div style="font-size:0.82rem;color:var(--text-muted);margin-top:3px;">Biên tập viên tại HotelBooking – chuyên gia du lịch và trải nghiệm nghỉ dưỡng Việt Nam.</div>
+        </div>`;
+
+      // Related articles
+      const related = DB.getArticles(a => a.id !== article.id && a.status === 'published').slice(0, 4);
+      document.getElementById('related-articles').innerHTML = related.map(a => `
+        <div class="related-card">
+          <img src="${a.image}" alt="${a.title}">
+          <div>
+            <a class="related-card-title" href="detail.html?id=${a.id}">${a.title.substring(0,65)}${a.title.length>65?'...':''}</a>
+            <div style="font-size:0.77rem;color:var(--text-light);margin-top:5px;">${a.readTime} phút đọc</div>
+          </div>
+        </div>`).join('');
+
+      // Footer links
+      const footerLinks = document.getElementById('footer-links');
+      if (footerLinks) {
+        footerLinks.innerHTML = DB.getArticles(a=>a.status==='published').slice(0,5).map(a =>
+          `<a href="detail.html?id=${a.id}"><span class="material-symbols-outlined">chevron_right</span> ${a.title.substring(0,38)}...</a>`
+        ).join('');
+      }
+    });
+  </script>
+  <script src="../../js/utils/social-floating.js?v=9.0"></script>
+  <script src="../../js/utils/chatbox.js?v=9.0"></script>
+</body>
+</html>

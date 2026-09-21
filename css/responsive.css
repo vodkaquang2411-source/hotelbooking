@@ -1,0 +1,338 @@
+/* ==========================================================================
+   HOTELBOOKING - RESPONSIVE STYLES (responsive.css)
+   ========================================================================== */
+
+/* Laptop & Tablet Large (< 1200px) */
+@media (max-width: 1199px) {
+  .hero-search-box {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    border-radius: 20px;
+    padding: 16px;
+  }
+  
+  .hero-search-box .btn-search-hero-submit,
+  .hero-search-box .btn-search-submit {
+    grid-column: span 2;
+    height: 50px;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 32px;
+  }
+  
+  .footer-col-newsletter {
+    grid-column: span 3;
+  }
+
+  .room-card {
+    grid-template-columns: 280px 1fr 200px;
+  }
+}
+
+/* Tablet (< 992px) */
+@media (max-width: 991px) {
+  :root {
+    --header-height: 70px;
+  }
+
+  .site-header .navbar,
+  .site-header .container {
+    display: flex !important;
+    justify-content: space-between !important;
+    padding: 0 16px !important;
+  }
+
+  .logo-img {
+    height: 44px !important;
+    max-width: 180px !important;
+  }
+  
+  .section {
+    padding: 60px 0;
+  }
+  
+  .section-title {
+    font-size: 1.85rem;
+  }
+  
+  /* Mobile Navigation Drawer */
+  .mobile-nav-toggle {
+    display: block;
+  }
+  
+  .nav-menu {
+    position: fixed;
+    top: var(--header-height);
+    left: -100%;
+    width: 290px;
+    height: calc(100vh - var(--header-height));
+    background: #ffffff;
+    border-right: 1.5px solid var(--border-color);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 18px;
+    box-shadow: 10px 0 35px rgba(15, 39, 71, 0.15);
+    transition: left var(--transition-normal);
+    z-index: 999;
+    overflow-y: auto;
+    border-radius: 0 0 20px 0;
+  }
+  
+  .nav-menu.open {
+    left: 0;
+  }
+  
+  .nav-link {
+    width: 100%;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-light);
+    color: #334155;
+    border-radius: var(--radius-md);
+  }
+  
+  .nav-link.active::after {
+    display: none;
+  }
+  
+  .nav-link.active {
+    color: var(--primary) !important;
+    background: var(--primary-soft) !important;
+    font-weight: 800;
+  }
+
+  .hotels-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .filter-sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #ffffff;
+    z-index: 2500;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .filter-sidebar.open {
+    display: block;
+  }
+
+  .room-card {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .room-card-gallery {
+    height: 200px;
+    min-height: 200px;
+  }
+
+  .room-card-action {
+    border-left: none;
+    border-top: 1px dashed var(--border-color);
+    padding-left: 14px;
+    padding-top: 14px;
+    align-items: stretch;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .room-card-action .room-card-pricing-box {
+    text-align: left !important;
+  }
+
+  .admin-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    bottom: 0;
+    width: 280px;
+    z-index: 3000;
+    transition: left var(--transition-normal);
+  }
+
+  .admin-sidebar.open {
+    left: 0;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .footer-col-newsletter {
+    grid-column: span 2;
+  }
+}
+
+/* Mobile Devices (< 768px) */
+@media (max-width: 767px) {
+  .section {
+    padding: 45px 0;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .hero-search-box {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+
+  .hero-search-box .btn-search-submit {
+    grid-column: span 1;
+    width: 100%;
+  }
+
+  .step-wizard {
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .step-wizard::before {
+    display: none;
+  }
+
+  .step-label {
+    display: none;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .footer-col-newsletter {
+    grid-column: span 1;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .hotel-detail-gallery,
+  .hotel-bento-gallery {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 280px !important;
+    height: 280px !important;
+    border-radius: 14px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .hotel-detail-gallery img,
+  .hotel-bento-gallery .bento-item-main img {
+    height: 100% !important;
+  }
+
+  .hotel-bento-gallery .bento-item:not(.bento-item-main) {
+    display: none !important;
+  }
+
+  .luxury-policy-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .detail-date-checker-bar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .date-checker-inputs {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .admin-kpi-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .admin-charts-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Small Mobile (< 576px) */
+@media (max-width: 576px) {
+  :root {
+    --header-height: 74px;
+  }
+
+  .site-header .container {
+    padding: 0 14px;
+  }
+
+  .logo-img {
+    height: 48px !important;
+    min-width: 140px !important;
+    max-width: 200px !important;
+  }
+  
+  .hero-section {
+    padding: 60px 0 70px;
+    min-height: auto;
+  }
+
+  .hero-top-pill {
+    padding: 8px 18px;
+    margin-bottom: 20px;
+  }
+
+  .hero-luxury-tag-text {
+    font-size: 0.78rem;
+    letter-spacing: 0.5px;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+    line-height: 1.25;
+  }
+
+  .hero-subtitle {
+    font-size: 0.98rem;
+    margin-bottom: 28px;
+  }
+
+  .hero-search-box {
+    grid-template-columns: 1fr;
+    padding: 20px 16px;
+    border-radius: 20px;
+    gap: 12px;
+  }
+
+  .btn-search-hero-submit {
+    height: 52px;
+    justify-content: center;
+  }
+
+  .hero-stats-strip {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 32px;
+  }
+
+  .footer-brand .logo-img {
+    height: 68px !important;
+    min-width: 180px !important;
+    max-width: 250px !important;
+  }
+}
+
+

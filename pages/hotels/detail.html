@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi Tiết Khách Sạn - HotelBooking</title>
+  
+  <!-- Google Material Symbols Outlined & Material Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheets -->
+  <link rel="stylesheet" href="../../css/style.css?v=11.0">
+  <link rel="stylesheet" href="../../css/components.css?v=11.0">
+  <link rel="stylesheet" href="../../css/responsive.css?v=11.0">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+
+    <div class="container navbar">
+      <a href="../../index.html" class="brand-logo">
+        <img src="../../img/logo.png" alt="HotelBooking" class="logo-img">
+      </a>
+
+      <nav class="nav-menu" id="nav-menu">
+        <a href="../../index.html" class="nav-link">Trang chủ</a>
+        <a href="index.html" class="nav-link active">Khách sạn</a>
+        <a href="../../index.html#promotions-section" class="nav-link">
+          Khuyến mãi
+          <span class="nav-tag-badge">Hot</span>
+        </a>
+        <a href="../../index.html#services-section" class="nav-link">Dịch vụ 5★</a>
+        <a href="../news/index.html" class="nav-link">Cẩm nang</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="nav-user-actions">
+          <a href="../auth/login.html" class="nav-auth-btn btn-outline">
+            Đăng nhập
+          </a>
+          <a href="../auth/register.html" class="nav-auth-btn btn-primary">
+            Đăng ký
+          </a>
+        </div>
+        <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="section-sm">
+    <div class="container">
+      <!-- Breadcrumb -->
+      <nav class="d-flex align-center gap-2" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px; font-weight: 500;" aria-label="Breadcrumb">
+        <a href="../../index.html" style="color: var(--text-muted); display: inline-flex; align-items: center; gap: 4px;">
+          <span class="material-symbols-outlined icon-sm">home</span> Trang chủ
+        </a>
+        <span class="text-muted">/</span>
+        <a href="index.html" style="color: var(--text-muted);">Khách sạn</a>
+        <span class="text-muted">/</span>
+        <span class="font-bold text-dark" id="breadcrumb-hotel-name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 320px;">Chi tiết khách sạn</span>
+      </nav>
+
+      <!-- Hotel Title & Action Bar -->
+      <div class="hotel-detail-header-card">
+        <div class="d-flex justify-between align-center flex-wrap gap-3">
+          <div style="flex: 1; min-width: 280px;">
+            <div class="d-flex align-center gap-2 flex-wrap" style="margin-bottom: 6px;">
+              <span id="hotel-stars" class="star-rating d-inline-flex align-center"></span>
+              <span class="badge badge-gold" id="hotel-badge-category" style="font-size: 0.75rem; padding: 3px 10px;">Nghỉ dưỡng cao cấp</span>
+              <span class="badge badge-success" style="font-size: 0.75rem; padding: 3px 10px;">Đã xác thực</span>
+            </div>
+            <h1 id="hotel-title" class="hotel-detail-title">
+              Đang tải tên khách sạn...
+            </h1>
+            <div class="hotel-detail-address">
+              <span class="material-symbols-outlined">location_on</span>
+              <span id="hotel-address-text">Đang tải địa chỉ...</span>
+              <a href="#section-map" class="btn-jump-map">Xem trên bản đồ</a>
+            </div>
+          </div>
+
+          <div class="d-flex align-center gap-2 flex-wrap">
+            <button id="btn-detail-favorite" class="btn btn-outline" style="height: 44px; border-radius: 10px; gap: 6px; padding: 0 16px; font-weight: 700;">
+              <span class="material-symbols-outlined text-danger" style="font-size: 20px;">favorite</span>
+              <span id="btn-detail-favorite-label">Yêu thích</span>
+            </button>
+            <div class="d-flex align-center gap-2" style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 6px 14px; height: 44px;">
+              <div style="font-size: 1.35rem; font-weight: 900; color: var(--primary); line-height: 1;" id="hotel-rating-score">4.9</div>
+              <div style="line-height: 1.2;">
+                <div style="font-size: 0.75rem; font-weight: 800; color: var(--dark);">Xuất sắc</div>
+                <div style="font-size: 0.68rem; color: var(--text-muted);" id="hotel-review-count">(148 đánh giá)</div>
+              </div>
+            </div>
+            <a href="#section-rooms" class="btn btn-primary" style="height: 44px; padding: 0 20px; border-radius: 10px; font-weight: 700;">
+              Chọn phòng
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hotel Bento Photo Gallery (5-Images Bento Grid) -->
+      <div class="hotel-bento-gallery" id="hotel-gallery-grid">
+        <!-- Rendered dynamically by hotel-detail.js -->
+      </div>
+
+      <!-- Main Hotel Info Layout (2 Columns) -->
+      <div class="hotel-detail-layout">
+        
+        <!-- Left Column: Overview, Amenities, Rooms, Policies, Reviews -->
+        <div style="min-width: 0;">
+          
+          <!-- 1. Overview & Highlights -->
+          <div class="detail-card">
+            <h2 class="detail-card-title">
+              Tổng quan & Giới thiệu
+            </h2>
+            <p id="hotel-description" style="font-size: 0.95rem; color: #334155; line-height: 1.8; margin: 0;">
+              Đang tải mô tả khách sạn...
+            </p>
+          </div>
+
+          <!-- 2. Amenities -->
+          <div class="detail-card">
+            <h2 class="detail-card-title">
+              Tiện nghi & Dịch vụ nổi bật
+            </h2>
+            <div class="detail-amenities-grid" id="hotel-amenities-list">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- 3. Available Rooms with Date-Availability Check -->
+          <div id="section-rooms" class="detail-card" style="padding: 24px 24px;">
+            <h2 class="detail-card-title" style="margin-bottom: 16px;">
+              Các loại phòng khả dụng
+            </h2>
+
+            <!-- Date Checker Bar - 1 Single Clean Row -->
+            <div class="detail-date-checker-bar">
+              <div class="date-checker-label">
+                Đặt lịch
+              </div>
+              <div class="date-input-group">
+                <label for="detail-checkin">Nhận phòng</label>
+                <input type="date" id="detail-checkin">
+              </div>
+              <div class="date-input-group">
+                <label for="detail-checkout">Trả phòng</label>
+                <input type="date" id="detail-checkout">
+              </div>
+              <button class="btn btn-primary" id="btn-detail-check-avail">
+                Kiểm tra phòng
+              </button>
+            </div>
+
+            <!-- Rooms Container -->
+            <div id="hotel-rooms-container">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- 4. Policies -->
+          <div class="detail-card">
+            <h2 class="detail-card-title">
+              Quy định & Chính sách lưu trú
+            </h2>
+            <div id="hotel-policies">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- 5. Reviews -->
+          <div class="detail-card">
+            <h2 class="detail-card-title">
+              Đánh giá từ khách hàng
+            </h2>
+
+            <!-- Review submission form if eligible -->
+            <div id="review-write-box">
+              <!-- Dynamic form rendered if user has completed a stay -->
+            </div>
+
+            <div id="hotel-reviews-list">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Sticky Sidebar -->
+        <aside style="position: sticky; top: calc(var(--header-height) + 16px);">
+          
+          <!-- Card 1: Booking summary & Perks -->
+          <div class="detail-card" style="padding: 22px; border-top: 4px solid var(--primary); margin-bottom: 18px;">
+            <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">
+              Giá tốt nhất hôm nay
+            </div>
+            <div class="d-flex align-baseline gap-1" style="margin-bottom: 14px;">
+              <span style="font-size: 1.6rem; font-weight: 900; color: var(--primary);" id="sidebar-starting-price">2.200.000đ</span>
+              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">/ đêm</span>
+            </div>
+
+            <ul class="sidebar-perks-list">
+              <li>Cam kết bảo đảm giá tốt nhất</li>
+              <li>Miễn phí hủy phòng linh hoạt</li>
+              <li>Xác nhận đặt phòng tức thì</li>
+              <li>Hỗ trợ khách hàng chu đáo 24/7</li>
+            </ul>
+
+            <a href="#section-rooms" class="btn btn-primary btn-block" style="padding: 12px 16px; font-weight: 700; border-radius: 10px; font-size: 0.95rem;">
+              Chọn phòng lưu trú
+            </a>
+          </div>
+
+          <!-- Card 2: Nearby Places & Map Locator -->
+          <div class="detail-card" id="section-map" style="padding: 20px; margin-bottom: 18px;">
+            <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--dark); margin: 0 0 12px 0;">
+              Vị trí & Địa điểm lân cận
+            </h3>
+            
+            <div style="height: 140px; border-radius: 10px; overflow: hidden; position: relative; background: #e2e8f0; margin-bottom: 14px;">
+              <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=600&q=80" alt="Map View" style="width: 100%; height: 100%; object-fit: cover;">
+              <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #ffffff; padding: 5px 14px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 0.78rem; font-weight: 800; color: var(--primary); white-space: nowrap;">
+                Vị trí trung tâm
+              </div>
+            </div>
+
+            <div id="hotel-nearby-places-list" style="display: flex; flex-direction: column; gap: 6px;">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Card 3: 24/7 Hotline & Support -->
+          <div class="detail-card" style="padding: 18px; background: #F8FAFC; border: 1px solid #E2E8F0;">
+            <div style="font-size: 0.85rem; font-weight: 800; color: var(--dark); margin-bottom: 2px;">Tư vấn đặt phòng 24/7</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Hotline hỗ trợ: <strong style="color: var(--primary);">1900 6868</strong></div>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Photo Gallery Modal / Lightbox -->
+  <div id="gallery-lightbox-modal" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.92); z-index: 10000; align-items: center; justify-content: center; padding: 20px;">
+    <button id="btn-close-lightbox" style="position: absolute; top: 20px; right: 24px; background: rgba(255,255,255,0.15); border: none; color: #fff; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s;">
+      <span class="material-symbols-outlined" style="font-size: 28px;">close</span>
+    </button>
+    <div style="max-width: 960px; width: 100%; max-height: 85vh; text-align: center;">
+      <img id="lightbox-main-img" src="" alt="Hotel Photo" style="max-width: 100%; max-height: 70vh; border-radius: 12px; object-fit: contain; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+      <div id="lightbox-thumbs" style="display: flex; gap: 8px; justify-content: center; margin-top: 14px; overflow-x: auto; padding: 6px;"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="justify-content: center; text-align: center; border-top: none; padding-top: 0;">
+        <div>&copy; 2026 HotelBooking. Bản quyền thuộc về Vũ Kim Quang.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils/formatters.js"></script>
+  <script src="../../js/utils/toast.js"></script>
+  <script src="../../js/data/seed-data.js"></script>
+  <script src="../../js/data/firebase-config.js"></script>
+  <script src="../../js/data/db.js"></script>
+  <script src="../../js/auth/auth.js"></script>
+  <script src="../../js/utils/animations.js"></script>
+  <script src="../../js/hotels/hotel-detail.js?v=2.0"></script>
+  <script src="../../js/utils/social-floating.js?v=9.0"></script>
+  <script src="../../js/utils/chatbox.js?v=9.0"></script>
+</body>
+</html>

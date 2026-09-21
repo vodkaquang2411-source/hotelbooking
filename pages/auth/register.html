@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng Ký Tài Khoản - HotelBooking</title>
+  
+  <!-- Google Material Symbols Outlined & Material Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheets -->
+  <link rel="stylesheet" href="../../css/style.css?v=11.0">
+  <link rel="stylesheet" href="../../css/components.css?v=11.0">
+  <link rel="stylesheet" href="../../css/responsive.css?v=11.0">
+</head>
+<body style="background: linear-gradient(135deg, #F8F6F0 0%, #EFEBE1 100%); min-height: 100vh; display: flex; flex-direction: column;">
+
+  <!-- Simple Header -->
+  <header style="padding: 20px 0; text-align: center;">
+    <div class="container">
+      <a href="../../index.html" class="brand-logo" style="justify-content: center; display: inline-flex;">
+        <img src="../../img/logo.png" alt="HotelBooking" class="logo-img" style="height: 80px !important; min-width: 210px !important; max-width: 300px !important;">
+      </a>
+    </div>
+  </header>
+
+  <main style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px;">
+    <div class="card p-4" style="max-width: 500px; width: 100%; padding: 36px 32px; box-shadow: var(--shadow-xl); border-radius: var(--radius-xl);">
+      <div class="text-center" style="margin-bottom: 28px;">
+        <h1 style="font-size: 1.6rem; font-weight: 800; color: var(--dark); margin-bottom: 6px;">Tạo Tài Khoản Mới</h1>
+        <p style="font-size: 0.875rem; color: var(--text-muted);">Đăng ký để nhận voucher giảm giá 20% và tích điểm thành viên</p>
+      </div>
+
+      <form id="form-register">
+        <div class="form-group">
+          <label class="form-label"><span class="material-symbols-outlined">badge</span> Họ và tên *</label>
+          <div class="input-icon-wrapper">
+            <span class="material-symbols-outlined">person</span>
+            <input type="text" id="reg-name" class="form-control" placeholder="Nguyễn Văn A" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span class="material-symbols-outlined">mail</span> Địa chỉ email *</label>
+          <div class="input-icon-wrapper">
+            <span class="material-symbols-outlined">email</span>
+            <input type="email" id="reg-email" class="form-control" placeholder="name@example.com" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span class="material-symbols-outlined">call</span> Số điện thoại *</label>
+          <div class="input-icon-wrapper">
+            <span class="material-symbols-outlined">phone</span>
+            <input type="tel" id="reg-phone" class="form-control" placeholder="0901234567" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span class="material-symbols-outlined">lock</span> Mật khẩu (tối thiểu 6 ký tự) *</label>
+          <div class="input-icon-wrapper">
+            <span class="material-symbols-outlined">key</span>
+            <input type="password" id="reg-password" class="form-control" placeholder="Tối thiểu 6 ký tự..." required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span class="material-symbols-outlined">lock_reset</span> Xác nhận mật khẩu *</label>
+          <div class="input-icon-wrapper">
+            <span class="material-symbols-outlined">verified_user</span>
+            <input type="password" id="reg-confirm-password" class="form-control" placeholder="Nhập lại mật khẩu..." required>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 24px;">
+          <label class="custom-checkbox">
+            <input type="checkbox" required checked>
+            <span style="font-size: 0.8125rem; color: var(--text-muted);">
+              Tôi đồng ý với <a href="#" style="color: var(--primary); font-weight: 600;">Điều khoản dịch vụ</a> & <a href="#" style="color: var(--primary); font-weight: 600;">Chính sách bảo mật</a>
+            </span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-bottom: 18px;">
+          <span class="material-symbols-outlined icon-sm">person_add</span> Đăng Ký Tài Khoản
+        </button>
+
+        <div class="text-center" style="font-size: 0.875rem; color: var(--text-muted);">
+          Đã có tài khoản? <a href="login.html" id="link-to-login" style="color: var(--primary); font-weight: 700;">Đăng nhập ngay</a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer style="text-align: center; padding: 20px; font-size: 0.8125rem; color: var(--text-muted);">
+    &copy; 2026 HotelBooking. Bản quyền thuộc về Vũ Kim Quang.
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils/formatters.js"></script>
+  <script src="../../js/utils/toast.js"></script>
+  <script src="../../js/data/seed-data.js"></script>
+  <script src="../../js/data/firebase-config.js"></script>
+  <script src="../../js/data/db.js"></script>
+  <script src="../../js/auth/auth.js"></script>
+  <script src="../../js/utils/animations.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const redirect = urlParams.get('redirect');
+      if (redirect) {
+        const loginLink = document.getElementById('link-to-login');
+        if (loginLink) loginLink.href = `login.html?redirect=${encodeURIComponent(redirect)}`;
+      }
+
+      const form = document.getElementById('form-register');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('reg-name').value.trim();
+        const email = document.getElementById('reg-email').value.trim();
+        const phone = document.getElementById('reg-phone').value.trim();
+        const password = document.getElementById('reg-password').value;
+        const confirmPassword = document.getElementById('reg-confirm-password').value;
+
+        const res = Auth.register({ name, email, phone, password, confirmPassword });
+        if (res.success) {
+          Toast.success('Thành công', res.message);
+          setTimeout(() => {
+            if (redirect) {
+              window.location.href = redirect;
+            } else {
+              window.location.href = '../../index.html';
+            }
+          }, 800);
+        } else {
+          Toast.error('Đăng ký thất bại', res.message);
+        }
+      });
+    });
+  </script>
+  <script src="../../js/utils/social-floating.js?v=9.0"></script>
+  <script src="../../js/utils/chatbox.js?v=9.0"></script>
+</body>
+</html>

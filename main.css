@@ -1,0 +1,5 @@
+/* HotelBooking Main Stylesheet bundle */
+@import './css/style.css';
+@import './css/components.css';
+@import './css/responsive.css';
+

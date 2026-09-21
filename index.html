@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HotelBooking - Đặt phòng và trải nghiệm khách sạn đẳng cấp</title>
+  
+  <!-- Google Material Symbols Outlined & Material Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheets -->
+  <link rel="stylesheet" href="css/style.css?v=17.0">
+  <link rel="stylesheet" href="css/components.css?v=17.0">
+  <link rel="stylesheet" href="css/responsive.css?v=17.0">
+</head>
+<body>
+  <header class="site-header" id="site-header">
+
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo">
+        <img src="img/logo.png" alt="HotelBooking" class="logo-img">
+      </a>
+
+      <nav class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link active">Trang chủ</a>
+        <a href="pages/hotels/index.html" class="nav-link">Khách sạn</a>
+        <a href="#promotions-section" class="nav-link">
+          Khuyến mãi
+          <span class="nav-tag-badge">Hot</span>
+        </a>
+        <a href="#services-section" class="nav-link">Dịch vụ 5★</a>
+        <a href="pages/news/index.html" class="nav-link">Cẩm nang</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="nav-user-actions">
+          <a href="pages/auth/login.html" class="nav-auth-btn btn-outline">
+            Đăng nhập
+          </a>
+          <a href="pages/auth/register.html" class="nav-auth-btn btn-primary">
+            Đăng ký
+          </a>
+        </div>
+        <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================================================
+         2. HERO BANNER & SMART TRAVEL SEARCH
+         ========================================================================== -->
+    <section class="hero-section" data-section-title="Trang chủ">
+      <div class="hero-overlay-glow"></div>
+      <div class="container text-center hero-content">
+        
+        <!-- Luxury Collection Pill -->
+        <div class="hero-top-pill reveal reveal-delay-1">
+          <span class="hero-luxury-tag-text">BỘ SƯU TẬP NGHỈ DƯỠNG ĐẲNG CẤP</span>
+        </div>
+
+        <!-- Headline with Gold Shimmer -->
+        <h1 class="hero-title reveal reveal-delay-2">
+          KỲ NGHỈ ĐÁNG NHỚ <br>
+          <span class="gradient-text-gold">Bắt đầu từ nơi bạn chọn ở.</span>
+        </h1>
+
+        <p class="hero-subtitle reveal reveal-delay-3">
+          Khám phá những khách sạn & khu nghỉ dưỡng được yêu thích nhất tại các điểm đến hàng đầu Việt Nam.
+        </p>
+
+        <!-- Luxury Refined Search Box -->
+        <div class="hero-search-wrapper reveal reveal-delay-4">
+          <!-- Glassmorphic Search Form -->
+          <div class="hero-search-box">
+            
+            <div class="search-field-box">
+              <label class="search-label" for="hero-search-keyword">
+                <span class="label-left"><span class="material-symbols-outlined">location_on</span> Điểm đến / Khách sạn</span>
+              </label>
+              <input type="text" id="hero-search-keyword" class="search-input" list="destinations-datalist" placeholder="Nhập TP, địa danh hoặc tên KS..." autocomplete="off">
+              <datalist id="destinations-datalist">
+                <option value="Đà Nẵng">Biển Mỹ Khê & Bán đảo Sơn Trà</option>
+                <option value="Hạ Long">Vịnh Hạ Long & Onsen Quang Hanh</option>
+                <option value="Phú Quốc">Đảo Ngọc & Bãi Sao</option>
+                <option value="Sa Pa">Săn mây Mường Hoa & Fansipan</option>
+                <option value="Nha Trang">Vịnh Nha Trang & Đảo Hòn Tre</option>
+                <option value="Đà Lạt">Thành phố sương mù & ngàn hoa</option>
+                <option value="Hà Nội">Thủ đô ngàn năm văn hiến</option>
+                <option value="Vũng Tàu">Bãi Sau & Hồ Mây</option>
+                <option value="Hội An">Phố cổ Hội An & Biển Hà My</option>
+                <option value="Ninh Bình">Di sản Tràng An & Emeralda</option>
+                <option value="Hà Giang">Cao nguyên đá Đồng Văn</option>
+                <option value="Hải Phòng">Thành phố Hoa Phượng Đỏ & Cát Bà</option>
+              </datalist>
+            </div>
+
+            <div class="search-field-box">
+              <label class="search-label" for="hero-search-checkin">
+                <span class="label-left"><span class="material-symbols-outlined">event_available</span> Nhận phòng</span>
+              </label>
+              <input type="date" id="hero-search-checkin" class="search-input">
+            </div>
+
+            <div class="search-field-box">
+              <label class="search-label" for="hero-search-checkout">
+                <span class="label-left"><span class="material-symbols-outlined">event_busy</span> Trả phòng</span>
+                <span id="hero-nights-counter" class="badge-night-counter">2 đêm</span>
+              </label>
+              <input type="date" id="hero-search-checkout" class="search-input">
+            </div>
+
+            <div class="search-field-box">
+              <label class="search-label" for="hero-search-guests">
+                <span class="label-left"><span class="material-symbols-outlined">group</span> Số khách</span>
+              </label>
+              <select id="hero-search-guests" class="search-input" style="cursor: pointer;">
+                <option value="1">1 Khách (1 phòng)</option>
+                <option value="2" selected>2 Người lớn (1 phòng)</option>
+                <option value="3">3 Khách (1-2 phòng)</option>
+                <option value="4">Gia đình (4+ người)</option>
+              </select>
+            </div>
+
+            <button class="btn-search-hero-submit" id="btn-hero-search" type="button">
+              <span class="material-symbols-outlined">search</span>
+              <span>Tìm phòng</span>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Trust & Metrics Strip -->
+        <div class="hero-stats-strip reveal reveal-delay-5">
+          <div class="hero-stat-card">
+            <div class="hero-stat-icon">
+              <span class="material-symbols-outlined">apartment</span>
+            </div>
+            <div class="hero-stat-info">
+              <div class="stat-value">1,200+</div>
+              <div class="stat-label">Khách sạn & Resort cao cấp</div>
+            </div>
+          </div>
+
+          <div class="hero-stat-card">
+            <div class="hero-stat-icon">
+              <span class="material-symbols-outlined">hotel_class</span>
+            </div>
+            <div class="hero-stat-info">
+              <div class="stat-value">4.9 / 5.0</div>
+              <div class="stat-label">150,000+ Đánh giá hài lòng</div>
+            </div>
+          </div>
+
+          <div class="hero-stat-card">
+            <div class="hero-stat-icon">
+              <span class="material-symbols-outlined">price_check</span>
+            </div>
+            <div class="hero-stat-info">
+              <div class="stat-value">Giá tốt nhất</div>
+              <div class="stat-label">Đảm bảo hoàn tiền 100%</div>
+            </div>
+          </div>
+
+          <div class="hero-stat-card">
+            <div class="hero-stat-icon">
+              <span class="material-symbols-outlined">support_agent</span>
+            </div>
+            <div class="hero-stat-info">
+              <div class="stat-value">24/7 VIP</div>
+              <div class="stat-label">Chăm sóc & Hỗ trợ chu đáo</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    
+
+
+    <!-- ==========================================================================
+         2.3. FLASH SALE GIỜ VÀNG ĐỘC QUYỀN (THỜI GIAN THỰC)
+         ========================================================================== -->
+    <section class="section flash-sale-section" id="promotions-section" data-section-title="Flash Sale">
+      <div class="container">
+        <div class="flash-sale-container">
+          
+          <!-- Flash Sale Header with Live Countdown -->
+          <div class="flash-sale-header">
+            <div class="flash-title-group">
+              <div class="flash-icon-pulse">
+                <span class="material-symbols-outlined icon-md">bolt</span>
+              </div>
+              <div>
+                <div class="d-flex align-center gap-2" style="margin-bottom: 4px;">
+                  <span class="badge badge-accent" style="font-size: 0.72rem; padding: 2px 9px; font-weight: 900; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); border-radius: 9999px; box-shadow: 0 0 12px rgba(239, 68, 68, 0.5); display: inline-flex; align-items: center;">
+                    <span class="live-dot"></span> ĐANG DIỄN RA
+                  </span>
+                  <h3 style="font-size: 1.65rem; font-weight: 900; color: #ffffff; margin: 0;">Flash Sale Giờ Vàng <span class="gradient-text-gold">Ưu Đãi Tới -50%</span></h3>
+                </div>
+                <p style="font-size: 0.88rem; color: #cbd5e1; margin: 0;">Khách sạn & Resort 5 sao giá sốc mở bán theo khung giờ thực tế. Số lượng có hạn!</p>
+              </div>
+            </div>
+
+            <div class="flash-countdown-wrap">
+              <span class="countdown-label"><span class="material-symbols-outlined icon-sm" style="font-size: 16px; color: #FDE047; vertical-align: middle; margin-right: 2px;">timer</span> Kết thúc sau:</span>
+              <div class="countdown-digits-group">
+                <span class="countdown-box" id="flash-hours">00</span>
+                <span class="countdown-colon">:</span>
+                <span class="countdown-box" id="flash-minutes">00</span>
+                <span class="countdown-colon">:</span>
+                <span class="countdown-box" id="flash-seconds">00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 1. Interactive Time Slots Navigation (Đồng bộ theo giờ thực) -->
+          <div class="flash-slots-nav" id="flash-slots-nav">
+            <!-- Dynamic Slots Rendered by FlashSale JS -->
+          </div>
+
+          <!-- 2. Flash Voucher Strip (Khay voucher độc quyền giờ vàng) -->
+          <div class="flash-voucher-strip">
+            <div class="d-flex align-center gap-2">
+              <span class="material-symbols-outlined text-accent" style="font-size: 22px;">loyalty</span>
+              <span style="font-size: 0.88rem; font-weight: 800; color: #FDE047;">VOUCHER GIỜ VÀNG:</span>
+            </div>
+            
+            <div class="d-flex align-center gap-2 flex-wrap">
+              <div class="flash-voucher-item">
+                <div>
+                  <div class="flash-voucher-code">FLASH50K</div>
+                  <div class="flash-voucher-desc">Giảm 50.000đ đơn từ 800k</div>
+                </div>
+                <button class="flash-voucher-btn" onclick="FlashSale.claimVoucher('FLASH50K', 'Giảm 50k')">Lưu mã</button>
+              </div>
+
+              <div class="flash-voucher-item">
+                <div>
+                  <div class="flash-voucher-code">VIPFLASH10</div>
+                  <div class="flash-voucher-desc">Giảm 10% tối đa 300k</div>
+                </div>
+                <button class="flash-voucher-btn" onclick="FlashSale.claimVoucher('VIPFLASH10', 'Giảm 10%')">Lưu mã</button>
+              </div>
+
+              <div class="flash-voucher-item">
+                <div>
+                  <div class="flash-voucher-code">BUFFETFREE</div>
+                  <div class="flash-voucher-desc">Tặng Buffet sáng 2 người</div>
+                </div>
+                <button class="flash-voucher-btn" onclick="FlashSale.claimVoucher('BUFFETFREE', 'Buffet sáng')">Lưu mã</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Flash Deals Grid -->
+          <div class="flash-deals-grid" id="flash-deals-grid">
+            <!-- Dynamic Deal Cards Rendered by FlashSale JS -->
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         2.4. KHÁCH SẠN VÀ RESORT NỔI BẬT (LỰA CHỌN HÀNG ĐẦU)
+         ========================================================================== -->
+    <section class="section" id="featured-hotels-section" data-section-title="Khách sạn nổi bật">
+      <div class="container">
+        <div class="d-flex justify-between align-end flex-wrap gap-3" style="margin-bottom: 44px;">
+          <div>
+            <span class="section-tag section-tag-ruby"><span class="material-symbols-outlined">local_fire_department</span> Lựa chọn hàng đầu</span>
+            <h2 class="section-title">Khách Sạn & Resort <span class="gradient-text-sunset">Nổi Bật</span></h2>
+            <p class="section-subtitle">Những điểm dừng chân được khách hàng đánh giá cao về chất lượng và dịch vụ 5 sao</p>
+          </div>
+          <a href="pages/hotels/index.html" class="btn btn-outline-primary">
+            Xem tất cả khách sạn <span class="material-symbols-outlined icon-sm">arrow_forward</span>
+          </a>
+        </div>
+
+        <div class="d-grid" id="home-featured-hotels" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 26px;">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         2.5. KHÁM PHÁ CÁC ĐIỂM ĐẾN HẤP DẪN
+         ========================================================================== -->
+    <section class="section section-bg-alt" id="destinations-section" data-section-title="Điểm đến">
+      <div class="container">
+        <div class="d-flex justify-between align-end flex-wrap gap-3" style="margin-bottom: 36px;">
+          <div>
+            <span class="section-tag section-tag-emerald"><span class="material-symbols-outlined">explore</span> Điểm đến thịnh hành</span>
+            <h2 class="section-title">Khám Phá Các <span class="gradient-text-emerald">Điểm Đến Hấp Dẫn</span></h2>
+            <p class="section-subtitle">Lựa chọn thành phố yêu thích và bắt đầu hành trình nghỉ dưỡng đáng nhớ</p>
+          </div>
+          <a href="pages/hotels/index.html" class="btn btn-outline-primary">
+            Khám phá tất cả <span class="material-symbols-outlined icon-sm">arrow_forward</span>
+          </a>
+        </div>
+
+        <div class="destinations-grid d-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;">
+          
+          <!-- 1. Sa Pa -->
+          <a href="pages/hotels/index.html?city=Sa Pa" class="destination-card shimmer-sweep card-hover" style="position: relative; height: 260px; border-radius: 20px; overflow: hidden; display: block; box-shadow: var(--shadow-md); text-decoration: none;">
+            <img loading="lazy" decoding="async" src="img/destinations/sapa.jpg" alt="Sa Pa" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 39, 71, 0.92) 0%, rgba(15, 39, 71, 0.25) 60%, transparent 100%);"></div>
+            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; color: #fff;">
+              <span class="badge badge-accent" style="margin-bottom: 6px; font-size: 0.75rem;">4 Khách sạn & Homestay</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin: 0 0 4px 0;">Sa Pa</h3>
+              <p style="font-size: 0.82rem; color: #e2e8f0; margin: 0;">Săn mây Mường Hoa & đỉnh Fansipan</p>
+            </div>
+          </a>
+
+          <!-- 2. Hải Phòng -->
+          <a href="pages/hotels/index.html?city=Hải Phòng" class="destination-card shimmer-sweep card-hover" style="position: relative; height: 260px; border-radius: 20px; overflow: hidden; display: block; box-shadow: var(--shadow-md); text-decoration: none;">
+            <img loading="lazy" decoding="async" src="img/destinations/haiphong.jpg" alt="Hải Phòng" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 39, 71, 0.92) 0%, rgba(15, 39, 71, 0.25) 60%, transparent 100%);"></div>
+            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; color: #fff;">
+              <span class="badge badge-accent" style="margin-bottom: 6px; font-size: 0.75rem;">3 Khách sạn & Resort</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin: 0 0 4px 0;">Hải Phòng</h3>
+              <p style="font-size: 0.82rem; color: #e2e8f0; margin: 0;">Vịnh Lan Hạ & Đảo Cát Bà thơ mộng</p>
+            </div>
+          </a>
+
+          <!-- 3. Quảng Ninh / Hạ Long -->
+          <a href="pages/hotels/index.html?city=Quảng Ninh" class="destination-card shimmer-sweep card-hover" style="position: relative; height: 260px; border-radius: 20px; overflow: hidden; display: block; box-shadow: var(--shadow-md); text-decoration: none;">
+            <img loading="lazy" decoding="async" src="img/destinations/quangninh.jpg" alt="Quảng Ninh" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 39, 71, 0.92) 0%, rgba(15, 39, 71, 0.25) 60%, transparent 100%);"></div>
+            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; color: #fff;">
+              <span class="badge badge-accent" style="margin-bottom: 6px; font-size: 0.75rem;">4 Khách sạn & Du thuyền</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin: 0 0 4px 0;">Quảng Ninh</h3>
+              <p style="font-size: 0.82rem; color: #e2e8f0; margin: 0;">Kỳ quan Vịnh Hạ Long & Onsen Quang Hanh</p>
+            </div>
+          </a>
+
+          <!-- 4. Đà Nẵng -->
+          <a href="pages/hotels/index.html?city=Đà Nẵng" class="destination-card shimmer-sweep card-hover" style="position: relative; height: 260px; border-radius: 20px; overflow: hidden; display: block; box-shadow: var(--shadow-md); text-decoration: none;">
+            <img loading="lazy" decoding="async" src="img/destinations/danang.jpg" alt="Đà Nẵng" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 39, 71, 0.92) 0%, rgba(15, 39, 71, 0.25) 60%, transparent 100%);"></div>
+            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; color: #fff;">
+              <span class="badge badge-accent" style="margin-bottom: 6px; font-size: 0.75rem;">6 Khách sạn & Resort</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin: 0 0 4px 0;">Đà Nẵng</h3>
+              <p style="font-size: 0.82rem; color: #e2e8f0; margin: 0;">Bãi biển Mỹ Khê & Cầu Rồng phun lửa</p>
+            </div>
+          </a>
+
+          <!-- 5. Ninh Bình -->
+          <a href="pages/hotels/index.html?city=Ninh Bình" class="destination-card destination-card-extra shimmer-sweep card-hover" style="display: none; position: relative; height: 260px; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-md); text-decoration: none;">
+            <img loading="lazy" decoding="async" src="img/destinations/ninhbinh.jpg" alt="Ninh Bình" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 39, 71, 0.92) 0%, rgba(15, 39, 71, 0.25) 60%, transparent 100%);"></div>
+            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; color: #fff;">
+              <span class="badge badge-accent" style="margin-bottom: 6px; font-size: 0.75rem;">3 Resort sinh thái</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin: 0 0 4px 0;">Ninh Bình</h3>
+              <p style="font-size: 0.82rem; color: #e2e8f0; margin: 0;">Tràng An di sản & Tam Cốc Bích Động</p>
+            </div>
+          </a>
+
+          <!-- 6. Đà Lạt -->
+          <a href="pages/hotels/index.html?city=Đà Lạt" class="destination-card destination-card-extra shimmer-sweep card-hover" style="display: none; position: relative; height: 260px; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-md); text-decoration: none;">
+            <img loading="lazy" decoding="async" src="img/destinations/dalat.jpg" alt="Đà Lạt" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 39, 71, 0.92) 0%, rgba(15, 39, 71, 0.25) 60%, transparent 100%);"></div>
+            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; color: #fff;">
+              <span class="badge badge-accent" style="margin-bottom: 6px; font-size: 0.75rem;">5 Khách sạn & Homestay</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin: 0 0 4px 0;">Đà Lạt</h3>
+              <p style="font-size: 0.82rem; color: #e2e8f0; margin: 0;">Thành phố ngàn hoa & Hồ Tuyền Lâm</p>
+            </div>
+          </a>
+
+          <!-- 7. Hà Nội -->
+          <a href="pages/hotels/index.html?city=Hà Nội" class="destination-card destination-card-extra shimmer-sweep card-hover" style="display: none; position: relative; height: 260px; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-md); text-decoration: none;">
+            <img loading="lazy" decoding="async" src="img/destinations/hanoi.jpg" alt="Hà Nội" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 39, 71, 0.92) 0%, rgba(15, 39, 71, 0.25) 60%, transparent 100%);"></div>
+            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; color: #fff;">
+              <span class="badge badge-accent" style="margin-bottom: 6px; font-size: 0.75rem;">2 Khách sạn 5 sao</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin: 0 0 4px 0;">Hà Nội</h3>
+              <p style="font-size: 0.82rem; color: #e2e8f0; margin: 0;">Phố cổ & nét duyên ngàn năm văn hiến</p>
+            </div>
+          </a>
+
+          <!-- 8. Vũng Tàu -->
+          <a href="pages/hotels/index.html?city=Vũng Tàu" class="destination-card destination-card-extra shimmer-sweep card-hover" style="display: none; position: relative; height: 260px; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-md); text-decoration: none;">
+            <img loading="lazy" decoding="async" src="img/destinations/vungtau.jpg" alt="Vũng Tàu" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 39, 71, 0.92) 0%, rgba(15, 39, 71, 0.25) 60%, transparent 100%);"></div>
+            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; color: #fff;">
+              <span class="badge badge-accent" style="margin-bottom: 6px; font-size: 0.75rem;">2 Căn hộ & Villa</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin: 0 0 4px 0;">Vũng Tàu</h3>
+              <p style="font-size: 0.82rem; color: #e2e8f0; margin: 0;">Bãi Sau biển xanh & hải sản tươi sống</p>
+            </div>
+          </a>
+
+          <!-- 9. Hà Giang -->
+          <a href="pages/hotels/index.html?city=Hà Giang" class="destination-card destination-card-extra shimmer-sweep card-hover" style="display: none; position: relative; height: 260px; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-md); text-decoration: none;">
+            <img loading="lazy" decoding="async" src="img/destinations/hagiang.jpg" alt="Hà Giang" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 39, 71, 0.92) 0%, rgba(15, 39, 71, 0.25) 60%, transparent 100%);"></div>
+            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; color: #fff;">
+              <span class="badge badge-accent" style="margin-bottom: 6px; font-size: 0.75rem;">2 Lodge & Homestay</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin: 0 0 4px 0;">Hà Giang</h3>
+              <p style="font-size: 0.82rem; color: #e2e8f0; margin: 0;">Kỳ vĩ cao nguyên đá & ruộng bậc thang</p>
+            </div>
+          </a>
+
+          <!-- 10. Phú Quốc -->
+          <a href="pages/hotels/index.html?city=Phú Quốc" class="destination-card destination-card-extra shimmer-sweep card-hover" style="display: none; position: relative; height: 260px; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-md); text-decoration: none;">
+            <img loading="lazy" decoding="async" src="img/destinations/phuquoc.jpg" alt="Phú Quốc" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 39, 71, 0.92) 0%, rgba(15, 39, 71, 0.25) 60%, transparent 100%);"></div>
+            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; color: #fff;">
+              <span class="badge badge-accent" style="margin-bottom: 6px; font-size: 0.75rem;">3 Beach Resort & Villa</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin: 0 0 4px 0;">Phú Quốc</h3>
+              <p style="font-size: 0.82rem; color: #e2e8f0; margin: 0;">Đảo ngọc Bãi Khem & Bãi Dài hoàng hôn</p>
+            </div>
+          </a>
+
+          <!-- 11. Nha Trang -->
+          <a href="pages/hotels/index.html?city=Nha Trang" class="destination-card destination-card-extra shimmer-sweep card-hover" style="display: none; position: relative; height: 260px; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-md); text-decoration: none;">
+            <img loading="lazy" decoding="async" src="img/destinations/nhatrang.jpg" alt="Nha Trang" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 39, 71, 0.92) 0%, rgba(15, 39, 71, 0.25) 60%, transparent 100%);"></div>
+            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; color: #fff;">
+              <span class="badge badge-accent" style="margin-bottom: 6px; font-size: 0.75rem;">4 Resort & Căn hộ biển</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin: 0 0 4px 0;">Nha Trang</h3>
+              <p style="font-size: 0.82rem; color: #e2e8f0; margin: 0;">Six Senses vịnh Ninh Vân & Cam Ranh</p>
+            </div>
+          </a>
+
+          <!-- 12. Hội An -->
+          <a href="pages/hotels/index.html?city=Hội An" class="destination-card destination-card-extra shimmer-sweep card-hover" style="display: none; position: relative; height: 260px; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-md); text-decoration: none;">
+            <img loading="lazy" decoding="async" src="img/destinations/hoian.jpg" alt="Hội An" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 39, 71, 0.92) 0%, rgba(15, 39, 71, 0.25) 60%, transparent 100%);"></div>
+            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; color: #fff;">
+              <span class="badge badge-accent" style="margin-bottom: 6px; font-size: 0.75rem;">3 Resort & Khách sạn 5★</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin: 0 0 4px 0;">Hội An</h3>
+              <p style="font-size: 0.82rem; color: #e2e8f0; margin: 0;">Four Seasons The Nam Hải & Sông Thu Bồn</p>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- Toggle See More Destinations Button -->
+        <div class="text-center" style="margin-top: 36px;">
+          <button id="btn-toggle-destinations" class="btn btn-outline-primary btn-lg" style="padding: 12px 36px; border-radius: 9999px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 16px rgba(15, 39, 71, 0.08); background: #ffffff; cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);">
+            <span id="btn-destinations-text">Xem thêm</span>
+            <span class="material-symbols-outlined icon-sm" id="btn-destinations-icon" style="transition: transform 0.3s ease;">expand_more</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    
+    <!-- ==========================================================================
+         2.7. TIN TỨC VÀ CẨM NANG DU LỊCH
+         ========================================================================== -->
+    <section class="section" id="news-section" data-section-title="Cẩm nang">
+      <div class="container">
+        <div class="d-flex justify-between align-end flex-wrap gap-3" style="margin-bottom: 44px;">
+          <div>
+            <span class="section-tag section-tag-blue"><span class="material-symbols-outlined">feed</span> Cẩm nang trải nghiệm</span>
+            <h2 class="section-title">Tin Tức & <span class="gradient-text-primary">Cẩm Nang Du Lịch</span></h2>
+            <p class="section-subtitle">Cập nhật xu hướng nghỉ dưỡng mới nhất và kinh nghiệm du lịch hữu ích</p>
+          </div>
+          <a href="pages/news/index.html" class="btn btn-outline-primary">
+            Xem tất cả bài viết <span class="material-symbols-outlined icon-sm">arrow_forward</span>
+          </a>
+        </div>
+
+        <div class="d-grid" id="home-news-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px;">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         2.8. BỘ SƯU TẬP PHONG CÁCH NGHỈ DƯỠNG
+         ========================================================================== -->
+    <section class="section section-bg-alt" data-section-title="Bộ sưu tập">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag section-tag-purple"><span class="material-symbols-outlined">auto_awesome</span> Cảm hứng du lịch</span>
+          <h2 class="section-title">Khám Phá Theo <span class="gradient-text-purple">Bộ Sưu Tập Độc Quyền</span></h2>
+          <p class="section-subtitle">Lựa chọn kỳ nghỉ hoàn hảo theo phong cách và sở thích riêng của bạn</p>
+        </div>
+
+        <div class="d-grid" style="grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 26px;">
+          
+          <!-- 1. Beach Resort & Infinity Pool -->
+          <a href="pages/hotels/index.html?keyword=Resort" class="collection-card">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1000&q=85" alt="Resort Biển & Hồ Bơi Vô Cực" class="collection-card-img">
+            <div class="collection-card-overlay"></div>
+            <div class="collection-card-content">
+              <span class="badge badge-accent" style="margin-bottom: 8px;">18+ Resort 5 Sao</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin: 0 0 6px 0;">Resort Biển & Hồ Bơi Vô Cực</h3>
+              <p style="font-size: 0.84rem; color: #cbd5e1; margin: 0;">Phú Quốc, Nha Trang, Đà Nẵng, Vịnh Lan Hạ</p>
+            </div>
+          </a>
+
+          <!-- 2. Mountain Cloud-Hunting & Forest Villas -->
+          <a href="pages/hotels/index.html?keyword=Villa" class="collection-card">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1000&q=85" alt="Săn Mây & Biệt Thự Rừng Núi" class="collection-card-img">
+            <div class="collection-card-overlay"></div>
+            <div class="collection-card-content">
+              <span class="badge badge-accent" style="margin-bottom: 8px;">12+ Biệt thự săn mây</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin: 0 0 6px 0;">Săn Mây & Biệt Thự Rừng Núi</h3>
+              <p style="font-size: 0.84rem; color: #cbd5e1; margin: 0;">Sa Pa, Đà Lạt, Hà Giang, Mai Châu</p>
+            </div>
+          </a>
+
+          <!-- 3. Mineral Onsen & Herbal Spa -->
+          <a href="pages/hotels/index.html?keyword=Onsen" class="collection-card">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1000&q=85" alt="Khoáng Nóng Onsen & Spa Thảo Dược" class="collection-card-img">
+            <div class="collection-card-overlay"></div>
+            <div class="collection-card-content">
+              <span class="badge badge-accent" style="margin-bottom: 8px;">Trị liệu chuẩn Nhật</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin: 0 0 6px 0;">Khoáng Nóng Onsen & Spa Thảo Dược</h3>
+              <p style="font-size: 0.84rem; color: #cbd5e1; margin: 0;">Quảng Ninh, Ninh Bình, Thanh Thủy</p>
+            </div>
+          </a>
+
+          <!-- 4. Honeymoon & Romantic 5-Star Getaway -->
+          <a href="pages/hotels/index.html?keyword=Luxury" class="collection-card">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1000&q=85" alt="Kỳ Nghỉ Trăng Mật & Lãng Mạn" class="collection-card-img">
+            <div class="collection-card-overlay"></div>
+            <div class="collection-card-content">
+              <span class="badge badge-accent" style="margin-bottom: 8px;">Set up phòng tân hôn</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin: 0 0 6px 0;">Kỳ Nghỉ Trăng Mật & Lãng Mạn 5★</h3>
+              <p style="font-size: 0.84rem; color: #cbd5e1; margin: 0;">Hội An, Vịnh Hạ Long, Côn Đảo</p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         2.9. CÁC LOẠI PHÒNG ĐƯỢC YÊU THÍCH
+         ========================================================================== -->
+    <section class="section" data-section-title="Loại phòng">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag section-tag-navy"><span class="material-symbols-outlined">bed</span> Nghỉ dưỡng thượng lưu</span>
+          <h2 class="section-title">Các Loại Phòng <span class="gradient-text-gold">Được Yêu Thích</span></h2>
+          <p class="section-subtitle">Tận hưởng không gian tiện nghi, tầm nhìn tuyệt mỹ hướng biển và sông núi</p>
+        </div>
+
+        <div class="d-grid" id="home-popular-rooms" style="grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 28px;">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         5. TIỆN NGHI VÀ DỊCH VỤ 5 SAO
+         ========================================================================== -->
+    <section class="section section-bg-alt" id="services-section" data-section-title="Dịch vụ 5★">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag section-tag-cyan"><span class="material-symbols-outlined">concierge</span> Trải nghiệm hoàn hảo</span>
+          <h2 class="section-title">Tiện Nghi & Dịch Vụ <span class="gradient-text-primary">Đẳng Cấp 5 Sao</span></h2>
+          <p class="section-subtitle">Chúng tôi cam kết mang lại kỳ nghỉ trọn vẹn nhất cho bạn và gia đình</p>
+        </div>
+
+        <div class="amenities-grid">
+          
+          <!-- 1. Infinity Pool -->
+          <div class="amenity-photo-card shimmer-sweep">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80" alt="Hồ bơi vô cực" class="amenity-photo-bg">
+            <div class="amenity-photo-overlay"></div>
+            
+            <div class="amenity-top-row">
+              <div class="amenity-icon-box" style="background: rgba(201, 162, 39, 0.25); border: 1.5px solid rgba(223, 192, 88, 0.6); color: #DFC058;">
+                <span class="material-symbols-outlined icon-md">pool</span>
+              </div>
+              <span class="amenity-badge">VIEW BIỂN 360°</span>
+            </div>
+
+            <div class="amenity-bottom-content">
+              <h3 class="amenity-card-title">Hồ Bơi Vô Cực Biển</h3>
+              <p class="amenity-card-desc">Tầm nhìn ôm trọn đại dương bao la và ngắm hoàng hôn rực rỡ bên quầy bar cocktail thượng hạng.</p>
+            </div>
+          </div>
+
+          <!-- 2. Dining -->
+          <div class="amenity-photo-card shimmer-sweep">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Ẩm thực Á - Âu" class="amenity-photo-bg">
+            <div class="amenity-photo-overlay"></div>
+            
+            <div class="amenity-top-row">
+              <div class="amenity-icon-box" style="background: rgba(56, 189, 248, 0.25); border: 1.5px solid rgba(56, 189, 248, 0.6); color: #38bdf8;">
+                <span class="material-symbols-outlined icon-md">restaurant</span>
+              </div>
+              <span class="amenity-badge">BẾP TRƯỞNG 5★</span>
+            </div>
+
+            <div class="amenity-bottom-content">
+              <h3 class="amenity-card-title">Ẩm Thực & Fine Dining</h3>
+              <p class="amenity-card-desc">Đại tiệc ẩm thực Á - Âu phong phú với nguyên liệu hảo hạng được chế biến kỳ công chuẩn sao quốc tế.</p>
+            </div>
+          </div>
+
+          <!-- 3. Spa -->
+          <div class="amenity-photo-card shimmer-sweep">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="Spa trị liệu" class="amenity-photo-bg">
+            <div class="amenity-photo-overlay"></div>
+            
+            <div class="amenity-top-row">
+              <div class="amenity-icon-box" style="background: rgba(74, 222, 128, 0.25); border: 1.5px solid rgba(74, 222, 128, 0.6); color: #4ade80;">
+                <span class="material-symbols-outlined icon-md">spa</span>
+              </div>
+              <span class="amenity-badge">THẢO DƯỢC QUÝ</span>
+            </div>
+
+            <div class="amenity-bottom-content">
+              <h3 class="amenity-card-title">Spa & Chăm Sóc Trị Liệu</h3>
+              <p class="amenity-card-desc">Liệu trình massage thảo dược quý hiếm, xông hơi đá muối Himalaya giúp hồi phục năng lượng toàn diện.</p>
+            </div>
+          </div>
+
+          <!-- 4. Airport VIP Transfer -->
+          <div class="amenity-photo-card shimmer-sweep">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80" alt="Đưa đón sân bay" class="amenity-photo-bg">
+            <div class="amenity-photo-overlay"></div>
+            
+            <div class="amenity-top-row">
+              <div class="amenity-icon-box" style="background: rgba(192, 132, 252, 0.25); border: 1.5px solid rgba(192, 132, 252, 0.6); color: #c084fc;">
+                <span class="material-symbols-outlined icon-md">flight_takeoff</span>
+              </div>
+              <span class="amenity-badge">XE LIMOUSINE VIP</span>
+            </div>
+
+            <div class="amenity-bottom-content">
+              <h3 class="amenity-card-title">Đưa Đón VIP Sân Bay</h3>
+              <p class="amenity-card-desc">Đội xe Limousine hạng sang đón tiễn tận nơi an toàn, nhanh chóng cùng dịch vụ quản gia phục vụ 24/7.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         6. MÃ GIẢM GIÁ VÀ KHUYẾN MÃI HẤP DẪN
+         ========================================================================== -->
+    <section class="section" id="promotions-section" data-section-title="Khuyến mãi">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag section-tag-amber">
+            <span class="material-symbols-outlined">redeem</span> Ưu đãi mùa du lịch
+          </span>
+          <h2 class="section-title">Mã Giảm Giá & Ưu Đãi Hấp Dẫn</h2>
+          <p class="section-subtitle">Sao chép mã voucher và áp dụng ngay trong bước đặt phòng để nhận ưu đãi tức thì</p>
+        </div>
+
+        <div class="d-grid" id="home-vouchers-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; align-items: stretch;">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         8. KHÁCH HÀNG NÓI GÌ VỀ CHÚNG TÔI?
+         ========================================================================== -->
+    <section class="section section-bg-alt" data-section-title="Đánh giá">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag section-tag-amber" style="background: rgba(245, 158, 11, 0.12); color: #B45309; border: 1px solid rgba(245, 158, 11, 0.35);"><span class="material-symbols-outlined">rate_review</span> Đánh giá thực tế</span>
+          <h2 class="section-title"><span class="gradient-text-primary">Khách Hàng Nói Gì</span> <span class="gradient-text-gold">Về Chúng Tôi?</span></h2>
+          <p class="section-subtitle" style="color: #475569;">Hơn 98% khách hàng hài lòng tuyệt đối với trải nghiệm đặt phòng và chất lượng dịch vụ lưu trú 5 sao</p>
+        </div>
+
+        <!-- Key Metrics Strip -->
+        <div class="metrics-strip">
+          <div class="metric-box card-hover">
+            <div class="metric-icon-badge gold">
+              <span class="material-symbols-outlined">hotel_class</span>
+            </div>
+            <div class="metric-number">500+</div>
+            <div class="metric-label">Khách Sạn & Resort 5 Sao</div>
+          </div>
+          <div class="metric-box card-hover">
+            <div class="metric-icon-badge emerald">
+              <span class="material-symbols-outlined">sentiment_very_satisfied</span>
+            </div>
+            <div class="metric-number">150.000+</div>
+            <div class="metric-label">Khách Hàng Hài Lòng</div>
+          </div>
+          <div class="metric-box card-hover">
+            <div class="metric-icon-badge amber">
+              <span class="material-symbols-outlined">verified</span>
+            </div>
+            <div class="metric-number">99.2%</div>
+            <div class="metric-label">Đánh Giá Tuyệt Đối 5★</div>
+          </div>
+          <div class="metric-box card-hover">
+            <div class="metric-icon-badge blue">
+              <span class="material-symbols-outlined">support_agent</span>
+            </div>
+            <div class="metric-number">24/7</div>
+            <div class="metric-label">Hỗ Trợ Tận Tâm Chu Đáo</div>
+          </div>
+        </div>
+
+        <div class="d-grid" id="home-reviews-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px;">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    
+    <!-- ==========================================================================
+         8.3. CÂU HỎI THƯỜNG GẶP (FAQ)
+         ========================================================================== -->
+    <section class="section" id="faq-section" data-section-title="Hỏi đáp FAQ">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag section-tag-blue" style="background: rgba(2, 132, 199, 0.12); color: #0284c7; border: 1px solid rgba(2, 132, 199, 0.35);"><span class="material-symbols-outlined icon-sm">help</span> Giải đáp thắc mắc</span>
+          <h2 class="section-title"><span class="gradient-text-primary">Câu Hỏi Thường Gặp</span></h2>
+          <p class="section-subtitle" style="color: #475569;">Tất cả những thông tin bạn cần biết về chính sách đặt phòng, hoàn hủy linh hoạt và đặc quyền dịch vụ 5 sao</p>
+        </div>
+
+        <div class="faq-accordion-group">
+          
+          <!-- Q1 -->
+          <div class="faq-card">
+            <div class="faq-header">
+              <div class="faq-header-title">
+                <span class="faq-q-number">1</span>
+                <span>Quy trình nhận phòng (Check-in) và chính sách hỗ trợ nhận phòng sớm?</span>
+              </div>
+              <span class="material-symbols-outlined faq-arrow">expand_more</span>
+            </div>
+            <div class="faq-body">
+              Giờ nhận phòng tiêu chuẩn là <strong>14:00</strong> và trả phòng trước <strong>12:00</strong>. Quý khách chỉ cần xuất trình mã QR đặt phòng hoặc E-Voucher trong ứng dụng/email kèm CCCD/Hộ chiếu tại quầy lễ tân. Đặc biệt, khách hàng của HotelBooking được ưu tiên hỗ trợ nhận phòng sớm miễn phí từ <strong>10:00</strong> <em>(tùy tình trạng phòng sẵn có của khách sạn)</em>.
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="faq-card">
+            <div class="faq-header">
+              <div class="faq-header-title">
+                <span class="faq-q-number">2</span>
+                <span>Chính sách hủy phòng và tiến trình hoàn tiền được xử lý như thế nào?</span>
+              </div>
+              <span class="material-symbols-outlined faq-arrow">expand_more</span>
+            </div>
+            <div class="faq-body">
+              Hầu hết các phòng tiêu chuẩn trên hệ thống đều áp dụng <strong>hủy miễn phí trước 48 giờ</strong> so với ngày nhận phòng. Tiền hoàn sẽ được chuyển tự động về tài khoản ngân hàng hoặc thẻ thanh toán ban đầu của Quý khách trong vòng <strong>3 - 5 ngày làm việc</strong> mà không chịu bất kỳ chi phí phát sinh nào.
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="faq-card">
+            <div class="faq-header">
+              <div class="faq-header-title">
+                <span class="faq-q-number">3</span>
+                <span>Hệ thống có hỗ trợ xuất hóa đơn GTGT (VAT điện tử) cho doanh nghiệp không?</span>
+              </div>
+              <span class="material-symbols-outlined faq-arrow">expand_more</span>
+            </div>
+            <div class="faq-body">
+              Có. Quý khách chỉ cần tích chọn <strong>"Yêu cầu xuất hóa đơn VAT"</strong> tại bước thanh toán và cung cấp tên công ty, mã số thuế, địa chỉ. Hóa đơn điện tử hợp lệ theo quy chuẩn Tổng cục Thuế sẽ được gửi tự động về email của Quý khách ngay sau khi hoàn tất thủ tục trả phòng.
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="faq-card">
+            <div class="faq-header">
+              <div class="faq-header-title">
+                <span class="faq-q-number">4</span>
+                <span>Thanh toán qua quét mã VietQR tự động và thẻ thanh toán có an toàn không?</span>
+              </div>
+              <span class="material-symbols-outlined faq-arrow">expand_more</span>
+            </div>
+            <div class="faq-body">
+              Tuyệt đối bảo mật và an toàn! Chúng tôi tích hợp chuẩn thanh toán <strong>VietQR Napas247</strong> liên kết 40+ ngân hàng và mã hóa bảo mật SSL/TLS 256-bit chuẩn quốc tế. Giao dịch được đối soát tức thì sau 3 giây, tự động kích hoạt mã đặt phòng thành công mà không cần chờ đợi xác nhận thủ công.
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="faq-card">
+            <div class="faq-header">
+              <div class="faq-header-title">
+                <span class="faq-q-number">5</span>
+                <span>Tôi có được mang theo trẻ em hoặc thú cưng (Pet-friendly) không?</span>
+              </div>
+              <span class="material-symbols-outlined faq-arrow">expand_more</span>
+            </div>
+            <div class="faq-body">
+              Trẻ em dưới 6 tuổi thường được <strong>miễn phí lưu trú</strong> khi ngủ chung giường với bố mẹ (kèm bữa sáng buffet miễn phí tùy từng resort). Đối với thú cưng, Quý khách có thể lọc danh mục <em>"Khách sạn Pet-friendly"</em> trên thanh tìm kiếm hoặc liên hệ Quản gia 24/7 để được hỗ trợ bố trí phòng phù hợp nhất.
+            </div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="faq-card">
+            <div class="faq-header">
+              <div class="faq-header-title">
+                <span class="faq-q-number">6</span>
+                <span>Làm thế nào để áp dụng mã giảm giá và nâng hạng phòng hội viên?</span>
+              </div>
+              <span class="material-symbols-outlined faq-arrow">expand_more</span>
+            </div>
+            <div class="faq-body">
+              Tại trang thanh toán đặt phòng, Quý khách chỉ cần chọn hoặc dán mã khuyến mãi vào ô <strong>"Mã ưu đãi"</strong> để được chiết khấu trực tiếp vào hóa đơn. Thành viên đăng ký tài khoản sẽ được tích lũy điểm thưởng tự động để thăng hạng VIP và nhận ưu đãi nâng phòng Suite/Executive miễn phí.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 24/7 Support Banner -->
+        <div class="faq-support-banner">
+          <div class="faq-support-left">
+            <div class="faq-support-icon-box">
+              <span class="material-symbols-outlined">support_agent</span>
+            </div>
+            <div class="faq-support-text">
+              <h4>Bạn vẫn còn thắc mắc cần được giải đáp riêng?</h4>
+              <p>Đội ngũ hỗ trợ & Chăm sóc khách hàng cao cấp luôn túc trực hỗ trợ và giải quyết mọi yêu cầu 24/7.</p>
+            </div>
+          </div>
+          <div class="faq-support-actions">
+            <a href="tel:0345662169" class="btn btn-support-hotline">
+              <span class="material-symbols-outlined">call</span>
+              <span>Hotline 0345 662 169</span>
+            </a>
+            <button type="button" onclick="if (window.HotelChatbot) { window.HotelChatbot.open(); } else if (window.openChatbox) { window.openChatbox(); } else { const btn = document.getElementById('chatbox-trigger-btn'); if(btn) btn.click(); }" class="btn btn-support-chat">
+              <span class="material-symbols-outlined">chat</span>
+              <span>Chat với chúng tôi</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         8.5. KHÁCH SẠN BẠN VỪA XEM (RECENTLY VIEWED - CUỐI TRANG)
+         ========================================================================== -->
+    <!-- ==========================================================================
+         8.5. KHÁCH SẠN BẠN VỪA XEM (RECENTLY VIEWED - CAROUSEL 4 CARDS)
+         ========================================================================== -->
+    <section class="section section-sm" id="section-recently-viewed" data-section-title="Đã xem" style="display: none; background: #f8fafc; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); padding: 46px 0;">
+      <div class="container">
+        <div class="d-flex justify-between align-end" style="margin-bottom: 24px;">
+          <div>
+            <span class="section-tag section-tag-purple" style="margin-bottom: 6px;"><span class="material-symbols-outlined">history</span> Lịch sử đã xem</span>
+            <h2 class="section-title" style="margin: 0; text-align: left; font-size: 1.85rem;">Khách Sạn Bạn Vừa Xem Gần Đây</h2>
+          </div>
+          <div class="carousel-nav-buttons d-flex gap-2" id="recent-nav-controls">
+            <button type="button" class="btn-carousel-arrow" id="btn-recent-prev" aria-label="Xem khách sạn trước" title="Khách sạn trước">
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <button type="button" class="btn-carousel-arrow" id="btn-recent-next" aria-label="Xem khách sạn tiếp theo" title="Khách sạn tiếp theo">
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+          </div>
+        </div>
+        <div class="recently-slider-wrapper">
+          <div class="recently-slider-track" id="home-recently-viewed-grid">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       9. FOOTER
+       ========================================================================== -->
+  <footer class="site-footer" data-section-title="Chân trang">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo">
+            <img src="img/logo.png" alt="HotelBooking" class="logo-img">
+          </a>
+          <p class="footer-desc" style="line-height: 1.65; margin-bottom: 16px; font-size: 0.88rem; color: #cbd5e1;">
+            Nền tảng đặt phòng trực tuyến hàng đầu, mang đến cho bạn những trải nghiệm nghỉ dưỡng 5 sao sang trọng tại Việt Nam với mức giá ưu đãi nhất. Cam kết phòng ốc thực tế 100%, bảo mật thanh toán tuyệt đối và hỗ trợ khách hàng tận tâm 24/7.
+          </p>
+          <div class="footer-badges-strip">
+            <span class="badge footer-badge-gold">
+              <span class="material-symbols-outlined icon-sm" style="font-size: 15px;">verified</span> 100% Giá tốt nhất
+            </span>
+            <span class="badge footer-badge-blue">
+              <span class="material-symbols-outlined icon-sm" style="font-size: 15px;">support_agent</span> Hỗ trợ 24/7
+            </span>
+            <span class="badge footer-badge-green">
+              <span class="material-symbols-outlined icon-sm" style="font-size: 15px;">security</span> Bảo mật SSL 256-bit
+            </span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Điểm đến hàng đầu</h4>
+          <div class="footer-links">
+            <a href="pages/hotels/index.html?city=Đà Nẵng"><span class="material-symbols-outlined">chevron_right</span> Khách sạn Đà Nẵng</a>
+            <a href="pages/hotels/index.html?city=Phú Quốc"><span class="material-symbols-outlined">chevron_right</span> Resort Phú Quốc</a>
+            <a href="pages/hotels/index.html?city=Hà Nội"><span class="material-symbols-outlined">chevron_right</span> Khách sạn Hà Nội</a>
+            <a href="pages/hotels/index.html?city=TP. Hồ Chí Minh"><span class="material-symbols-outlined">chevron_right</span> Khách sạn Sài Gòn</a>
+            <a href="pages/hotels/index.html?city=Nha Trang"><span class="material-symbols-outlined">chevron_right</span> Nghỉ dưỡng Nha Trang</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Về chúng tôi</h4>
+          <div class="footer-links">
+            <a href="#"><span class="material-symbols-outlined">chevron_right</span> Giới thiệu công ty</a>
+            <a href="#"><span class="material-symbols-outlined">chevron_right</span> Điều khoản dịch vụ</a>
+            <a href="#"><span class="material-symbols-outlined">chevron_right</span> Chính sách bảo mật</a>
+            <a href="#"><span class="material-symbols-outlined">chevron_right</span> Hướng dẫn đặt phòng</a>
+            <a href="#"><span class="material-symbols-outlined">chevron_right</span> Liên hệ hợp tác</a>
+          </div>
+        </div>
+
+        <div class="footer-col footer-col-newsletter">
+          <h4>Đăng ký nhận ưu đãi</h4>
+          <p style="font-size: 0.88rem; color: #E2E8F0; margin-bottom: 14px; line-height: 1.5;">Nhận ngay voucher giảm giá <strong>20%</strong> cho lần đặt phòng tiếp theo của bạn.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); Toast.success('Thành công', 'Cảm ơn bạn đã đăng ký nhận bản tin!'); this.reset();">
+            <div class="newsletter-input-group">
+              <input type="email" placeholder="Nhập địa chỉ email của bạn..." required>
+              <button type="submit">Gửi ngay</button>
+            </div>
+          </form>
+          <div style="margin-top: 18px;">
+            <div class="footer-contact-item"><span class="material-symbols-outlined contact-icon-gold">call</span> Hotline: <strong class="text-gold">0345 662 169</strong> <span class="badge-247">24/7</span></div>
+            <div class="footer-contact-item"><span class="material-symbols-outlined contact-icon-cyan">mail</span> Email: <strong class="text-cyan">minhanhĐS@gmail.com</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom" style="justify-content: center; text-align: center;">
+        <div>&copy; 2026 HotelBooking. Bản quyền thuộc về Vũ Kim Quang.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Core Scripts -->
+  <script src="js/utils/formatters.js"></script>
+  <script src="js/utils/toast.js"></script>
+  <script src="js/data/seed-data.js"></script>
+  <script src="js/data/firebase-config.js"></script>
+  <script src="js/data/db.js"></script>
+  <script src="js/auth/auth.js"></script>
+  <script src="js/utils/animations.js"></script>
+  <script src="js/home/flash-sale.js?v=1.4"></script>
+  <script src="js/utils/chatbox.js"></script>
+  <script src="js/utils/social-floating.js"></script>
+
+  <!-- Home Page Dynamic Renderer -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const curUser = DB.getCurrentUser();
+      const curUserId = curUser ? curUser.id : null;
+
+      // Helper gắn sự kiện nút tim Yêu thích
+      function bindFavoriteButtons(container) {
+        if (!container) return;
+        container.querySelectorAll('.btn-favorite-heart').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const hotelId = btn.dataset.id;
+            const isFav = DB.toggleFavorite(curUserId, hotelId);
+            btn.classList.toggle('active', isFav);
+            btn.setAttribute('title', isFav ? 'Đã yêu thích' : 'Thêm vào yêu thích');
+            if (isFav) {
+              Toast.success('Đã lưu yêu thích', 'Đã thêm khách sạn vào danh sách yêu thích của bạn!');
+            } else {
+              Toast.info('Đã bỏ yêu thích', 'Đã xóa khách sạn khỏi danh sách yêu thích.');
+            }
+          });
+        });
+      }
+
+      // Setup FAQ Accordion Toggle
+      const faqCards = document.querySelectorAll('.faq-card');
+      faqCards.forEach(card => {
+        const header = card.querySelector('.faq-header');
+        if (header) {
+          header.addEventListener('click', () => {
+            const isOpen = card.classList.contains('open');
+            faqCards.forEach(c => c.classList.remove('open'));
+            if (!isOpen) {
+              card.classList.add('open');
+            }
+          });
+        }
+      });
+
+      // 1. Setup Hero Search
+      const btnHeroSearch = document.getElementById('btn-hero-search');
+      const inputKeyword = document.getElementById('hero-search-keyword');
+      const inputCheckIn = document.getElementById('hero-search-checkin');
+      const inputCheckOut = document.getElementById('hero-search-checkout');
+      const selectGuests = document.getElementById('hero-search-guests');
+      const nightsCounterEl = document.getElementById('hero-nights-counter');
+
+      const today = new Date().toISOString().split('T')[0];
+      const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+      const dayAfter = new Date(Date.now() + 86400000 * 3).toISOString().split('T')[0];
+
+      function updateNightsDisplay() {
+        if (!nightsCounterEl || !inputCheckIn || !inputCheckOut) return;
+        const ci = inputCheckIn.value;
+        const co = inputCheckOut.value;
+        if (ci && co) {
+          const nights = typeof calculateNights === 'function' 
+            ? calculateNights(ci, co) 
+            : Math.max(1, Math.ceil((new Date(co) - new Date(ci)) / (1000 * 60 * 60 * 24)));
+          nightsCounterEl.textContent = `${nights} đêm`;
+        }
+      }
+
+      if (inputCheckIn) {
+        inputCheckIn.min = today;
+        inputCheckIn.value = tomorrow;
+        inputCheckIn.addEventListener('change', () => {
+          if (inputCheckOut) {
+            inputCheckOut.min = inputCheckIn.value;
+            if (inputCheckOut.value && inputCheckOut.value <= inputCheckIn.value) {
+              inputCheckOut.value = new Date(new Date(inputCheckIn.value).getTime() + 86400000 * 2).toISOString().split('T')[0];
+            }
+          }
+          updateNightsDisplay();
+        });
+      }
+
+      if (inputCheckOut) {
+        inputCheckOut.min = tomorrow;
+        inputCheckOut.value = dayAfter;
+        inputCheckOut.addEventListener('change', updateNightsDisplay);
+      }
+
+      updateNightsDisplay();
+
+      if (btnHeroSearch) {
+        btnHeroSearch.addEventListener('click', () => {
+          const kw = inputKeyword ? inputKeyword.value.trim() : '';
+          const ci = inputCheckIn ? inputCheckIn.value : '';
+          const co = inputCheckOut ? inputCheckOut.value : '';
+          const guests = selectGuests ? selectGuests.value : '2';
+
+          const params = new URLSearchParams();
+          if (kw) params.set('keyword', kw);
+          if (ci) params.set('checkIn', ci);
+          if (co) params.set('checkOut', co);
+          if (guests) params.set('guests', guests);
+
+          window.location.href = `pages/hotels/index.html?${params.toString()}`;
+        });
+      }
+
+      if (inputKeyword) {
+        inputKeyword.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' && btnHeroSearch) {
+            btnHeroSearch.click();
+          }
+        });
+      }
+
+      // 1.5. Setup Destinations Toggle (Show 4 initial, expand remaining 8)
+      const btnToggleDestinations = document.getElementById('btn-toggle-destinations');
+      const extraDestinations = document.querySelectorAll('.destination-card-extra');
+      const btnDestText = document.getElementById('btn-destinations-text');
+      const btnDestIcon = document.getElementById('btn-destinations-icon');
+      let isDestExpanded = false;
+
+      if (btnToggleDestinations && extraDestinations.length) {
+        btnToggleDestinations.addEventListener('click', () => {
+          isDestExpanded = !isDestExpanded;
+          extraDestinations.forEach((card, index) => {
+            if (isDestExpanded) {
+              card.style.display = 'block';
+              card.style.animation = `slideUpFade 0.4s ease forwards ${index * 0.05}s`;
+            } else {
+              card.style.display = 'none';
+            }
+          });
+
+          if (isDestExpanded) {
+            if (btnDestText) btnDestText.textContent = 'Thu gọn';
+            if (btnDestIcon) btnDestIcon.textContent = 'expand_less';
+            btnToggleDestinations.classList.add('active');
+          } else {
+            if (btnDestText) btnDestText.textContent = 'Xem thêm';
+            if (btnDestIcon) btnDestIcon.textContent = 'expand_more';
+            btnToggleDestinations.classList.remove('active');
+            const destSection = document.getElementById('destinations-section');
+            if (destSection) {
+              destSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        });
+      }
+
+      // 2. Render Featured Hotels (Top 6 Cards)
+      const featuredContainer = document.getElementById('home-featured-hotels');
+      if (featuredContainer) {
+        let featuredHotels = DB.getHotels(h => h.featured || h.stars === 5);
+        if (featuredHotels.length < 6) {
+          featuredHotels = DB.getHotels();
+        }
+        featuredHotels = featuredHotels.slice(0, 6);
+
+        featuredContainer.innerHTML = featuredHotels.map(h => {
+          const isFav = DB.isFavorite(curUserId, h.id);
+          const starIcons = Array(h.stars || 5).fill('<span class="material-symbols-outlined icon-sm icon-fill" style="color: #F59E0B; font-size: 15px;">star</span>').join('');
+          const topAmenities = (h.amenities || ['Hồ bơi vô cực', 'Buffet sáng', 'Spa 5★']).slice(0, 3).map(a => `
+            <span class="amenity-chip" style="font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; background: #F8FAFC; border: 1px solid #E2E8F0; color: #334155;"><span class="material-symbols-outlined" style="font-size: 13px; color: #10B981;">check_circle</span> ${a}</span>
+          `).join('');
+
+          return `
+            <div class="card card-hover hotel-card shimmer-sweep" style="border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 20px rgba(15, 39, 71, 0.07); border: 1px solid rgba(226, 232, 240, 0.9); background: #ffffff;">
+              <button class="btn-favorite-heart ${isFav ? 'active' : ''}" data-id="${h.id}" title="${isFav ? 'Đã yêu thích' : 'Thêm vào yêu thích'}">
+                <span class="material-symbols-outlined">favorite</span>
+              </button>
+              <div class="hotel-card-img-wrapper" style="height: 195px; position: relative; overflow: hidden;">
+                <img loading="lazy" decoding="async" src="${formatImgPath(h.image)}" alt="${h.name}" class="hotel-card-img" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);">
+                <div class="hotel-card-badges" style="position: absolute; top: 12px; left: 12px; display: flex; gap: 6px; z-index: 2;">
+                  <span class="badge badge-accent badge-pulse" style="font-size: 0.72rem; padding: 3px 8px; font-weight: 800; border-radius: 6px;"><span class="material-symbols-outlined icon-sm" style="font-size: 14px;">local_fire_department</span> 5★ Luxury</span>
+                  <span class="badge badge-dark" style="font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; backdrop-filter: blur(8px); background: rgba(15, 39, 71, 0.85);">${h.city}</span>
+                </div>
+                <div class="hotel-card-rating-badge" style="position: absolute; bottom: 12px; right: 12px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-radius: 8px; padding: 3px 8px; font-weight: 800; font-size: 0.78rem; display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); color: #0F2747; z-index: 2;">
+                  <span class="material-symbols-outlined icon-fill" style="color: #F59E0B; font-size: 15px;">star</span> ${h.rating} <span style="color: #64748B; font-weight: 600; font-size: 0.72rem;">(${h.reviewCount || 128})</span>
+                </div>
+              </div>
+              <div class="hotel-card-body" style="padding: 16px 18px; display: flex; flex-direction: column; flex: 1; justify-content: space-between;">
+                <div>
+                  <div class="d-flex align-center justify-between" style="margin-bottom: 8px;">
+                    <div class="d-flex align-center gap-1">
+                      ${starIcons}
+                    </div>
+                    <span style="font-size: 0.74rem; font-weight: 700; color: #059669; background: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: 6px;">Miễn phí hủy</span>
+                  </div>
+                  <h3 class="hotel-card-title" style="font-size: 1.22rem; font-weight: 850; color: #0F2747; margin: 0 0 10px 0; line-height: 1.32; min-height: 52px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; letter-spacing: -0.015em;">
+                    <a href="pages/hotels/detail.html?id=${h.id}" style="color: inherit; text-decoration: none;">${h.name}</a>
+                  </h3>
+                  <div class="hotel-card-amenities" style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; height: auto;">
+                    ${topAmenities}
+                  </div>
+                </div>
+                <div class="hotel-card-footer" style="padding-top: 12px; border-top: 1px solid rgba(226, 232, 240, 0.8); display: flex; align-items: flex-end; justify-content: space-between; gap: 8px;">
+                  <div>
+                    <div class="hotel-card-price-label" style="font-size: 0.7rem; color: #64748B; font-weight: 600; text-transform: uppercase; margin-bottom: 2px; letter-spacing: 0.3px;">Giá ưu đãi từ</div>
+                    <div class="hotel-card-price" style="font-size: 1.25rem; font-weight: 900; color: #0F2747; line-height: 1;">${formatCurrency(h.priceMin)} <span style="font-size: 0.75rem; color: #64748B; font-weight: 500;">/đêm</span></div>
+                  </div>
+                  <a href="pages/hotels/detail.html?id=${h.id}" class="btn btn-primary btn-sm" style="padding: 8px 18px; border-radius: 9999px; font-weight: 800; font-size: 0.86rem; background: linear-gradient(135deg, #0F2747 0%, #1E3A8A 100%); box-shadow: 0 4px 12px rgba(15, 39, 71, 0.2);">
+                    Xem phòng <span class="material-symbols-outlined icon-sm" style="font-size: 15px;">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+        bindFavoriteButtons(featuredContainer);
+      }
+
+      // 2.5. Render Recently Viewed Hotels (Carousel 4 Cards + Infinite Circle Navigation)
+      const recentlySection = document.getElementById('section-recently-viewed');
+      const recentlyContainer = document.getElementById('home-recently-viewed-grid');
+      const btnRecentPrev = document.getElementById('btn-recent-prev');
+      const btnRecentNext = document.getElementById('btn-recent-next');
+
+      if (recentlySection && recentlyContainer) {
+        let recentHotels = DB.getRecentlyViewed();
+        // If user hasn't viewed 4+ hotels yet, combine with other 5-star hotels to allow smooth carousel demonstration
+        if (!recentHotels || recentHotels.length < 4) {
+          const allHotels = DB.getHotels();
+          const existingIds = new Set((recentHotels || []).map(h => h.id));
+          const supplementary = allHotels.filter(h => !existingIds.has(h.id));
+          recentHotels = [...(recentHotels || []), ...supplementary].slice(0, 8);
+        }
+
+        if (recentHotels.length) {
+          recentlySection.style.display = 'block';
+          recentlyContainer.innerHTML = recentHotels.map(h => {
+            const isFav = DB.isFavorite(curUserId, h.id);
+            return `
+              <div class="recently-card-item">
+                <div class="card card-hover hotel-card shimmer-sweep" style="border-radius: 16px; overflow: hidden; height: 100%; display: flex; flex-direction: column; box-shadow: 0 4px 16px rgba(15, 39, 71, 0.06); border: 1px solid rgba(226, 232, 240, 0.9); background: #ffffff;">
+                  <button class="btn-favorite-heart ${isFav ? 'active' : ''}" data-id="${h.id}" title="${isFav ? 'Đã yêu thích' : 'Thêm vào yêu thích'}">
+                    <span class="material-symbols-outlined">favorite</span>
+                  </button>
+                  <div class="hotel-card-img-wrapper" style="height: 165px; position: relative; overflow: hidden;">
+                    <img loading="lazy" decoding="async" src="${formatImgPath(h.image)}" alt="${h.name}" class="hotel-card-img" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="hotel-card-badges" style="position: absolute; top: 10px; left: 10px;">
+                      <span class="badge badge-dark" style="font-size: 0.72rem; padding: 2px 7px; border-radius: 6px; backdrop-filter: blur(6px); background: rgba(15, 39, 71, 0.85);">${h.city}</span>
+                    </div>
+                  </div>
+                  <div class="hotel-card-body" style="padding: 14px 16px; display: flex; flex-direction: column; flex: 1; justify-content: space-between;">
+                    <div>
+                      <h4 class="hotel-card-title" style="font-size: 1.02rem; font-weight: 800; color: #0F2747; margin: 0 0 8px 0; line-height: 1.35; min-height: 44px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                        <a href="pages/hotels/detail.html?id=${h.id}" style="color: inherit; text-decoration: none;">${h.name}</a>
+                      </h4>
+                    </div>
+                    <div class="d-flex justify-between align-center" style="margin-top: 10px; border-top: 1px solid rgba(226, 232, 240, 0.8); padding-top: 10px;">
+                      <div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-weight: 600; text-transform: uppercase;">Giá từ</span>
+                        <div style="font-weight: 900; color: #0F2747; font-size: 1.08rem; line-height: 1;">${formatCurrency(h.priceMin)}</div>
+                      </div>
+                      <a href="pages/hotels/detail.html?id=${h.id}" class="btn btn-outline-primary btn-sm" style="padding: 5px 14px; font-size: 0.8rem; font-weight: 700; border-radius: 9999px;">Xem lại</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('');
+          bindFavoriteButtons(recentlyContainer);
+
+          // Setup Circular Carousel Sliding Logic
+          let recentSlideIndex = 0;
+          function getVisibleCount() {
+            if (window.innerWidth <= 640) return 1;
+            if (window.innerWidth <= 1024) return 2;
+            return 4;
+          }
+
+          function updateSliderPosition() {
+            const cardItems = recentlyContainer.querySelectorAll('.recently-card-item');
+            if (!cardItems.length) return;
+            const visibleCount = getVisibleCount();
+            const maxIndex = Math.max(0, cardItems.length - visibleCount);
+
+            // Wrap around for continuous loop (xoay vòng tròn)
+            if (recentSlideIndex > maxIndex) recentSlideIndex = 0;
+            if (recentSlideIndex < 0) recentSlideIndex = maxIndex;
+
+            const firstCard = cardItems[0];
+            const cardRect = firstCard.getBoundingClientRect();
+            const cardWidth = cardRect.width;
+            const gap = 20; // matched with CSS gap: 20px
+            const offset = recentSlideIndex * (cardWidth + gap);
+
+            recentlyContainer.style.transform = `translateX(-${offset}px)`;
+          }
+
+          if (btnRecentNext) {
+            btnRecentNext.addEventListener('click', () => {
+              const visibleCount = getVisibleCount();
+              const maxIndex = Math.max(0, recentHotels.length - visibleCount);
+              if (recentSlideIndex >= maxIndex) {
+                recentSlideIndex = 0; // Wrap around to start
+              } else {
+                recentSlideIndex++;
+              }
+              updateSliderPosition();
+            });
+          }
+
+          if (btnRecentPrev) {
+            btnRecentPrev.addEventListener('click', () => {
+              const visibleCount = getVisibleCount();
+              const maxIndex = Math.max(0, recentHotels.length - visibleCount);
+              if (recentSlideIndex <= 0) {
+                recentSlideIndex = maxIndex; // Wrap around to end
+              } else {
+                recentSlideIndex--;
+              }
+              updateSliderPosition();
+            });
+          }
+
+          window.addEventListener('resize', updateSliderPosition);
+        }
+      }
+
+      // 3. Render Popular Rooms (Top 3)
+      const popularRoomsContainer = document.getElementById('home-popular-rooms');
+      if (popularRoomsContainer) {
+        const rooms = DB.getRooms().slice(0, 3);
+        popularRoomsContainer.innerHTML = rooms.map(r => {
+          const htl = DB.getHotelById(r.hotelId);
+          return `
+            <div class="card card-hover hotel-card">
+              <div class="hotel-card-img-wrapper" style="height: 220px;">
+                <img loading="lazy" decoding="async" src="${formatImgPath(r.image || (htl ? htl.image : ''))}" alt="${r.name}" class="hotel-card-img">
+                <div class="hotel-card-badges">
+                  <span class="badge badge-accent"><span class="material-symbols-outlined icon-sm">king_bed</span> ${r.type}</span>
+                </div>
+                <div class="hotel-card-rating-badge">
+                  <span class="material-symbols-outlined icon-fill">verified</span> 5 Sao
+                </div>
+              </div>
+              <div class="hotel-card-body">
+                <div class="hotel-card-location">
+                  <span class="material-symbols-outlined">hotel</span> ${htl ? htl.name : 'Khách sạn 5 sao'} • ${htl ? htl.city : ''}
+                </div>
+                <h3 class="hotel-card-title"><a href="pages/rooms/detail.html?id=${r.id}&hotelId=${r.hotelId}">${r.name}</a></h3>
+                
+                <div class="d-flex gap-3 align-center" style="font-size: 0.82rem; color: #475569; margin: 8px 0 14px; background: #FAF8F4; padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(201, 162, 39, 0.2); white-space: nowrap; overflow: hidden; height: 38px;">
+                  <span class="d-flex align-center gap-1"><span class="material-symbols-outlined text-primary" style="font-size: 15px;">crop_free</span> ${r.size} m²</span>
+                  <span class="d-flex align-center gap-1"><span class="material-symbols-outlined text-primary" style="font-size: 15px;">group</span> ${r.capacityAdults} Người lớn</span>
+                  <span class="d-flex align-center gap-1"><span class="material-symbols-outlined text-primary" style="font-size: 15px;">bed</span> ${r.bed.split(' ')[0]} ${r.bed.split(' ')[1] || ''}</span>
+                </div>
+
+                <div class="hotel-card-footer">
+                  <div style="min-width: 0;">
+                    <div class="hotel-card-price-label">Giá trọn gói</div>
+                    <div class="hotel-card-price">${formatCurrency(r.price)} <span>/đêm</span></div>
+                  </div>
+                  <a href="pages/rooms/detail.html?id=${r.id}&hotelId=${r.hotelId}" class="btn btn-outline-primary btn-sm" style="padding: 8px 16px; border-radius: 9999px; font-weight: 700; white-space: nowrap; flex-shrink: 0;">
+                    Chi tiết phòng
+                  </a>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // 4. Render Promotions Vouchers
+      const vouchersContainer = document.getElementById('home-vouchers-grid');
+      if (vouchersContainer) {
+        const promos = DB.getPromotions(p => p.status === 'active');
+        vouchersContainer.innerHTML = promos.map(p => `
+          <div class="card card-hover voucher-card" style="padding: 22px; border-left: 5px solid var(--accent); background: #ffffff; display: flex; flex-direction: column; justify-content: space-between; height: 100%; border-radius: 16px; box-shadow: var(--shadow-sm);">
+            <div>
+              <div class="d-flex justify-between align-center" style="margin-bottom: 12px;">
+                <span class="badge badge-accent" style="font-weight: 700; font-size: 0.78rem;">${p.discountPercent > 0 ? `GIẢM ${p.discountPercent}%` : `-${formatCurrency(p.discountAmount)}`}</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 3px;">
+                  <span class="material-symbols-outlined icon-sm">schedule</span> HSD: ${formatDate(p.endDate)}
+                </span>
+              </div>
+              <h4 style="font-size: 1.08rem; font-weight: 800; color: var(--dark); margin-bottom: 8px; line-height: 1.35; min-height: 46px; display: flex; align-items: center;">${p.title}</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px; line-height: 1.5; min-height: 40px;">${p.description}</p>
+            </div>
+            <div class="d-flex justify-between align-center" style="margin-top: auto; background: var(--bg-card-alt); padding: 8px 14px; border-radius: var(--radius-md); border: 1px dashed var(--border-color);">
+              <code style="font-size: 1.05rem; font-weight: 800; color: var(--primary); letter-spacing: 0.5px;">${p.code}</code>
+              <button class="btn btn-sm btn-primary" onclick="navigator.clipboard.writeText('${p.code}'); Toast.success('Đã sao chép', 'Đã copy mã voucher ${p.code} vào clipboard!')">
+                <span class="material-symbols-outlined icon-sm">content_copy</span> Sao chép
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // 5. Render Testimonials with Initials Avatar & Verified Badge & Photos
+      const reviewsContainer = document.getElementById('home-reviews-grid');
+      if (reviewsContainer) {
+        const reviews = DB.getReviews().slice(0, 3);
+        reviewsContainer.innerHTML = reviews.map(r => {
+          const starCount = Math.min(5, Math.max(1, Math.round(Number(r.rating) || 5)));
+          const starIcons = Array(starCount).fill('<span class="material-symbols-outlined text-accent icon-fill icon-sm">star</span>').join('');
+          
+          const avatarHtml = typeof getInitialsAvatar === 'function'
+            ? getInitialsAvatar(r.userName, '', 'width: 48px; height: 48px; font-size: 1.15rem; flex-shrink: 0; border: 2px solid rgba(201, 162, 39, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.08);')
+            : `<div class="user-avatar" style="width: 48px; height: 48px; background: linear-gradient(135deg, #0F2747 0%, #1A3E6B 100%); color: #FDE047; display: flex; align-items: center; justify-content: center; font-weight: 800; border-radius: 50%; flex-shrink: 0; border: 2px solid rgba(201, 162, 39, 0.4);">${(r.userName || 'U')[0]}</div>`;
+
+          const photosHtml = (r.images && r.images.length)
+            ? `<div class="review-photos-grid" style="margin-top: 12px; display: flex; gap: 8px;">${r.images.map(img => `<img loading="lazy" decoding="async" src="${img}" class="review-photo-thumb" alt="Ảnh thực tế" style="width: 64px; height: 64px; object-fit: cover; border-radius: 8px; border: 1px solid #E2E8F0;">`).join('')}</div>`
+            : '';
+
+          const htl = DB.getHotelById(r.hotelId);
+          const hotelDisplayName = r.hotelName || (htl ? htl.name : 'Khách sạn đối tác');
+
+          return `
+            <div class="card p-4 card-hover testimonial-card shimmer-sweep" style="padding: 28px 26px; border-radius: 20px; border: 1.5px solid rgba(226, 232, 240, 0.9); box-shadow: 0 6px 22px rgba(15, 39, 71, 0.06); display: flex; flex-direction: column; justify-content: space-between; position: relative; background: #ffffff;">
+              <span class="material-symbols-outlined testimonial-quote-mark">format_quote</span>
+              <div>
+                <div class="d-flex justify-between align-center" style="margin-bottom: 16px; position: relative; z-index: 2;">
+                  <div class="d-flex align-center gap-1" style="background: rgba(245, 158, 11, 0.1); padding: 4px 10px; border-radius: 9999px; border: 1px solid rgba(245, 158, 11, 0.25);">
+                    ${starIcons}
+                    <span style="font-size: 0.75rem; font-weight: 800; color: #B45309; margin-left: 2px;">5.0</span>
+                  </div>
+                  <span class="badge-verified-stay" style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.74rem; color: #047857; background: #ecfdf5; padding: 4px 10px; border-radius: 9999px; font-weight: 750; border: 1px solid #a7f3d0;">
+                    <span class="material-symbols-outlined icon-sm" style="font-size: 15px;">verified</span> Đã trải nghiệm
+                  </span>
+                </div>
+                <p style="font-size: 0.94rem; color: #1e293b; line-height: 1.7; margin-bottom: 18px; position: relative; z-index: 2; font-weight: 500;">
+                  "${r.comment}"
+                </p>
+                ${photosHtml}
+              </div>
+              <div class="d-flex align-center gap-3" style="margin-top: 16px; border-top: 1px solid #f1f5f9; padding-top: 16px; position: relative; z-index: 2;">
+                ${avatarHtml}
+                <div style="min-width: 0; flex: 1;">
+                  <div style="font-weight: 850; color: #0F2747; font-size: 0.98rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${r.userName}</div>
+                  <div style="font-size: 0.8rem; color: #64748b; display: flex; align-items: center; gap: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;">
+                    <span class="material-symbols-outlined text-primary" style="font-size: 15px; flex-shrink: 0; color: #C9A227;">hotel</span>
+                    <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; color: #334155;">${hotelDisplayName}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // 6. Render Latest News / Articles (Top 3)
+      const newsContainer = document.getElementById('home-news-grid');
+      if (newsContainer) {
+        const articles = DB.getArticles(a => a.status === 'published').slice(0, 3);
+        const badgeColorMap = {
+          primary: 'badge-primary',
+          secondary: 'badge-secondary',
+          accent: 'badge-accent',
+          info: 'badge-info',
+          success: 'badge-success',
+          green: 'badge-success',
+          gold: 'badge-accent',
+          teal: 'badge-info'
+        };
+        newsContainer.innerHTML = articles.map(a => `
+          <div class="card card-hover" style="overflow: hidden; display: flex; flex-direction: column;">
+            <a href="pages/news/detail.html?id=${a.id}" style="display: block; overflow: hidden; height: 210px;">
+              <img loading="lazy" decoding="async" src="${a.image}" alt="${a.title}" style="height: 100%; width: 100%; object-fit: cover; transition: transform 0.3s ease;">
+            </a>
+            <div style="padding: 22px; flex: 1; display: flex; flex-direction: column;">
+              <span class="badge ${badgeColorMap[a.categoryColor] || 'badge-primary'}" style="margin-bottom: 10px; align-self: flex-start;">${a.category}</span>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--dark); margin-bottom: 8px; line-height: 1.4;">
+                <a href="pages/news/detail.html?id=${a.id}" style="color: inherit;">${a.title}</a>
+              </h3>
+              <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; flex: 1;">${truncateText(a.excerpt, 110)}</p>
+              <div class="d-flex justify-between align-center" style="border-top: 1px solid var(--border-light); padding-top: 12px; font-size: 0.8rem; color: var(--text-light);">
+                <span style="display: flex; align-items: center; gap: 4px;">
+                  <span class="material-symbols-outlined icon-sm">calendar_today</span> ${a.createdAt}
+                </span>
+                <a href="pages/news/detail.html?id=${a.id}" class="text-primary font-semibold" style="display: flex; align-items: center; gap: 2px;">
+                  Đọc tiếp <span class="material-symbols-outlined icon-sm">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Khởi chạy lại Scroll Reveal cho các phần tử được render động
+      if (typeof Motion !== 'undefined' && Motion.initScrollReveal) {
+        Motion.initScrollReveal();
+      }
+    });
+  </script>
+</body>
+</html>

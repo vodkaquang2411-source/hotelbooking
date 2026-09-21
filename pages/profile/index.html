@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tài Khoản & Lịch Sử Đặt Phòng - HotelBooking</title>
+  
+  <!-- Google Material Symbols Outlined & Material Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheets -->
+  <link rel="stylesheet" href="../../css/style.css?v=11.0">
+  <link rel="stylesheet" href="../../css/components.css?v=11.0">
+  <link rel="stylesheet" href="../../css/responsive.css?v=11.0">
+
+  <style>
+    .profile-nav-btn {
+      width: 100%;
+      text-align: left;
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all var(--transition-fast);
+    }
+    .profile-nav-btn:hover {
+      background: var(--bg-card-alt);
+      color: var(--primary);
+      transform: translateX(4px);
+    }
+    .profile-nav-btn.active {
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-left: 4px solid var(--primary);
+    }
+    .profile-nav-btn .material-symbols-outlined {
+      font-size: 22px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+
+    <div class="container navbar">
+      <a href="../../index.html" class="brand-logo">
+        <img src="../../img/logo.png" alt="HotelBooking" class="logo-img">
+      </a>
+
+      <nav class="nav-menu" id="nav-menu">
+        <a href="../../index.html" class="nav-link">Trang chủ</a>
+        <a href="../hotels/index.html" class="nav-link">Khách sạn</a>
+        <a href="../../index.html#promotions-section" class="nav-link">
+          Khuyến mãi
+          <span class="nav-tag-badge">Hot</span>
+        </a>
+        <a href="../../index.html#services-section" class="nav-link">Dịch vụ 5★</a>
+        <a href="../news/index.html" class="nav-link">Cẩm nang</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="nav-user-actions"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="section-sm">
+    <div class="container">
+      
+      <div class="d-grid profile-layout" style="grid-template-columns: 280px 1fr; gap: 32px; align-items: flex-start;">
+        
+        <!-- LEFT: USER SIDEBAR -->
+        <aside>
+          <!-- User Profile Brief Card -->
+          <div class="card p-4 text-center" style="padding: 28px 20px; margin-bottom: 20px;">
+            <div id="profile-avatar-container" style="margin: 0 auto 14px; display: flex; justify-content: center;"></div>
+            <h3 id="profile-display-name" style="font-size: 1.15rem; font-weight: 800; color: var(--dark); margin-bottom: 4px;">...</h3>
+            <div id="profile-display-email" style="font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 12px;">...</div>
+            <span class="badge badge-accent" id="profile-display-booking-count">0 lượt đặt phòng</span>
+          </div>
+
+          <!-- Navigation Tabs -->
+          <div class="card p-2" style="padding: 10px;">
+            <button class="profile-nav-btn active" data-tab="profile">
+              <span class="material-symbols-outlined">person</span> Thông tin cá nhân
+            </button>
+            <button class="profile-nav-btn" data-tab="favorites">
+              <span class="material-symbols-outlined text-danger">favorite</span> Khách sạn yêu thích
+            </button>
+            <button class="profile-nav-btn" data-tab="bookings">
+              <span class="material-symbols-outlined">history</span> Lịch sử đặt phòng
+            </button>
+            <button class="profile-nav-btn" data-tab="reviews">
+              <span class="material-symbols-outlined">reviews</span> Đánh giá của tôi
+            </button>
+            <button class="profile-nav-btn" data-tab="security">
+              <span class="material-symbols-outlined">lock_reset</span> Đổi mật khẩu
+            </button>
+          </div>
+        </aside>
+
+        <!-- RIGHT: TAB CONTENTS -->
+        <section>
+          
+          <!-- TAB 1: THÔNG TIN CÁ NHÂN -->
+          <div class="card p-4 profile-tab-pane" id="tab-profile" style="padding: 32px;">
+            <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--dark); margin-bottom: 24px; display: flex; align-items: center; gap: 8px;">
+              <span class="material-symbols-outlined text-primary">person</span> Cập Nhật Thông Tin Cá Nhân
+            </h2>
+
+            <form id="form-update-profile">
+              <div class="d-grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                  <label class="form-label"><span class="material-symbols-outlined">badge</span> Họ và tên</label>
+                  <input type="text" id="input-profile-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label"><span class="material-symbols-outlined">mail</span> Địa chỉ email (cố định)</label>
+                  <input type="email" id="input-profile-email" class="form-control" disabled style="background: var(--bg-card-alt);">
+                </div>
+              </div>
+
+              <div class="d-grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                  <label class="form-label"><span class="material-symbols-outlined">call</span> Số điện thoại</label>
+                  <input type="tel" id="input-profile-phone" class="form-control" placeholder="Chưa cập nhật">
+                </div>
+                <div class="form-group">
+                  <label class="form-label"><span class="material-symbols-outlined">home</span> Địa chỉ thường trú</label>
+                  <input type="text" id="input-profile-address" class="form-control" placeholder="Chưa cập nhật">
+                </div>
+              </div>
+
+              <div class="d-flex justify-end" style="margin-top: 14px;">
+                <button type="submit" class="btn btn-primary">
+                  <span class="material-symbols-outlined icon-sm">save</span> Lưu thay đổi
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- TAB 1.5: KHÁCH SẠN YÊU THÍCH -->
+          <div class="profile-tab-pane" id="tab-favorites" style="display: none;">
+            <div class="d-flex justify-between align-center" style="margin-bottom: 20px;">
+              <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 8px;">
+                <span class="material-symbols-outlined text-danger">favorite</span> Danh Sách Khách Sạn Yêu Thích Của Bạn
+              </h2>
+            </div>
+            <div class="d-grid" id="user-favorites-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">
+              <!-- Rendered by profile.js -->
+            </div>
+          </div>
+
+          <!-- TAB 2: LỊCH SỬ ĐẶT PHÒNG -->
+          <div class="profile-tab-pane" id="tab-bookings" style="display: none;">
+            <div class="d-flex justify-between align-center" style="margin-bottom: 20px;">
+              <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 8px;">
+                <span class="material-symbols-outlined text-primary">receipt_long</span> Danh Sách Đơn Đặt Phòng Của Bạn
+              </h2>
+            </div>
+            <div id="user-bookings-list">
+              <!-- Rendered by profile.js -->
+            </div>
+          </div>
+
+          <!-- TAB 3: ĐÁNH GIÁ CỦA TÔI -->
+          <div class="profile-tab-pane" id="tab-reviews" style="display: none;">
+            <div class="d-flex justify-between align-center" style="margin-bottom: 20px;">
+              <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 8px;">
+                <span class="material-symbols-outlined text-accent">reviews</span> Nhận Xét & Đánh Giá Đã Gửi
+              </h2>
+            </div>
+            <div id="user-reviews-list">
+              <!-- Rendered by profile.js -->
+            </div>
+          </div>
+
+          <!-- TAB 4: ĐỔI MẬT KHẨU -->
+          <div class="card p-4 profile-tab-pane" id="tab-security" style="padding: 32px; display: none;">
+            <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--dark); margin-bottom: 24px; display: flex; align-items: center; gap: 8px;">
+              <span class="material-symbols-outlined text-primary">lock_reset</span> Đổi Mật Khẩu Đăng Nhập
+            </h2>
+
+            <form id="form-change-password" style="max-width: 480px;">
+              <div class="form-group">
+                <label class="form-label"><span class="material-symbols-outlined">key</span> Mật khẩu hiện tại</label>
+                <input type="password" id="input-old-password" class="form-control" required placeholder="Nhập mật khẩu cũ...">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label"><span class="material-symbols-outlined">lock</span> Mật khẩu mới</label>
+                <input type="password" id="input-new-password" class="form-control" required placeholder="Tối thiểu 6 ký tự...">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label"><span class="material-symbols-outlined">verified</span> Xác nhận mật khẩu mới</label>
+                <input type="password" id="input-confirm-password" class="form-control" required placeholder="Nhập lại mật khẩu mới...">
+              </div>
+
+              <div class="d-flex justify-end" style="margin-top: 20px;">
+                <button type="submit" class="btn btn-primary">
+                  <span class="material-symbols-outlined icon-sm">check</span> Xác nhận đổi mật khẩu
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </section>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 HotelBooking. Bản quyền thuộc về Vũ Kim Quang.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       MODAL: VIẾT ĐÁNH GIÁ (REVIEW MODAL)
+       ========================================================================== -->
+  <div class="modal-overlay" id="modal-write-review">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title"><span class="material-symbols-outlined text-accent">grade</span> Đánh Giá Trải Nghiệm Khách Sạn</div>
+        <button class="modal-close" id="btn-close-review-modal">&times;</button>
+      </div>
+      <form id="form-submit-review">
+        <div class="modal-body">
+          <div style="margin-bottom: 18px; font-weight: 800; color: var(--dark); font-size: 1.1rem;" id="review-hotel-name-label">
+            Khách sạn...
+          </div>
+
+          <div class="form-group text-center" style="margin-bottom: 24px;">
+            <label class="form-label" style="justify-content: center;">Chấm điểm số sao:</label>
+            <div class="interactive-stars" id="interactive-stars" style="justify-content: center; margin-top: 8px;">
+              <span class="material-symbols-outlined selected" data-star="1">star</span>
+              <span class="material-symbols-outlined selected" data-star="2">star</span>
+              <span class="material-symbols-outlined selected" data-star="3">star</span>
+              <span class="material-symbols-outlined selected" data-star="4">star</span>
+              <span class="material-symbols-outlined selected" data-star="5">star</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><span class="material-symbols-outlined">chat</span> Nhận xét chi tiết của bạn</label>
+            <textarea id="input-review-comment" class="form-control" rows="4" placeholder="Chia sẻ cảm nhận về phòng nghỉ, đồ ăn, thái độ nhân viên, tiện ích hồ bơi..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline btn-modal-dismiss" id="btn-close-review-modal-footer">Hủy bỏ</button>
+          <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: HỦY ĐẶT PHÒNG (LUXURY CANCEL MODAL)
+       ========================================================================== -->
+  <div class="modal-overlay" id="modal-cancel-booking">
+    <div class="modal-container" style="max-width: 540px; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);">
+      <div class="modal-header" style="background: #fef2f2; border-bottom: 1px solid #fecaca; padding: 20px 26px;">
+        <div class="modal-title text-danger" style="display: flex; align-items: center; gap: 8px; font-size: 1.2rem; font-weight: 800;">
+          <span class="material-symbols-outlined" style="color: #dc2626; font-size: 24px;">warning</span> Xác Nhận Hủy Đặt Phòng
+        </div>
+        <button class="modal-close" id="btn-close-cancel-modal" type="button" aria-label="Đóng">&times;</button>
+      </div>
+      <form id="form-submit-cancel">
+        <div class="modal-body" style="padding: 24px 26px;">
+          <p style="font-size: 1rem; color: var(--dark); margin-bottom: 16px; line-height: 1.6;">
+            Bạn có chắc chắn muốn hủy đơn đặt phòng mã <strong id="cancel-booking-code-label" style="color: var(--primary); font-size: 1.1rem; font-weight: 800;">BK...</strong> không?
+          </p>
+
+          <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px; padding: 12px 16px; font-size: 0.85rem; color: #1e40af; margin-bottom: 18px; display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;">
+            <span class="material-symbols-outlined" style="font-size: 20px; color: #2563eb; flex-shrink: 0;">info</span>
+            <span><strong>Chính sách hoàn tiền:</strong> Miễn phí hủy phòng trước 24 giờ. Số tiền sẽ được hoàn trả về tài khoản ban đầu trong 1 - 3 ngày làm việc.</span>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label" style="font-weight: 700; font-size: 0.9rem; margin-bottom: 8px;">Chọn nhanh lý do hủy phòng:</label>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+              <button type="button" class="cancel-reason-chip" data-reason="Thay đổi lịch trình chuyến đi đột xuất" style="background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 9999px; padding: 6px 14px; font-size: 0.82rem; font-weight: 600; cursor: pointer; color: #334155; transition: all 0.2s;">🗓️ Thay đổi lịch trình</button>
+              <button type="button" class="cancel-reason-chip" data-reason="Tìm được khách sạn khác phù hợp hơn" style="background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 9999px; padding: 6px 14px; font-size: 0.82rem; font-weight: 600; cursor: pointer; color: #334155; transition: all 0.2s;">🏨 Tìm được phòng khác</button>
+              <button type="button" class="cancel-reason-chip" data-reason="Có việc cá nhân bận đột xuất" style="background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 9999px; padding: 6px 14px; font-size: 0.82rem; font-weight: 600; cursor: pointer; color: #334155; transition: all 0.2s;">💼 Việc cá nhân</button>
+            </div>
+            <textarea id="input-cancel-reason" class="form-control" rows="3" placeholder="Nhập lý do chi tiết (nếu có)..." required style="border-radius: 12px; font-size: 0.9rem; padding: 12px 14px;"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer" style="padding: 16px 26px; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; align-items: center; gap: 12px;">
+          <button type="button" class="btn btn-outline" id="btn-cancel-keep-booking" style="min-width: 140px; height: 44px; padding: 0 24px; font-size: 0.95rem; font-weight: 700; border-radius: 9999px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; white-space: nowrap; cursor: pointer; border: 1.5px solid #cbd5e1; background: #ffffff; color: #334155;">
+            <span class="material-symbols-outlined icon-sm">close</span> Không hủy
+          </button>
+          <button type="submit" class="btn btn-danger" style="border-radius: 9999px; font-weight: 700; padding: 10px 24px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;">
+            <span class="material-symbols-outlined icon-sm">cancel</span> Xác nhận hủy phòng
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../../js/utils/formatters.js"></script>
+  <script src="../../js/utils/toast.js"></script>
+  <script src="../../js/data/seed-data.js"></script>
+  <script src="../../js/data/firebase-config.js"></script>
+  <script src="../../js/data/db.js"></script>
+  <script src="../../js/auth/auth.js"></script>
+  <script src="../../js/utils/animations.js"></script>
+  <script src="../../js/utils/ticket-printer.js"></script>
+  <script src="../../js/profile/profile.js"></script>
+  <script src="../../js/utils/social-floating.js?v=9.0"></script>
+  <script src="../../js/utils/chatbox.js?v=9.0"></script>
+</body>
+</html>
