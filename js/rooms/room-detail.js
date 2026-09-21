@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const hotelId = urlParams.get('hotelId');
   const paramCheckIn = urlParams.get('checkIn');
   const paramCheckOut = urlParams.get('checkOut');
-
   const room = DB.getRoomById(roomId);
   const hotel = hotelId ? DB.getHotelById(hotelId) : (room ? DB.getHotelById(room.hotelId) : null);
 
@@ -20,13 +19,17 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  const isFlashSale = urlParams.get('flashSale') === '1';
+  const flashDiscount = parseInt(urlParams.get('discount') || '40', 10);
+  const flashSalePrice = parseInt(urlParams.get('salePrice'), 10) || Math.round(room.price * (1 - flashDiscount / 100) / 1000) * 1000;
+
   document.title = `${room.name} - ${hotel.name}`;
 
-  renderRoomDetails(room, hotel);
-  setupBookingWidget(room, hotel, paramCheckIn, paramCheckOut);
+  renderRoomDetails(room, hotel, isFlashSale, flashDiscount, flashSalePrice);
+  setupBookingWidget(room, hotel, paramCheckIn, paramCheckOut, isFlashSale, flashDiscount, flashSalePrice);
 });
 
-function renderRoomDetails(room, hotel) {
+function renderRoomDetails(room, hotel, isFlashSale = false, flashDiscount = 0, flashSalePrice = 0) {
   const titleEl = document.getElementById('room-title');
   const hotelLinkEl = document.getElementById('room-hotel-link');
   const sizeEl = document.getElementById('room-size');
@@ -50,7 +53,21 @@ function renderRoomDetails(room, hotel) {
   if (adultsEl) adultsEl.textContent = `${room.capacityAdults} Người lớn`;
   if (childrenEl) childrenEl.textContent = `${room.capacityChildren || 0} Trẻ em`;
   if (viewEl) viewEl.textContent = room.view || 'Ban công thoáng mát';
-  if (priceEl) priceEl.textContent = formatCurrency(room.price);
+  if (priceEl) {
+    if (isFlashSale) {
+      priceEl.innerHTML = `
+        <div class="d-flex align-baseline gap-2 flex-wrap">
+          <span style="color: #DC2626; font-size: 1.55rem; font-weight: 900;">${formatCurrency(flashSalePrice)}</span>
+          <span style="font-size: 0.95rem; text-decoration: line-through; color: #94A3B8;">${formatCurrency(room.price)}</span>
+          <span class="badge" style="background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); color: #fff; font-size: 0.72rem; padding: 3px 9px; border-radius: 9999px; font-weight: 800; display: inline-flex; align-items: center; gap: 2px;">
+            <span class="material-symbols-outlined" style="font-size: 12px;">bolt</span> FLASH SALE -${flashDiscount}%
+          </span>
+        </div>
+      `;
+    } else {
+      priceEl.textContent = formatCurrency(room.price);
+    }
+  }
   if (descEl) descEl.textContent = room.description;
 
   if (galleryContainer) {
@@ -72,7 +89,7 @@ function renderRoomDetails(room, hotel) {
   }
 }
 
-function setupBookingWidget(room, hotel, initCheckIn, initCheckOut) {
+function setupBookingWidget(room, hotel, initCheckIn, initCheckOut, isFlashSale = false, flashDiscount = 0, flashSalePrice = 0) {
   const checkInInput = document.getElementById('widget-checkin');
   const checkOutInput = document.getElementById('widget-checkout');
   const nightsLabel = document.getElementById('widget-nights-count');
@@ -101,8 +118,18 @@ function setupBookingWidget(room, hotel, initCheckIn, initCheckOut) {
     if (!checkInInput || !checkOutInput) return;
     const nights = calculateNights(checkInInput.value, checkOutInput.value);
     if (nightsLabel) nightsLabel.textContent = `${nights} đêm`;
-    const total = nights * (room.price || 0);
-    if (totalAmountLabel) totalAmountLabel.textContent = formatCurrency(total);
+    const pricePerNight = isFlashSale ? flashSalePrice : (room.price || 0);
+    const total = nights * pricePerNight;
+    if (totalAmountLabel) {
+      if (isFlashSale) {
+        totalAmountLabel.innerHTML = `
+          <span style="color: #DC2626; font-weight: 900;">${formatCurrency(total)}</span>
+          <span style="font-size: 0.8rem; color: #94A3B8; text-decoration: line-through; margin-left: 6px;">${formatCurrency(nights * room.price)}</span>
+        `;
+      } else {
+        totalAmountLabel.textContent = formatCurrency(total);
+      }
+    }
 
     const avail = DB.checkRoomAvailability(room.id, checkInInput.value, checkOutInput.value, 1);
     if (!avail.isAvailable) {
@@ -115,7 +142,7 @@ function setupBookingWidget(room, hotel, initCheckIn, initCheckOut) {
       if (btnBookNow) {
         btnBookNow.classList.remove('disabled');
         btnBookNow.disabled = false;
-        btnBookNow.innerHTML = `<span class="material-symbols-outlined">lock</span> Đặt phòng ngay`;
+        btnBookNow.innerHTML = `<span class="material-symbols-outlined">lock</span> ${isFlashSale ? '⚡ Săn deal ngay' : 'Đặt phòng ngay'}`;
       }
     }
   }
@@ -143,7 +170,8 @@ function setupBookingWidget(room, hotel, initCheckIn, initCheckOut) {
         Toast.warning('Phòng này đã kín lịch trong khoảng ngày bạn chọn. Vui lòng chọn ngày khác!');
         return;
       }
-      window.location.href = `${root}pages/booking/index.html?hotelId=${hotel.id}&roomId=${room.id}&checkIn=${cIn}&checkOut=${cOut}`;
+      const flashParams = isFlashSale ? `&flashSale=1&discount=${flashDiscount}&salePrice=${flashSalePrice}` : '';
+      window.location.href = `${root}pages/booking/index.html?hotelId=${hotel.id}&roomId=${room.id}&checkIn=${cIn}&checkOut=${cOut}${flashParams}`;
     });
   }
 }

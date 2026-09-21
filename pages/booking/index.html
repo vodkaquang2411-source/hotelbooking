@@ -82,6 +82,7 @@
             </h2>
 
             <div id="booking-availability-alert"></div>
+            <div id="booking-flash-sale-banner" style="display: none; margin-bottom: 20px;"></div>
 
             <div class="d-grid" style="grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
               <div class="form-group">
@@ -307,6 +308,7 @@
                 <h4 id="summary-hotel-name" style="font-size: 0.95rem; font-weight: 800; color: var(--dark); line-height: 1.3;">Đang tải...</h4>
                 <div id="summary-room-name" style="font-size: 0.8125rem; color: var(--primary); font-weight: 700;">Đang tải...</div>
                 <div id="summary-hotel-address" style="font-size: 0.75rem; color: var(--text-muted);">...</div>
+                <div id="summary-flash-sale-badge-wrap" style="display: none; margin-top: 4px;"></div>
               </div>
             </div>
 
@@ -315,6 +317,10 @@
               <div class="d-flex justify-between">
                 <span class="text-muted" id="summary-nights-label">1 đêm:</span>
                 <strong id="summary-subtotal">...</strong>
+              </div>
+              <div class="d-flex justify-between" id="summary-flash-sale-row" style="display: none; color: #DC2626;">
+                <span class="d-flex align-center gap-1 font-bold"><span class="material-symbols-outlined" style="font-size: 15px;">bolt</span> Ưu đãi Flash Sale:</span>
+                <strong id="summary-flash-sale-amount">-0đ</strong>
               </div>
               <div class="d-flex justify-between" id="summary-services-row" style="display: none; color: var(--primary);">
                 <span>Dịch vụ cộng thêm:</span>

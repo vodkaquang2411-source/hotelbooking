@@ -363,6 +363,10 @@ function renderHotelRooms(hotel, checkIn, checkOut) {
     return;
   }
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const isFlashSale = urlParams.get('flashSale') === '1';
+  const flashDiscount = parseInt(urlParams.get('discount') || '40', 10);
+
   roomsContainer.innerHTML = rooms.map(room => {
     const amenitiesBadges = (room.amenities || []).slice(0, 3).map(a => `
       <span class="amenity-chip" style="font-size: 0.72rem; padding: 2px 8px; border-radius: 6px; background: #F8FAFC; border: 1px solid #E2E8F0;">
@@ -379,11 +383,43 @@ function renderHotelRooms(hotel, checkIn, checkOut) {
           : `<span class="availability-tag soldout" style="font-size: 0.75rem; padding: 3px 10px;"><span class="material-symbols-outlined" style="font-size: 14px;">highlight_off</span> Hết phòng ngày này</span>`)
       : `<span class="availability-tag available" style="font-size: 0.75rem; padding: 3px 10px;"><span class="material-symbols-outlined" style="font-size: 14px;">check_circle</span> Còn phòng sẵn sàng</span>`;
 
+    // Tính giá sale nếu đang trong phiên Flash Sale
+    const roomSalePrice = isFlashSale 
+      ? Math.round(room.price * (1 - flashDiscount / 100) / 1000) * 1000 
+      : room.price;
+
+    const flashSaleParams = isFlashSale 
+      ? `&flashSale=1&discount=${flashDiscount}&salePrice=${roomSalePrice}` 
+      : '';
+
+    const priceBoxHtml = isFlashSale ? `
+      <div class="room-price-header">
+        <div class="d-flex align-center gap-1" style="margin-bottom: 3px;">
+          <span class="badge" style="background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); color: #fff; font-size: 0.68rem; padding: 2px 7px; border-radius: 9999px; font-weight: 800; display: inline-flex; align-items: center; gap: 2px;">
+            <span class="material-symbols-outlined" style="font-size: 11px;">bolt</span> GIẢM ${flashDiscount}%
+          </span>
+          <span class="room-price-label" style="font-size: 0.75rem; color: #DC2626; font-weight: 700;">Giá Flash Sale:</span>
+        </div>
+        <div class="d-flex align-baseline gap-2">
+          <div class="room-price-total" style="color: #DC2626; font-weight: 900; font-size: 1.35rem;">${formatCurrency(roomSalePrice)}</div>
+          <div style="font-size: 0.8rem; text-decoration: line-through; color: #94A3B8;">${formatCurrency(room.price)}</div>
+        </div>
+        <div class="room-price-tax-note">Đã gồm thuế & phí</div>
+      </div>
+    ` : `
+      <div class="room-price-header">
+        <div class="room-price-label">Giá mỗi đêm từ</div>
+        <div class="room-price-total">${formatCurrency(room.price)}</div>
+        <div class="room-price-tax-note">Đã gồm thuế & phí</div>
+      </div>
+    `;
+
     return `
-      <div class="hotel-room-card">
+      <div class="hotel-room-card" style="${isFlashSale ? 'border: 1.5px solid rgba(239, 68, 68, 0.4); box-shadow: 0 4px 18px rgba(239, 68, 68, 0.08);' : ''}">
         <div class="hotel-room-card-media">
           <img src="${formatImgPath(room.image || hotel.image)}" alt="${room.name}" loading="lazy">
           <span class="badge badge-dark" style="position: absolute; top: 8px; left: 8px; font-size: 0.72rem; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(4px);">${room.type || 'Phòng cao cấp'}</span>
+          ${isFlashSale ? `<span class="badge" style="position: absolute; top: 8px; right: 8px; font-size: 0.72rem; background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); color: #fff; font-weight: 800; border-radius: 9999px; box-shadow: 0 2px 8px rgba(239,68,68,0.5);">⚡ Flash Sale</span>` : ''}
         </div>
         
         <div class="hotel-room-card-content">
@@ -405,23 +441,19 @@ function renderHotelRooms(hotel, checkIn, checkOut) {
         </div>
 
         <div class="hotel-room-card-action">
-          <div class="room-price-header">
-            <div class="room-price-label">Giá mỗi đêm từ</div>
-            <div class="room-price-total">${formatCurrency(room.price)}</div>
-            <div class="room-price-tax-note">Đã gồm thuế & phí</div>
-          </div>
+          ${priceBoxHtml}
 
           <div style="margin: 6px 0; width: 100%;">
             ${availLabel}
           </div>
 
           <div class="room-action-buttons">
-            <a href="${root}pages/rooms/detail.html?id=${room.id}&hotelId=${hotel.id}${checkIn ? `&checkIn=${checkIn}` : ''}${checkOut ? `&checkOut=${checkOut}` : ''}" class="btn btn-outline btn-sm" style="flex: 1; padding: 7px 6px; font-size: 0.8rem; border-radius: 8px; justify-content: center;">
+            <a href="${root}pages/rooms/detail.html?id=${room.id}&hotelId=${hotel.id}${checkIn ? `&checkIn=${checkIn}` : ''}${checkOut ? `&checkOut=${checkOut}` : ''}${flashSaleParams}" class="btn btn-outline btn-sm" style="flex: 1; padding: 7px 6px; font-size: 0.8rem; border-radius: 8px; justify-content: center;">
               Chi tiết
             </a>
             ${isAvailable ? `
-              <a href="${root}pages/booking/index.html?hotelId=${hotel.id}&roomId=${room.id}${checkIn ? `&checkIn=${checkIn}` : ''}${checkOut ? `&checkOut=${checkOut}` : ''}" class="btn btn-primary btn-sm" style="flex: 1.3; padding: 7px 8px; font-size: 0.8rem; font-weight: 700; border-radius: 8px; justify-content: center;">
-                Đặt ngay
+              <a href="${root}pages/booking/index.html?hotelId=${hotel.id}&roomId=${room.id}${checkIn ? `&checkIn=${checkIn}` : ''}${checkOut ? `&checkOut=${checkOut}` : ''}${flashSaleParams}" class="btn btn-primary btn-sm" style="flex: 1.3; padding: 7px 8px; font-size: 0.8rem; font-weight: 700; border-radius: 8px; justify-content: center; ${isFlashSale ? 'background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); border: none; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);' : ''}">
+                ${isFlashSale ? '⚡ Săn deal ngay' : 'Đặt ngay'}
               </a>
             ` : `
               <button class="btn btn-primary btn-sm disabled" style="flex: 1.3; padding: 7px 8px; font-size: 0.8rem; border-radius: 8px; justify-content: center;" disabled title="Hết phòng trong thời gian bạn chọn">Hết phòng</button>

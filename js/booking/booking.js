@@ -32,6 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  const isFlashSale = urlParams.get('flashSale') === '1';
+  const flashDiscount = parseInt(urlParams.get('discount') || '0', 10);
+  const flashSalePrice = parseInt(urlParams.get('salePrice') || '0', 10);
+
+  const calculatedSalePrice = flashSalePrice > 0 
+    ? flashSalePrice 
+    : (flashDiscount > 0 ? Math.round(room.price * (1 - flashDiscount / 100) / 1000) * 1000 : room.price);
+
   // Booking State Object
   const state = {
     currentStep: 1,
@@ -43,7 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
     roomCount: 1,
     adults: room.capacityAdults || 2,
     children: 0,
-    pricePerNight: room.price,
+    isFlashSale,
+    flashDiscount: isFlashSale ? (flashDiscount || Math.round((1 - calculatedSalePrice / room.price) * 100)) : 0,
+    originalPricePerNight: room.price,
+    pricePerNight: isFlashSale ? calculatedSalePrice : room.price,
+    flashSaleSavings: 0,
     subtotal: 0,
     selectedServices: [],
     servicesTotal: 0,
@@ -138,6 +150,40 @@ function initBookingView(state) {
     });
   }
 
+  // Hiển thị Flash Sale banner nếu đang áp dụng
+  const fsBanner = document.getElementById('booking-flash-sale-banner');
+  const fsBadgeWrap = document.getElementById('summary-flash-sale-badge-wrap');
+  if (state.isFlashSale) {
+    if (fsBanner) {
+      fsBanner.style.display = 'block';
+      fsBanner.innerHTML = `
+        <div class="card p-3" style="background: linear-gradient(135deg, #07172C 0%, #0F2747 100%); border: 1.5px solid #F59E0B; border-radius: 12px; color: #fff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; box-shadow: 0 4px 16px rgba(239, 68, 68, 0.2);">
+          <div class="d-flex align-center gap-2">
+            <span class="material-symbols-outlined" style="font-size: 28px; color: #EF4444;">bolt</span>
+            <div>
+              <div style="font-weight: 800; font-size: 0.95rem; color: #FDE047;">⚡ Đang áp dụng Ưu đãi Flash Sale Giờ Vàng (-${state.flashDiscount}%)</div>
+              <div style="font-size: 0.8rem; color: #E2E8F0;">Bạn đang nhận mức giá độc quyền: <strong style="color: #FDE047;">${formatCurrency(state.pricePerNight)}</strong>/đêm (Giá gốc: <span style="text-decoration: line-through; opacity: 0.75;">${formatCurrency(state.originalPricePerNight)}</span>).</div>
+            </div>
+          </div>
+          <span class="badge" style="background: #EF4444; color: #fff; font-weight: 800; font-size: 0.72rem; padding: 4px 10px; border-radius: 9999px;">TIẾT KIỆM ${formatCurrency(state.originalPricePerNight - state.pricePerNight)}/ĐÊM</span>
+        </div>
+      `;
+    }
+    if (fsBadgeWrap) {
+      fsBadgeWrap.style.display = 'block';
+      fsBadgeWrap.innerHTML = `
+        <span class="badge" style="background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); color: #fff; font-size: 0.72rem; padding: 3px 8px; border-radius: 9999px; font-weight: 800; display: inline-flex; align-items: center; gap: 2px;">
+          <span class="material-symbols-outlined" style="font-size: 11px;">bolt</span> FLASH SALE -${state.flashDiscount}%
+        </span>
+      `;
+    }
+    setTimeout(() => {
+      if (window.Toast) {
+        Toast.success('Flash Sale', `⚡ Bạn đang được áp dụng giá ưu đãi Flash Sale Giờ Vàng (-${state.flashDiscount}%)!`);
+      }
+    }, 300);
+  }
+
   recalculatePrices(state);
 }
 
@@ -210,7 +256,10 @@ function getNextDate(dateStr) {
 
 function recalculatePrices(state) {
   state.nights = calculateNights(state.checkIn, state.checkOut);
+  const originalSubtotal = state.nights * (state.originalPricePerNight || state.pricePerNight) * state.roomCount;
   state.subtotal = state.nights * state.pricePerNight * state.roomCount;
+  const flashSaleSavings = Math.max(0, originalSubtotal - state.subtotal);
+  state.flashSaleSavings = flashSaleSavings;
 
   // Tính lại các addons phụ thuộc vào số đêm
   let srvTotal = 0;
@@ -251,6 +300,8 @@ function recalculatePrices(state) {
 
   const nightsLabel = document.getElementById('summary-nights-label');
   const subtotalLabel = document.getElementById('summary-subtotal');
+  const flashSaleRow = document.getElementById('summary-flash-sale-row');
+  const flashSaleLabel = document.getElementById('summary-flash-sale-amount');
   const servicesRow = document.getElementById('summary-services-row');
   const servicesLabel = document.getElementById('summary-services-amount');
   const discountRow = document.getElementById('summary-discount-row');
@@ -258,7 +309,25 @@ function recalculatePrices(state) {
   const totalLabel = document.getElementById('summary-total-amount');
 
   if (nightsLabel) nightsLabel.textContent = `${state.nights} đêm x ${state.roomCount} phòng:`;
-  if (subtotalLabel) subtotalLabel.textContent = formatCurrency(state.subtotal);
+  if (subtotalLabel) {
+    if (state.isFlashSale && flashSaleSavings > 0) {
+      subtotalLabel.innerHTML = `
+        <span style="color: #DC2626; font-weight: 800;">${formatCurrency(state.subtotal)}</span> 
+        <span style="font-size: 0.78rem; text-decoration: line-through; color: #94A3B8; margin-left: 4px;">${formatCurrency(originalSubtotal)}</span>
+      `;
+    } else {
+      subtotalLabel.textContent = formatCurrency(state.subtotal);
+    }
+  }
+
+  if (flashSaleRow && flashSaleLabel) {
+    if (state.isFlashSale && flashSaleSavings > 0) {
+      flashSaleRow.style.display = 'flex';
+      flashSaleLabel.textContent = `-${formatCurrency(flashSaleSavings)}`;
+    } else {
+      flashSaleRow.style.display = 'none';
+    }
+  }
   
   if (servicesRow && servicesLabel) {
     if (state.servicesTotal > 0) {
