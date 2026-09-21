@@ -12,221 +12,9 @@ const FlashSale = (function() {
     { id: 'slot-4', startHour: 18, endHour: 24, time: '18:00 - 24:00', label: '18:00', tag: 'Giờ Vàng Buổi tối' }
   ];
 
-  // Dữ liệu deal cho từng khung giờ (Mỗi khung đúng 3 deal tiêu chuẩn)
-  const defaultDealsData = typeof INITIAL_FLASH_SALE_DEALS !== 'undefined' ? INITIAL_FLASH_SALE_DEALS : {
-    'slot-4': [
-      {
-        id: 'htl_dn_01',
-        roomId: 'rm_dn_01_1',
-        name: 'Khách sạn Mường Thanh Luxury Đà Nẵng',
-        roomName: 'Deluxe 2 Giường Hướng Phố',
-        city: 'Đà Nẵng',
-        image: 'img/Đà Nẵng/Khách sạn Mường Thanh Luxury_Đà Nẵng(1).jpg',
-        discount: 40,
-        originalPrice: 1750000,
-        salePrice: 1050000,
-        totalRooms: 4,
-        remainingRooms: 2,
-        soldPercent: 50,
-        viewers: 45,
-        isHot: true,
-        tag: 'Gần biển Mỹ Khê'
-      },
-      {
-        id: 'htl_hl_02',
-        roomId: 'rm_hl_02_1',
-        name: 'Wyndham Garden Legend Hạ Long',
-        roomName: 'Superior Garden Room',
-        city: 'Hạ Long',
-        image: 'img/Hạ Long/Wyndham Garden Legend Hạ Long(1).jpg',
-        discount: 35,
-        originalPrice: 2250000,
-        salePrice: 1462000,
-        totalRooms: 5,
-        remainingRooms: 2,
-        soldPercent: 60,
-        viewers: 32,
-        isHot: false,
-        tag: 'View Vịnh trọn vẹn'
-      },
-      {
-        id: 'htl_dl_01',
-        roomId: 'rm_dl_01_3',
-        name: 'Adadilia Villa View Hotel Đà Lạt',
-        roomName: 'Phòng Đơn VIP Rừng Thông',
-        city: 'Đà Lạt',
-        image: 'img/Đà Lạt/ADADILIA VILLA VIEW_Hotel_Đà_Lạt(1).jpg',
-        discount: 45,
-        originalPrice: 1050000,
-        salePrice: 578000,
-        totalRooms: 4,
-        remainingRooms: 1,
-        soldPercent: 75,
-        viewers: 58,
-        isHot: true,
-        tag: 'Sắp cháy phòng'
-      }
-    ],
-    'slot-3': [
-      {
-        id: 'htl_nt_01',
-        roomId: 'rm_nt_01_1',
-        name: 'InterContinental Nha Trang Bay',
-        roomName: 'Classic Ocean View King',
-        city: 'Nha Trang',
-        image: 'https://images.unsplash.com/photo-1563911302283-d2bc129e7570?auto=format&fit=crop&w=1200&q=80',
-        discount: 30,
-        originalPrice: 2200000,
-        salePrice: 1540000,
-        totalRooms: 5,
-        remainingRooms: 2,
-        soldPercent: 60,
-        viewers: 28,
-        isHot: false,
-        tag: 'Biển Trần Phú đẹp nhất'
-      },
-      {
-        id: 'htl_pq_01',
-        roomId: 'rm_pq_01_1',
-        name: 'Vinpearl Resort & Spa Phú Quốc',
-        roomName: 'Deluxe Ocean View King Bed',
-        city: 'Phú Quốc',
-        image: 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=1200&q=80',
-        discount: 38,
-        originalPrice: 2900000,
-        salePrice: 1798000,
-        totalRooms: 5,
-        remainingRooms: 2,
-        soldPercent: 60,
-        viewers: 34,
-        isHot: false,
-        tag: 'Bãi Dài cát trắng'
-      },
-      {
-        id: 'htl_dn_02',
-        roomId: 'rm_dn_02_1',
-        name: 'Khách sạn Royal Beach Đà Nẵng',
-        roomName: 'Phòng Loại Sang 2 Giường Đơn',
-        city: 'Đà Nẵng',
-        image: 'img/Đà Nẵng/Khách sạn Royal Beach_Đà_Nẵng(1).jpg',
-        discount: 35,
-        originalPrice: 1150000,
-        salePrice: 748000,
-        totalRooms: 5,
-        remainingRooms: 2,
-        soldPercent: 60,
-        viewers: 36,
-        isHot: true,
-        tag: 'Hồ bơi vô cực ven biển'
-      }
-    ],
-    'slot-2': [
-      {
-        id: 'htl_qn_02',
-        roomId: 'room_htl_qn_02_01',
-        name: 'Yoko Onsen Quang Hanh Resort',
-        roomName: 'Phòng Deluxe Hướng Cảnh Quan',
-        city: 'Quảng Ninh',
-        image: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80',
-        discount: 35,
-        originalPrice: 3800000,
-        salePrice: 2470000,
-        totalRooms: 5,
-        remainingRooms: 2,
-        soldPercent: 60,
-        viewers: 29,
-        isHot: true,
-        tag: 'Khoáng nóng Nhật Bản'
-      },
-      {
-        id: 'htl_qn_01',
-        roomId: 'room_htl_qn_01_01',
-        name: 'FLC Grand Hotel Hạ Long',
-        roomName: 'Phòng Deluxe Hướng Cảnh Quan',
-        city: 'Quảng Ninh',
-        image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=1200&q=80',
-        discount: 40,
-        originalPrice: 2100000,
-        salePrice: 1260000,
-        totalRooms: 6,
-        remainingRooms: 3,
-        soldPercent: 50,
-        viewers: 21,
-        isHot: false,
-        tag: 'View trọn Vịnh di sản'
-      },
-      {
-        id: 'htl_hn_01',
-        roomId: 'rm_hn_01_1',
-        name: 'Le Grand Hanoi Hotel - The Oriental',
-        roomName: 'Phòng Tiêu Chuẩn Giường Queen',
-        city: 'Hà Nội',
-        image: 'img/Hà Nội/Le Grand Hanoi Hotel - The Oriental(1).jpg',
-        discount: 35,
-        originalPrice: 1850000,
-        salePrice: 1202000,
-        totalRooms: 5,
-        remainingRooms: 2,
-        soldPercent: 60,
-        viewers: 25,
-        isHot: false,
-        tag: 'Phố Cổ Hoàn Kiếm'
-      }
-    ],
-    'slot-1': [
-      {
-        id: 'htl_vt_01',
-        roomId: 'rm_vt_01_2',
-        name: 'CSJ Luxury Hotel Vũng Tàu',
-        roomName: 'Phòng Đơn Tiêu Chuẩn',
-        city: 'Vũng Tàu',
-        image: 'img/Vũng Tàu/CSJ LUXURY_Hotel_Vũng_Tàu(1).jpg',
-        discount: 45,
-        originalPrice: 1200000,
-        salePrice: 660000,
-        totalRooms: 5,
-        remainingRooms: 2,
-        soldPercent: 60,
-        viewers: 17,
-        isHot: true,
-        tag: 'Sát Bãi Sau biển xanh'
-      },
-      {
-        id: 'htl_hg_02',
-        roomId: 'rm_hg_02_4',
-        name: 'Lotus Premium Lodge Hà Giang',
-        roomName: 'Phòng Deluxe Giường Đôi',
-        city: 'Hà Giang',
-        image: 'img/Hà Giang/Lotus Premium Lodge_Hotel_Hà_Giang(1).jpg',
-        discount: 50,
-        originalPrice: 1150000,
-        salePrice: 575000,
-        totalRooms: 5,
-        remainingRooms: 2,
-        soldPercent: 60,
-        viewers: 14,
-        isHot: false,
-        tag: 'Cao nguyên đá Đồng Văn'
-      },
-      {
-        id: 'htl_hp_01',
-        roomId: 'room_htl_hp_01_01',
-        name: 'Meliá Vinpearl Hải Phòng Rivera',
-        roomName: 'Phòng Deluxe Hướng Cảnh Quan',
-        city: 'Hải Phòng',
-        image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80',
-        discount: 50,
-        originalPrice: 1850000,
-        salePrice: 925000,
-        totalRooms: 5,
-        remainingRooms: 2,
-        soldPercent: 60,
-        viewers: 39,
-        isHot: true,
-        tag: '5 Sao Đẳng Cấp Đất Cảng'
-      }
-    ]
-  };
+  // Dữ liệu deal mặc định (lấy từ INITIAL_FLASH_SALE_DEALS trong seed-data.js)
+  const defaultDealsData = typeof INITIAL_FLASH_SALE_DEALS !== 'undefined' ? INITIAL_FLASH_SALE_DEALS : {};
+
 
   function getLiveDealsData() {
     if (typeof DB !== 'undefined' && DB.getFlashSaleDeals) {
@@ -274,8 +62,8 @@ const FlashSale = (function() {
       const isSelected = slot.id === selectedSlotId;
       const currentHour = new Date().getHours();
       
-      let statusText = 'Đang diễn ra';
-      let statusClass = 'active';
+      let statusText;
+      let statusClass;
 
       if (isRealCurrent) {
         statusText = 'Đang diễn ra';
@@ -318,9 +106,9 @@ const FlashSale = (function() {
     const curReal = getRealTimeSlot();
     const isCurrentActive = selectedSlotId === curReal.id;
     const isFuture = slotConfigs.find(s => s.id === selectedSlotId)?.startHour > new Date().getHours();
+    const formatPrice = typeof formatCurrency === 'function' ? formatCurrency : (val) => new Intl.NumberFormat('vi-VN').format(val) + 'đ';
 
     grid.innerHTML = deals.map(d => {
-      const formatCurrency = (val) => new Intl.NumberFormat('vi-VN').format(val) + 'đ';
       const detailUrl = `pages/hotels/detail.html?id=${d.id}&roomId=${d.roomId || ''}&flashSale=1&discount=${d.discount}&salePrice=${d.salePrice}&origPrice=${d.originalPrice}#section-rooms`;
       const isSoldOut = (d.remainingRooms !== undefined && d.remainingRooms <= 0);
 
@@ -382,9 +170,9 @@ const FlashSale = (function() {
 
             <div class="d-flex justify-between align-end" style="margin-top: auto; border-top: 1px solid var(--border-light); padding-top: 12px;">
               <div>
-                <div style="font-size: 0.78rem; text-decoration: line-through; color: #94a3b8;">${formatCurrency(d.originalPrice)}</div>
+                <div style="font-size: 0.78rem; text-decoration: line-through; color: #94a3b8;">${formatPrice(d.originalPrice)}</div>
                 <div style="font-size: 1.25rem; font-weight: 900; color: var(--danger); line-height: 1.1;">
-                  ${formatCurrency(d.salePrice)} <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">/đêm</span>
+                  ${formatPrice(d.salePrice)} <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">/đêm</span>
                 </div>
               </div>
               ${actionBtn}

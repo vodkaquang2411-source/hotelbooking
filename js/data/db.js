@@ -289,19 +289,14 @@ class DatabaseService {
 
   getFlashSaleDeals() {
     const raw = localStorage.getItem(STORAGE_KEYS.FLASH_SALE_DEALS);
-    if (!raw) {
-      if (typeof INITIAL_FLASH_SALE_DEALS !== 'undefined') {
-        this.setFlashSaleDeals(INITIAL_FLASH_SALE_DEALS);
-        return INITIAL_FLASH_SALE_DEALS;
-      }
-      return null;
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed) && Object.keys(parsed).length > 0) {
+          return parsed;
+        }
+      } catch (e) {}
     }
-    try {
-      const parsed = JSON.parse(raw);
-      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed) && Object.keys(parsed).length > 0) {
-        return parsed;
-      }
-    } catch (e) {}
     if (typeof INITIAL_FLASH_SALE_DEALS !== 'undefined') {
       this.setFlashSaleDeals(INITIAL_FLASH_SALE_DEALS);
       return INITIAL_FLASH_SALE_DEALS;
@@ -313,38 +308,7 @@ class DatabaseService {
     this._set(STORAGE_KEYS.FLASH_SALE_DEALS, deals);
   }
 
-  decrementFlashSaleStock(hotelId, roomId, count = 1) {
-    let allDeals = this.getFlashSaleDeals();
-    if (!allDeals) return false;
-
-    let updated = false;
-    for (const slotKey in allDeals) {
-      const deals = allDeals[slotKey];
-      if (!Array.isArray(deals)) continue;
-      for (const deal of deals) {
-        if (deal.id === hotelId && (!roomId || deal.roomId === roomId || !deal.roomId)) {
-          const currentRemaining = Number(deal.remainingRooms) || 0;
-          const newRemaining = Math.max(0, currentRemaining - count);
-          deal.remainingRooms = newRemaining;
-          
-          const initialTotal = Number(deal.totalRooms) || 5;
-          const soldCount = initialTotal - newRemaining;
-          deal.soldPercent = Math.min(100, Math.round((soldCount / initialTotal) * 100));
-          updated = true;
-          break;
-        }
-      }
-      if (updated) break;
-    }
-
-    if (updated) {
-      this.setFlashSaleDeals(allDeals);
-      return true;
-    }
-    return false;
-  }
-
-  incrementFlashSaleStock(hotelId, roomId, count = 1) {
+  _updateFlashSaleStock(hotelId, roomId, delta) {
     let allDeals = this.getFlashSaleDeals();
     if (!allDeals) return false;
 
@@ -356,7 +320,7 @@ class DatabaseService {
         if (deal.id === hotelId && (!roomId || deal.roomId === roomId || !deal.roomId)) {
           const currentRemaining = Number(deal.remainingRooms) || 0;
           const initialTotal = Number(deal.totalRooms) || 5;
-          const newRemaining = Math.min(initialTotal, currentRemaining + count);
+          const newRemaining = Math.max(0, Math.min(initialTotal, currentRemaining + delta));
           deal.remainingRooms = newRemaining;
           
           const soldCount = Math.max(0, initialTotal - newRemaining);
@@ -373,6 +337,14 @@ class DatabaseService {
       return true;
     }
     return false;
+  }
+
+  decrementFlashSaleStock(hotelId, roomId, count = 1) {
+    return this._updateFlashSaleStock(hotelId, roomId, -count);
+  }
+
+  incrementFlashSaleStock(hotelId, roomId, count = 1) {
+    return this._updateFlashSaleStock(hotelId, roomId, count);
   }
 
   updateBookingStatus(id, newStatus) {
@@ -410,31 +382,10 @@ class DatabaseService {
     const bookings = this.getBookings();
     const index = bookings.findIndex(b => b.id === id || b.code === id);
     if (index !== -1) {
-      const prevStatus = bookings[index].status;
-      bookings[index].status = 'Đã hủy';
       bookings[index].cancelReason = reason;
       bookings[index].cancelledAt = new Date().toISOString();
       this._set(STORAGE_KEYS.BOOKINGS, bookings);
-
-      // Trả lại số phòng trống ngay lập tức
-      if (bookings[index].roomId) {
-        const room = this.getRoomById(bookings[index].roomId);
-        if (room) {
-          const count = Number(bookings[index].roomCount) || 1;
-          const total = Number(room.totalRooms) || Number(room.quantity) || 10;
-          const currentAvail = (room.availableCount !== undefined && room.availableCount !== null) ? Number(room.availableCount) : 0;
-          this.updateRoom(room.id, {
-            availableCount: Math.min(total, currentAvail + count)
-          });
-        }
-      }
-
-      // Trả lại suất Flash Sale nếu đơn đặt qua Flash Sale và trước đó chưa bị hủy
-      if (bookings[index].isFlashSale && prevStatus !== 'Đã hủy') {
-        this.incrementFlashSaleStock(bookings[index].hotelId, bookings[index].roomId, Number(bookings[index].roomCount) || 1);
-      }
-
-      return bookings[index];
+      return this.updateBookingStatus(id, 'Đã hủy');
     }
     return null;
   }
