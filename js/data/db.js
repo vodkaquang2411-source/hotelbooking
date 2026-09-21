@@ -27,7 +27,8 @@ class DatabaseService {
   /**
    * Khởi tạo cơ sở dữ liệu từ Seed Data nếu chưa có trong LocalStorage
    */
-    initDatabase() {
+  initDatabase() {
+    const CURRENT_VERSION = 'HB_IS_SEEDED_V23';
     const isSeeded = localStorage.getItem(STORAGE_KEYS.IS_SEEDED);
     const hotels = this._get(STORAGE_KEYS.HOTELS);
     const articles = this._get(STORAGE_KEYS.ARTICLES);
@@ -38,6 +39,14 @@ class DatabaseService {
     if (!isSeeded || !hotels || !hotels.length || !articles || !articles.length || !rooms || !rooms.length || !users || !users.length) {
       this.resetToDefault();
       return;
+    }
+
+    // Auto-update articles when seed data gets upgraded
+    if (isSeeded !== CURRENT_VERSION) {
+      if (typeof INITIAL_SEED_DATA !== 'undefined' && INITIAL_SEED_DATA.articles) {
+        localStorage.setItem(STORAGE_KEYS.ARTICLES, JSON.stringify(INITIAL_SEED_DATA.articles || []));
+      }
+      localStorage.setItem(STORAGE_KEYS.IS_SEEDED, CURRENT_VERSION);
     }
   }
 
@@ -55,7 +64,7 @@ class DatabaseService {
       localStorage.setItem(STORAGE_KEYS.ARTICLES, JSON.stringify(INITIAL_SEED_DATA.articles || []));
       localStorage.setItem(STORAGE_KEYS.CATEGORIES, JSON.stringify(INITIAL_SEED_DATA.categories || []));
       localStorage.setItem(STORAGE_KEYS.ADDON_SERVICES, JSON.stringify(INITIAL_SEED_DATA.addonServices || []));
-      localStorage.setItem(STORAGE_KEYS.IS_SEEDED, 'HB_IS_SEEDED_V22');
+      localStorage.setItem(STORAGE_KEYS.IS_SEEDED, 'HB_IS_SEEDED_V23');
     }
   }
 
