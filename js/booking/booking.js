@@ -162,7 +162,7 @@ function initBookingView(state) {
       fsBanner.innerHTML = `
         <div class="card p-3" style="background: linear-gradient(135deg, #07172C 0%, #0F2747 100%); border: 1.5px solid #F59E0B; border-radius: 12px; color: #fff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; box-shadow: 0 4px 16px rgba(239, 68, 68, 0.2);">
           <div class="d-flex align-center gap-2">
-            <span class="material-symbols-outlined" style="font-size: 24px; color: #F59E0B;">local_offer</span>
+            
             <div>
               <div style="font-weight: 800; font-size: 0.95rem; color: #FDE047;">Đang áp dụng Ưu đãi Flash Sale Giờ Vàng (-${state.flashDiscount}%)</div>
               <div style="font-size: 0.8rem; color: #E2E8F0;">Bạn đang nhận mức giá độc quyền: <strong style="color: #FDE047;">${formatCurrency(state.pricePerNight)}</strong>/đêm (Giá gốc: <span style="text-decoration: line-through; opacity: 0.75;">${formatCurrency(state.originalPricePerNight)}</span>).</div>

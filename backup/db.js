@@ -1,6 +1,6 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    HOTELBOOKING - DATA ACCESS LAYER (db.js)
-   Cung cấp API CRUD toàn diện cho toàn bộ hệ thống
+   Cung cáº¥p API CRUD toÃ n diá»‡n cho toÃ n bá»™ há»‡ thá»‘ng
    ========================================================================== */
 
 const STORAGE_KEYS = {
@@ -26,7 +26,7 @@ class DatabaseService {
   }
 
   /**
-   * Khởi tạo cơ sở dữ liệu từ Seed Data nếu chưa có trong LocalStorage
+   * Khá»Ÿi táº¡o cÆ¡ sá»Ÿ dá»¯ liá»‡u tá»« Seed Data náº¿u chÆ°a cÃ³ trong LocalStorage
    */
   initDatabase() {
     this.initFirestoreSync();
@@ -54,14 +54,14 @@ class DatabaseService {
       localStorage.setItem(STORAGE_KEYS.IS_SEEDED, CURRENT_VERSION);
     }
 
-    // Đảm bảo dữ liệu Flash Sale luôn tồn tại
+    // Äáº£m báº£o dá»¯ liá»‡u Flash Sale luÃ´n tá»“n táº¡i
     if (!localStorage.getItem(STORAGE_KEYS.FLASH_SALE_DEALS) && typeof INITIAL_FLASH_SALE_DEALS !== 'undefined') {
       localStorage.setItem(STORAGE_KEYS.FLASH_SALE_DEALS, JSON.stringify(INITIAL_FLASH_SALE_DEALS));
     }
   }
 
   /**
-   * Reset toàn bộ dữ liệu về mặc định
+   * Reset toÃ n bá»™ dá»¯ liá»‡u vá» máº·c Ä‘á»‹nh
    */
   resetToDefault() {
     if (typeof INITIAL_SEED_DATA !== 'undefined') {
@@ -142,7 +142,7 @@ class DatabaseService {
     let hotels = this.getHotels();
     hotels = hotels.filter(h => h.id !== id);
     this._set(STORAGE_KEYS.HOTELS, hotels);
-    // Xóa các phòng liên quan
+    // XÃ³a cÃ¡c phÃ²ng liÃªn quan
     let rooms = this.getRooms();
     rooms = rooms.filter(r => r.hotelId !== id);
     this._set(STORAGE_KEYS.ROOMS, rooms);
@@ -161,12 +161,12 @@ class DatabaseService {
       }
     }
 
-    // Tự động chuẩn hóa tổng số phòng thực tế (5-10 phòng/loại) và số phòng khả dụng
+    // Tá»± Ä‘á»™ng chuáº©n hÃ³a tá»•ng sá»‘ phÃ²ng thá»±c táº¿ (5-10 phÃ²ng/loáº¡i) vÃ  sá»‘ phÃ²ng kháº£ dá»¥ng
     let modified = false;
     rooms = rooms.map(r => {
       let qty = r.quantity || r.totalRooms || 6;
       if (qty === 1 && !r.isSingleUnit) {
-        qty = (r.type && (r.type.includes('Tổng Thống') || r.type.includes('Presidential') || r.type.includes('Villa'))) ? 2 : 8;
+        qty = (r.type && (r.type.includes('Tá»•ng Thá»‘ng') || r.type.includes('Presidential') || r.type.includes('Villa'))) ? 2 : 8;
       }
       let avail = (r.availableCount !== undefined) 
         ? r.availableCount 
@@ -255,7 +255,7 @@ class DatabaseService {
     const newBooking = {
       id: generateId('bk'),
       code: generateBookingCode(),
-      status: 'Chờ xác nhận',
+      status: 'Chá» xÃ¡c nháº­n',
       isReviewed: false,
       createdAt: new Date().toISOString(),
       ...bookingData
@@ -263,7 +263,7 @@ class DatabaseService {
     bookings.unshift(newBooking);
     this._set(STORAGE_KEYS.BOOKINGS, bookings);
 
-    // Tăng số lần đặt của User
+    // TÄƒng sá»‘ láº§n Ä‘áº·t cá»§a User
     if (bookingData.userId) {
       const users = this.getUsers();
       const userIndex = users.findIndex(u => u.id === bookingData.userId);
@@ -273,7 +273,7 @@ class DatabaseService {
       }
     }
 
-    // Cập nhật số phòng trống ngay lập tức
+    // Cáº­p nháº­t sá»‘ phÃ²ng trá»‘ng ngay láº­p tá»©c
     if (bookingData.roomId) {
       const room = this.getRoomById(bookingData.roomId);
       if (room) {
@@ -286,7 +286,7 @@ class DatabaseService {
       }
     }
 
-    // Cập nhật số suất Flash Sale còn lại nếu là đơn Flash Sale
+    // Cáº­p nháº­t sá»‘ suáº¥t Flash Sale cÃ²n láº¡i náº¿u lÃ  Ä‘Æ¡n Flash Sale
     if (bookingData.isFlashSale) {
       this.decrementFlashSaleStock(bookingData.hotelId, bookingData.roomId, Number(bookingData.roomCount) || 1);
     }
@@ -391,8 +391,8 @@ class DatabaseService {
       bookings[index].status = newStatus;
       this._set(STORAGE_KEYS.BOOKINGS, bookings);
 
-      // Nếu chuyển trạng thái sang Đã hủy
-      if (newStatus === 'Đã hủy' && prevStatus !== 'Đã hủy') {
+      // Náº¿u chuyá»ƒn tráº¡ng thÃ¡i sang ÄÃ£ há»§y
+      if (newStatus === 'ÄÃ£ há»§y' && prevStatus !== 'ÄÃ£ há»§y') {
         if (bookings[index].roomId) {
           const room = this.getRoomById(bookings[index].roomId);
           if (room) {
@@ -420,12 +420,12 @@ class DatabaseService {
     const index = bookings.findIndex(b => b.id === id || b.code === id);
     if (index !== -1) {
       const prevStatus = bookings[index].status;
-      bookings[index].status = 'Đã hủy';
+      bookings[index].status = 'ÄÃ£ há»§y';
       bookings[index].cancelReason = reason;
       bookings[index].cancelledAt = new Date().toISOString();
       this._set(STORAGE_KEYS.BOOKINGS, bookings);
 
-      // Trả lại số phòng trống ngay lập tức
+      // Tráº£ láº¡i sá»‘ phÃ²ng trá»‘ng ngay láº­p tá»©c
       if (bookings[index].roomId) {
         const room = this.getRoomById(bookings[index].roomId);
         if (room) {
@@ -438,8 +438,8 @@ class DatabaseService {
         }
       }
 
-      // Trả lại suất Flash Sale nếu đơn đặt qua Flash Sale và trước đó chưa bị hủy
-      if (bookings[index].isFlashSale && prevStatus !== 'Đã hủy') {
+      // Tráº£ láº¡i suáº¥t Flash Sale náº¿u Ä‘Æ¡n Ä‘áº·t qua Flash Sale vÃ  trÆ°á»›c Ä‘Ã³ chÆ°a bá»‹ há»§y
+      if (bookings[index].isFlashSale && prevStatus !== 'ÄÃ£ há»§y') {
         this.incrementFlashSaleStock(bookings[index].hotelId, bookings[index].roomId, Number(bookings[index].roomCount) || 1);
       }
 
@@ -461,12 +461,12 @@ class DatabaseService {
       }
     }
 
-    // Đổi tên tài khoản Admin Tổng Quản Trị sang Ông Kim
+    // Äá»•i tÃªn tÃ i khoáº£n Admin Tá»•ng Quáº£n Trá»‹ sang Ã”ng Kim
     let modified = false;
     users = users.map(u => {
-      if (u.email === 'admin@hotelbooking.vn' || u.id === 'usr_001' || u.name === 'Tổng Quản Trị') {
-        if (u.name !== 'Ông Kim') {
-          u.name = 'Ông Kim';
+      if (u.email === 'admin@hotelbooking.vn' || u.id === 'usr_001' || u.name === 'Tá»•ng Quáº£n Trá»‹') {
+        if (u.name !== 'Ã”ng Kim') {
+          u.name = 'Ã”ng Kim';
           modified = true;
         }
       }
@@ -476,8 +476,8 @@ class DatabaseService {
     if (modified) {
       this._set(STORAGE_KEYS.USERS, users);
       const cur = this.getCurrentUser();
-      if (cur && (cur.email === 'admin@hotelbooking.vn' || cur.id === 'usr_001' || cur.name === 'Tổng Quản Trị')) {
-        cur.name = 'Ông Kim';
+      if (cur && (cur.email === 'admin@hotelbooking.vn' || cur.id === 'usr_001' || cur.name === 'Tá»•ng Quáº£n Trá»‹')) {
+        cur.name = 'Ã”ng Kim';
         this.setCurrentUser(cur);
       }
     }
@@ -518,8 +518,8 @@ class DatabaseService {
     if (index !== -1) {
       users[index] = { ...users[index], ...updateData };
       this._set(STORAGE_KEYS.USERS, users);
-      this.pushToFirestore('users', id, users[index]);
-      // Cập nhật current user nếu trùng
+
+      // Cáº­p nháº­t current user náº¿u trÃ¹ng
       const currentUser = this.getCurrentUser();
       if (currentUser && currentUser.id === id) {
         this.setCurrentUser(users[index]);
@@ -551,8 +551,8 @@ class DatabaseService {
     if (!raw) return null;
     try {
       const user = JSON.parse(raw);
-      if (user && (user.name === 'Tổng Quản Trị' || user.email === 'admin@hotelbooking.vn' || user.id === 'usr_001')) {
-        user.name = 'Ông Kim';
+      if (user && (user.name === 'Tá»•ng Quáº£n Trá»‹' || user.email === 'admin@hotelbooking.vn' || user.id === 'usr_001')) {
+        user.name = 'Ã”ng Kim';
         localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(user));
       }
       return user;
@@ -660,7 +660,7 @@ class DatabaseService {
     reviews.unshift(newReview);
     this._set(STORAGE_KEYS.REVIEWS, reviews);
 
-    // Cập nhật điểm rating trung bình của khách sạn
+    // Cáº­p nháº­t Ä‘iá»ƒm rating trung bÃ¬nh cá»§a khÃ¡ch sáº¡n
     const hotelReviews = reviews.filter(r => r.hotelId === reviewData.hotelId);
     const avgRating = (hotelReviews.reduce((sum, r) => sum + Number(r.rating), 0) / hotelReviews.length).toFixed(1);
     this.updateHotel(reviewData.hotelId, {
@@ -668,7 +668,7 @@ class DatabaseService {
       reviewCount: hotelReviews.length
     });
 
-    // Đánh dấu đơn đặt phòng đã review
+    // ÄÃ¡nh dáº¥u Ä‘Æ¡n Ä‘áº·t phÃ²ng Ä‘Ã£ review
     if (reviewData.bookingId) {
       const bookings = this.getBookings();
       const bIndex = bookings.findIndex(b => b.id === reviewData.bookingId);
@@ -688,7 +688,7 @@ class DatabaseService {
     if (index !== -1) {
       reviews[index].reply = {
         comment: replyData.comment,
-        responderName: replyData.responderName || 'Ban Quản Lý Khách Sạn',
+        responderName: replyData.responderName || 'Ban Quáº£n LÃ½ KhÃ¡ch Sáº¡n',
         createdAt: new Date().toISOString().split('T')[0]
       };
       this._set(STORAGE_KEYS.REVIEWS, reviews);
@@ -759,9 +759,9 @@ class DatabaseService {
     const reviews = this.getReviews();
     const articles = this.getArticles();
 
-    // Tính tổng doanh thu từ các đơn không bị hủy
+    // TÃ­nh tá»•ng doanh thu tá»« cÃ¡c Ä‘Æ¡n khÃ´ng bá»‹ há»§y
     const revenue = bookings
-      .filter(b => b.status !== 'Đã hủy')
+      .filter(b => b.status !== 'ÄÃ£ há»§y')
       .reduce((sum, b) => sum + (Number(b.totalAmount) || 0), 0);
 
     const totalRooms = rooms.reduce((sum, r) => sum + (Number(r.quantity) || 0), 0);
@@ -778,7 +778,7 @@ class DatabaseService {
   }
 
   // ==========================================================================
-  // 8. ARTICLE (TIN TỨC & CẨM NANG) CRUD
+  // 8. ARTICLE (TIN Tá»¨C & Cáº¨M NANG) CRUD
   // ==========================================================================
     getArticles(filterFn = null) {
     let articles = this._get(STORAGE_KEYS.ARTICLES);
@@ -861,8 +861,8 @@ class DatabaseService {
   // ==========================================================================
   // ==========================================================================
   /**
-   * Kiểm tra số phòng thực tế còn trống cho một loại phòng trong khoảng ngày checkIn -> checkOut
-   * Chỉ khi nào có người đặt trùng khoảng thời gian đó và vượt quá tổng số phòng thì mới báo hết
+   * Kiá»ƒm tra sá»‘ phÃ²ng thá»±c táº¿ cÃ²n trá»‘ng cho má»™t loáº¡i phÃ²ng trong khoáº£ng ngÃ y checkIn -> checkOut
+   * Chá»‰ khi nÃ o cÃ³ ngÆ°á»i Ä‘áº·t trÃ¹ng khoáº£ng thá»i gian Ä‘Ã³ vÃ  vÆ°á»£t quÃ¡ tá»•ng sá»‘ phÃ²ng thÃ¬ má»›i bÃ¡o háº¿t
    * @param {string} roomId 
    * @param {string} checkIn 
    * @param {string} checkOut 
@@ -883,7 +883,7 @@ class DatabaseService {
 
     const bookings = this.getBookings(b => 
       b.roomId === roomId && 
-      b.status !== 'Đã hủy' && 
+      b.status !== 'ÄÃ£ há»§y' && 
       b.status !== 'cancelled'
     );
 
@@ -903,7 +903,7 @@ class DatabaseService {
   }
 
   /**
-   * Kiểm tra xem khách sạn có ít nhất 1 phòng trống trong khoảng ngày hay không
+   * Kiá»ƒm tra xem khÃ¡ch sáº¡n cÃ³ Ã­t nháº¥t 1 phÃ²ng trá»‘ng trong khoáº£ng ngÃ y hay khÃ´ng
    */
   checkHotelAvailability(hotelId, checkIn, checkOut) {
     const rooms = this.getRoomsByHotelId(hotelId);
@@ -938,7 +938,7 @@ class DatabaseService {
           user.favorites.push(hotelId);
         }
         this.updateUser(userId, { favorites: user.favorites });
-        // Đồng bộ currentUser trong session
+        // Äá»“ng bá»™ currentUser trong session
         const curUser = this.getCurrentUser();
         if (curUser && curUser.id === userId) {
           curUser.favorites = user.favorites;
@@ -1001,7 +1001,7 @@ class DatabaseService {
   // ==========================================================================
   // ==========================================================================
   /**
-   * Kiểm tra 2 khoảng thời gian có bị giao nhau (Overlapping)
+   * Kiá»ƒm tra 2 khoáº£ng thá»i gian cÃ³ bá»‹ giao nhau (Overlapping)
    */
   areDatesOverlapping(startA, endA, startB, endB) {
     if (!startA || !endA || !startB || !endB) return false;
@@ -1013,7 +1013,7 @@ class DatabaseService {
   }
 
   /**
-   * Kiểm tra tình trạng phòng theo ngày
+   * Kiá»ƒm tra tÃ¬nh tráº¡ng phÃ²ng theo ngÃ y
    */
   checkRoomAvailability(roomId, checkIn, checkOut, requestedCount = 1) {
     const room = this.getRoomById(roomId);
@@ -1038,7 +1038,7 @@ class DatabaseService {
 
     const bookings = this.getBookings(b => 
       b.roomId === roomId && 
-      b.status !== 'Đã hủy' && 
+      b.status !== 'ÄÃ£ há»§y' && 
       b.status !== 'cancelled'
     );
 
@@ -1062,7 +1062,7 @@ class DatabaseService {
   }
 
   /**
-   * Kiểm tra xem khách sạn có còn phòng trống hay không
+   * Kiá»ƒm tra xem khÃ¡ch sáº¡n cÃ³ cÃ²n phÃ²ng trá»‘ng hay khÃ´ng
    */
   checkHotelAvailability(hotelId, checkIn, checkOut) {
     const rooms = this.getRoomsByHotelId(hotelId);
@@ -1075,7 +1075,7 @@ class DatabaseService {
   // 10. REAL-TIME ROOM & HOTEL AVAILABILITY ENGINE (EXACT & BULLETPROOF)
   // ==========================================================================
   /**
-   * Kiểm tra 2 khoảng ngày [startA, endA] và [startB, endB] có giao nhau không
+   * Kiá»ƒm tra 2 khoáº£ng ngÃ y [startA, endA] vÃ  [startB, endB] cÃ³ giao nhau khÃ´ng
    */
   areDatesOverlapping(startA, endA, startB, endB) {
     if (!startA || !endA || !startB || !endB) return false;
@@ -1087,7 +1087,7 @@ class DatabaseService {
   }
 
   /**
-   * Kiểm tra tình trạng phòng còn trống theo ngày hoặc hiện tại
+   * Kiá»ƒm tra tÃ¬nh tráº¡ng phÃ²ng cÃ²n trá»‘ng theo ngÃ y hoáº·c hiá»‡n táº¡i
    */
   checkRoomAvailability(roomId, checkIn, checkOut, requestedQty = 1) {
     const room = this.getRoomById(roomId);
@@ -1102,7 +1102,7 @@ class DatabaseService {
 
     const bookings = this.getBookings(b => 
       b.roomId === roomId && 
-      b.status !== 'Đã hủy' && 
+      b.status !== 'ÄÃ£ há»§y' && 
       b.status !== 'cancelled'
     );
 
@@ -1116,7 +1116,7 @@ class DatabaseService {
         }
       });
     } else {
-      // Nếu không chọn ngày, tính các đơn hiện hữu chưa checkout
+      // Náº¿u khÃ´ng chá»n ngÃ y, tÃ­nh cÃ¡c Ä‘Æ¡n hiá»‡n há»¯u chÆ°a checkout
       const todayStr = new Date().toISOString().split('T')[0];
       bookings.forEach(b => {
         if (b.checkOut && b.checkOut >= todayStr) {
@@ -1135,14 +1135,13 @@ class DatabaseService {
   }
 
   /**
-   * Kiểm tra xem khách sạn có ít nhất 1 phòng trống trong khoảng ngày hay không
+   * Kiá»ƒm tra xem khÃ¡ch sáº¡n cÃ³ Ã­t nháº¥t 1 phÃ²ng trá»‘ng trong khoáº£ng ngÃ y hay khÃ´ng
    */
   checkHotelAvailability(hotelId, checkIn, checkOut) {
     const rooms = this.getRoomsByHotelId(hotelId);
     if (!rooms || rooms.length === 0) return true;
     return rooms.some(r => this.checkRoomAvailability(r.id, checkIn, checkOut, 1).isAvailable);
   }
-
 
   // ==========================================================================
   // FIREBASE FIRESTORE HYBRID SYNC (Added)
@@ -1192,7 +1191,7 @@ class DatabaseService {
       }
     }
   }
-
 }
 
 const DB = new DatabaseService();
+

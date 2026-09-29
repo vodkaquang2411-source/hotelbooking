@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="HotelBooking - Đặt phòng khách sạn và trải nghiệm kỳ nghỉ dễ dàng.">
   <title>HotelBooking - Đặt phòng và trải nghiệm khách sạn đẳng cấp</title>
   
   <!-- Google Material Symbols Outlined & Material Icons -->
@@ -11,13 +12,21 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- Main Stylesheets -->
   <link rel="stylesheet" href="css/style.css?v=17.0">
   <link rel="stylesheet" href="css/components.css?v=17.0">
   <link rel="stylesheet" href="css/responsive.css?v=17.0">
+
+  <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <!-- Firebase Auth -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <!-- Firebase Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
 </head>
 <body>
   <header class="site-header" id="site-header">
@@ -190,7 +199,7 @@
     <!-- ==========================================================================
          2.3. FLASH SALE GIỜ VÀNG ĐỘC QUYỀN (THỜI GIAN THỰC)
          ========================================================================== -->
-    <section class="section flash-sale-section" id="promotions-section" data-section-title="Flash Sale">
+    <section class="section flash-sale-section" id="flash-sale-section" data-section-title="Flash Sale">
       <div class="container">
         <div class="flash-sale-container">
           
@@ -198,7 +207,7 @@
           <div class="flash-sale-header">
             <div class="flash-title-group">
               <div class="flash-icon-pulse">
-                <span class="material-symbols-outlined icon-md">bolt</span>
+                
               </div>
               <div>
                 <div class="d-flex align-center gap-2" style="margin-bottom: 4px;">
@@ -947,6 +956,7 @@
   <script src="js/data/seed-data.js"></script>
   <script src="js/data/firebase-config.js"></script>
   <script src="js/data/db.js"></script>
+  <script src="js/data/seeder.js"></script>
   <script src="js/auth/auth.js"></script>
   <script src="js/utils/animations.js"></script>
   <script src="js/home/flash-sale.js?v=1.4"></script>

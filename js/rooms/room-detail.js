@@ -144,7 +144,7 @@ function setupBookingWidget(room, hotel, initCheckIn, initCheckOut, isFlashSale 
       if (btnBookNow) {
         btnBookNow.classList.remove('disabled');
         btnBookNow.disabled = false;
-        btnBookNow.innerHTML = `<span class="material-symbols-outlined">lock</span> ${isFlashSale ? 'Săn deal ngay' : 'Đặt phòng ngay'}`;
+        btnBookNow.innerHTML = ``;
       }
     }
   }

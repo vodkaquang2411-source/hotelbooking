@@ -1,0 +1,3 @@
+Line 198: <section class="section flash-sale-section" id="flash-sale-section" data-section-title="Flash Sale">
+Line 202: <!-- Flash Sale Header with Live Countdown -->
+Line 213: <h3 style="font-size: 1.65rem; font-weight: 900; color: #ffffff; margin: 0;">Flash Sale Giá» VÃ ng <span class="gradient-text-gold">Æ¯u ÄÃ£i Tá»›i -50%</span></h3>

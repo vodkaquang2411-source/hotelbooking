@@ -900,7 +900,7 @@
 
 /* Hiệu ứng chữ ánh kim chuyển động & khoảng cách ký tự vừa vặn, sắc nét */
 .hero-luxury-tag-text {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.88rem;
   font-weight: 800;
   letter-spacing: 1px;
@@ -943,7 +943,7 @@
 }
 
 .hero-title {
-  font-family: 'Plus Jakarta Sans', 'Be Vietnam Pro', sans-serif;
+  font-family: 'Inter', 'Inter', sans-serif;
   font-size: 2.85rem;
   font-weight: 800;
   line-height: 1.2;
@@ -1943,7 +1943,7 @@
   bottom: 24px;
   right: 24px;
   z-index: 9999;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .chatbox-trigger-btn {
@@ -2297,7 +2297,7 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .social-float-btn {
@@ -2335,7 +2335,7 @@
 }
 
 .zalo-custom-icon {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 900;
   font-size: 18px;
   color: #ffffff;
@@ -2595,7 +2595,7 @@
   border: 1.5px solid rgba(253, 224, 71, 0.5);
   padding: 5px 12px;
   border-radius: 10px;
-  font-family: 'Plus Jakarta Sans', monospace;
+  font-family: 'Inter', monospace;
   font-size: 1.25rem;
   font-weight: 900;
   color: #FDE047;
@@ -2839,9 +2839,9 @@
   left: 12px;
   background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
   color: #ffffff;
-  font-weight: 900;
-  font-size: 0.85rem;
-  padding: 4px 11px;
+  font-weight: 800;
+  font-size: 0.7rem;
+  padding: 3px 8px;
   border-radius: 9999px;
   box-shadow: 0 4px 14px rgba(239, 68, 68, 0.5);
   animation: floatBadge 3s infinite ease-in-out;
@@ -3330,7 +3330,7 @@
 }
 
 .metric-number {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 2.1rem;
   font-weight: 900;
   color: #0F2747;
