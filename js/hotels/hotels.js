@@ -372,9 +372,7 @@ document.addEventListener('DOMContentLoaded', () => {
               ${starIcons}
             </div>
             ${availabilityBadge}
-            <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px;">
-              ${truncateText(hotel.description, 85)}
-            </p>
+            
             <div class="hotel-card-amenities">
               ${amenityPills}
             </div>
@@ -383,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="hotel-card-price-label">Giá ưu đãi từ</div>
                 <div class="hotel-card-price">${formatCurrency(hotel.priceMin)} <span>/đêm</span></div>
               </div>
-              <a href="${root}pages/hotels/detail.html?id=${hotel.id}${checkIn ? `&checkIn=${checkIn}` : ''}${checkOut ? `&checkOut=${checkOut}` : ''}${guestsCount ? `&guests=${guestsCount}` : ''}" class="btn btn-primary btn-sm" style="padding: 8px 18px; border-radius: 9999px; font-weight: 700; white-space: nowrap; flex-shrink: 0;">
+              <a href="${root}pages/hotels/detail.html?id=${hotel.id}${checkIn ? `&checkIn=${checkIn}` : ''}${checkOut ? `&checkOut=${checkOut}` : ''}${guestsCount ? `&guests=${guestsCount}` : ''}" class="btn btn-primary btn-sm">
                 Chi tiết <span class="material-symbols-outlined icon-sm">arrow_forward</span>
               </a>
             </div>

@@ -39,9 +39,10 @@
 }
 
 .btn-primary {
-  background: var(--primary-gradient);
+  background: var(--primary);
   color: #ffffff;
   box-shadow: 0 4px 14px rgba(15, 39, 71, 0.3);
+  border-radius: 8px !important;
 }
 
 .btn-primary:hover {
@@ -453,21 +454,19 @@
 .amenity-chip {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  font-size: 0.68rem;
+  gap: 4px;
+  font-size: 0.72rem;
   font-weight: 600;
-  color: #475569;
-  background: #FAF8F4;
-  padding: 2px 7px;
+  color: #1E293B;
+  background: #F1F5F9;
+  padding: 4px 8px;
   border-radius: 6px;
-  border: 1px solid rgba(201, 162, 39, 0.25);
-  white-space: nowrap;
-  flex-shrink: 0;
+  border: 1px solid #E2E8F0;
 }
 
 .amenity-chip .material-symbols-outlined {
-  font-size: 12px;
-  color: var(--accent);
+  font-size: 13px;
+  color: var(--primary);
 }
 
 .hotel-card-footer {
@@ -1093,7 +1092,7 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  background: linear-gradient(135deg, #0F2747 0%, #1A3E6B 60%, #C9A227 100%);
+  background: var(--primary);
   color: #ffffff;
   border: none;
   box-shadow: 0 8px 20px rgba(15, 39, 71, 0.4);
@@ -1106,7 +1105,7 @@
 
 .btn-search-hero-submit:hover {
   transform: translateY(-2px) scale(1.02);
-  background: linear-gradient(135deg, #16335B 0%, #1D406E 50%, #E5C158 100%);
+  background: #16335B;
   box-shadow: 0 10px 25px rgba(15, 39, 71, 0.5), 0 0 20px rgba(223, 192, 88, 0.35);
 }
 
@@ -1124,17 +1123,16 @@
 }
 
 .hero-stat-card {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 16px;
-  padding: 14px 18px;
+  background: rgba(15, 39, 71, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   text-align: left;
-  transition: all var(--transition-fast);
 }
 
 .hero-stat-card:hover {
@@ -1144,15 +1142,14 @@
 }
 
 .hero-stat-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.18);
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(201, 162, 39, 0.15);
+  color: #C9A227;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fbbf24;
-  flex-shrink: 0;
 }
 
 .hero-stat-icon .material-symbols-outlined {
